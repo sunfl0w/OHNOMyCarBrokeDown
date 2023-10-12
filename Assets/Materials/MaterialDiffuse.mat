@@ -71,6 +71,7 @@ Material:
     - _GlossMapScale: 1
     - _Glossiness: 0
     - _GlossyReflections: 1
+    - _Jitter_Half_Resolution: 75
     - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 1
@@ -81,6 +82,8 @@ Material:
     - _SrcBlend: 1
     - _Static_Light_0_Strength: 0.5
     - _UVSec: 0
+    - _Vertex_Jitter_Coefficient: 7500
+    - _Vertex_Jitter_Strength: 12.21
     - _ZWrite: 1
     m_Colors:
     - _Ambient_Light: {r: 0.21035066, g: 0.22183716, b: 0.2735849, a: 1}
