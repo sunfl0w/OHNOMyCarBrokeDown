@@ -4,24 +4,20 @@ Shader "Custom/PS1_Shader"
     {
         _MainTex ("Texture", 2D) = "white" {}
         _Alpha_Cutoff  ("Alpha Cutoff", Float) = 0.5
-        _Vertex_Jitter_Coefficient ("Vertex Jitter Coefficient", Float) = 75.0
+        _Vertex_Jitter_Coefficient ("Vertex Jitter Coefficient", Float) = 85.0
         _Fog_Color ("Fog Color", Color) = (1, 1, 1, 1)
         _Fog_Coefficient ("Fog Coefficient", Range(0, 1)) = 0.01
         _Diffuse_Strength ("Diffuse Strength", Float) = 1.0
         _Specular_Strength ("Specular Strength", Float) = 1.0
         _Ambient_Light_Color ("Ambient Light Color", Color) = (1, 1, 1, 1)
         _Ambient_Light_Strength ("Ambient Light Strength", Float) = 1.0
-        _Static_Light_0_Direction ("Static Light 0 Direction", Vector) = (0, 0, 0, 0)
-        _Static_Light_0_Color ("Static Light 0 Color", Color) = (1, 1, 1, 1)
-        _Static_Light_0_Strength ("Static Light 0 Strength", Float) = 1.0
     }
     SubShader
     {
-        Tags { "RenderType"="Opaque" }
-        LOD 100
-
         Pass
         {
+            Tags { "RenderType"="Opaque" "LightMode" = "ForwardBase" }
+            LOD 100
             Cull Off // Very important for some textures used
             CGPROGRAM
             //#pragma vertex vertex_shader
@@ -31,26 +27,27 @@ Shader "Custom/PS1_Shader"
             #pragma domain domain_shader
 
             #include "UnityCG.cginc"
+            #include "UnityLightingCommon.cginc"
 
             struct attributes {
                 float4 pos : POSITION;
                 float3 norm : NORMAL;
                 float2 uv : TEXCOORD0;
-                fixed4 color : COLOR;
+                fixed4 color : COLOR0;
             };
 
             struct control_point {
                 float4 pos : INTERNALTESPOS;
                 float3 norm : NORMAL;
                 float2 uv : TEXCOORD0;
-                fixed4 color : COLOR;
+                fixed4 color : COLOR0;
             };
 
             struct varyings {
                 float4 pos : SV_POSITION;
                 float3 norm : NORMAL;
                 float2 uv : TEXCOORD0;
-                fixed4 color : COLOR;
+                fixed4 color : COLOR0;
                 float3 tan : TANGENT;
             };
 
@@ -71,9 +68,6 @@ Shader "Custom/PS1_Shader"
             float _Specular_Strength;
             float4 _Ambient_Light_Color;
             float _Ambient_Light_Strength;
-            float4 _Static_Light_0_Direction;
-            float4 _Static_Light_0_Color;
-            float _Static_Light_0_Strength;
 
             control_point pre_tess_vertex_shader(attributes v) {
                 control_point o;
@@ -99,15 +93,15 @@ Shader "Custom/PS1_Shader"
 
                 // Diffuse Lighting
                 float3 norm = UnityObjectToWorldNormal(v.norm);
-                float3 light_dir = -normalize(_Static_Light_0_Direction.xyz);//normalize(_Static_Light_0_Position.xyz - world_pos.xyz);
+                float3 light_dir = _WorldSpaceLightPos0.xyz; // Actually direction of directional light source in this case! //-normalize(_WorldSpaceLightPos0.xyz - world_pos.xyz);
                 float angle = max(dot(norm, light_dir), 0.0);
-                float4 diffuse = angle * _Diffuse_Strength * _Static_Light_0_Color * _Static_Light_0_Strength;
+                float4 diffuse = angle * _Diffuse_Strength * _LightColor0;
 
                 // Specular Lighting
                 float3 view_dir = normalize(_WorldSpaceCameraPos - world_pos);
                 float3 reflect_dir = reflect(-light_dir, norm);
                 float spec_coefficient = pow(max(dot(view_dir, reflect_dir), 0.0), 32);
-                float4 specular = spec_coefficient * _Specular_Strength * _Static_Light_0_Color * _Static_Light_0_Strength;
+                float4 specular = spec_coefficient * _Specular_Strength * _LightColor0;
 
                 // Experimental emulation of PS1 uv mapping
                 float w = min(view_pos.z * 0.1, -0.1);
@@ -117,7 +111,7 @@ Shader "Custom/PS1_Shader"
                 o.pos = clip_pos;
                 o.uv = v.uv * w;
                 // Pass final color to fragment shader
-                o.color = (ambient + diffuse + specular) * v.color;
+                o.color = ambient + diffuse + specular + v.color;
                 float fog_factor = exp(-pow(_Fog_Coefficient * distance(_WorldSpaceCameraPos, world_pos), 2.0));
                 o.color = lerp(_Fog_Color, o.color, fog_factor);
                 o.tan.x = w; // Pass w into tan.x as there is no other way to get this float into the fragment shader stage
