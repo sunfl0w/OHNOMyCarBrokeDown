@@ -6,10 +6,6 @@ public class TestCameraController : MonoBehaviour {
     public float mouse_sensitivity = 5.0f;
     public float translation_speed = 10.0f;
     private bool view_mode = false;
-    // Start is called before the first frame update
-    void Start() {
-
-    }
 
     // Update is called once per frame
     void Update() {

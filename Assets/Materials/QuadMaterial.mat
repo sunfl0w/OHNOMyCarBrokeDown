@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: MaterialDiffuse
+  m_Name: QuadMaterial
   m_Shader: {fileID: 4800000, guid: 42c2d0dd4cf2cb04c99689716296195b, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -68,6 +68,7 @@ Material:
     - _DetailNormalMapScale: 1
     - _Diffuse_Strength: 2
     - _DstBlend: 0
+    - _Fog_Coefficient: 0.051
     - _GlossMapScale: 1
     - _Glossiness: 0
     - _GlossyReflections: 1
@@ -78,11 +79,11 @@ Material:
     - _Parallax: 0.02
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
-    - _Specular_Strength: 2.52
+    - _Specular_Strength: 1.5
     - _SrcBlend: 1
     - _Static_Light_0_Strength: 0.5
     - _UVSec: 0
-    - _Vertex_Jitter_Coefficient: 7500
+    - _Vertex_Jitter_Coefficient: 75
     - _Vertex_Jitter_Strength: 12.21
     - _ZWrite: 1
     m_Colors:
@@ -90,9 +91,10 @@ Material:
     - _Ambient_Light_Color: {r: 0.1792453, g: 0.1792453, b: 0.1792453, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _Fog_Color: {r: 0, g: 0, b: 0, a: 1}
     - _Static_Light_0_Color: {r: 0.15619439, g: 0.1815593, b: 0.2830189, a: 1}
     - _Static_Light_0_Diffuse_Color: {r: 1, g: 1, b: 1, a: 1}
-    - _Static_Light_0_Direction: {r: -0.04, g: -0.15, b: -0.5, a: 0}
+    - _Static_Light_0_Direction: {r: 0.02, g: -0.4, b: -0.5, a: 0}
     - _Static_Light_0_Position: {r: -0.51, g: 0, b: 0, a: 0}
     - _Static_Light_0_Specular_Color: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
