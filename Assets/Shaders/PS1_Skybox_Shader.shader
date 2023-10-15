@@ -65,7 +65,6 @@ SubShader {
         c *= _Exposure;
         float fog_factor = exp(-pow(_Fog_Coefficient * 0.01f * 1000.0f, 2.0)); // Pretend that the skybox always is 1000 units away from the camera
         c = lerp(_Fog_Color, c, fog_factor + i.tan.y * 0.5f);
-        //c = lerp(_Fog_Color, c, i.tan.y / 2.0f);
         return float4(c, 1);
     }
     ENDCG
