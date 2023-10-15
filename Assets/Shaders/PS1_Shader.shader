@@ -20,6 +20,7 @@ Shader "Custom/PS1_Shader"
             LOD 100
             Cull Off // Very important for some textures used
             CGPROGRAM
+            
             //#pragma vertex vertex_shader
             #pragma fragment fragment_shader
             #pragma vertex pre_tess_vertex_shader
@@ -112,9 +113,10 @@ Shader "Custom/PS1_Shader"
                 o.uv = v.uv * w;
                 // Pass final color to fragment shader
                 o.color = ambient + diffuse + specular + v.color;
-                float fog_factor = exp(-pow(_Fog_Coefficient * distance(_WorldSpaceCameraPos, world_pos), 2.0));
-                o.color = lerp(_Fog_Color, o.color, fog_factor);
+                float fog_factor = exp(-pow(_Fog_Coefficient * 0.01f * distance(_WorldSpaceCameraPos, world_pos), 2.0));
+                //lerp(_Fog_Color, o.color, fog_factor);
                 o.tan.x = w; // Pass w into tan.x as there is no other way to get this float into the fragment shader stage
+                o.tan.y = fog_factor;
                 return o;
             }
 
@@ -123,7 +125,7 @@ Shader "Custom/PS1_Shader"
 
                 if (avgDist <= 2.0) {
                     return 4.0;
-                } else if (avgDist <= 8.0) {
+                } else if (avgDist <= 6.0) {
                     return 2.0;
                 } else {
                     return 1.0;
@@ -178,9 +180,9 @@ Shader "Custom/PS1_Shader"
     		}
 
             fixed4 fragment_shader (varyings i) : SV_Target {
-                fixed4 color = tex2D(_MainTex, i.uv / i.tan.x) * i.color;
-                clip(color.a - _Alpha_Cutoff); // Cutoff alpha for binary transparency
-                return color;
+                fixed4 pre_fog_color = tex2D(_MainTex, i.uv / i.tan.x) * i.color;
+                clip(pre_fog_color.a - _Alpha_Cutoff); // Cutoff alpha for binary transparency
+                return lerp(_Fog_Color, pre_fog_color, i.tan.y);
             }
             ENDCG
         }

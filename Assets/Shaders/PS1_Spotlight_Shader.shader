@@ -32,6 +32,7 @@ Shader "Custom/PS1_Spotlight_Shader"
                 float2 uv : TEXCOORD0;
                 float4 vertex : SV_POSITION;
                 float4 color : COLOR0;
+                float4 tan : TANGENT;
             };
 
             sampler2D _MainTex;
@@ -47,18 +48,23 @@ Shader "Custom/PS1_Spotlight_Shader"
                 clip_pos.xy = floor(clip_pos.xy * _Vertex_Jitter_Coefficient + 0.5) / _Vertex_Jitter_Coefficient;
                 clip_pos.xyz *= clip_pos.w;
 
+                // Experimental emulation of PS1 uv mapping
+                float4 view_pos = mul(UNITY_MATRIX_MV, v.vertex);
+                float w = min(view_pos.z * 0.1, -0.1);
+
                 v2f o;
                 o.vertex = clip_pos;
-                o.uv = v.uv;
+                o.uv = v.uv * w;
                 float4 world_pos = mul(unity_ObjectToWorld, v.vertex);
-                float fog_factor = exp(-pow(_Fog_Coefficient * distance(_WorldSpaceCameraPos, world_pos), 2.0));
-                o.color = lerp(_Fog_Color, _Light_Color, fog_factor);
+                float fog_factor = exp(-pow(_Fog_Coefficient * 0.01f * distance(_WorldSpaceCameraPos, world_pos), 2.0));
+                o.tan.x = w;
+                o.tan.y = fog_factor;
                 return o;
             }
 
             fixed4 frag (v2f i) : SV_Target {
-                fixed4 col = tex2D(_MainTex, i.uv) * i.color;
-                return col;
+                fixed4 pre_fog_color = tex2D(_MainTex, i.uv / i.tan.x) * _Light_Color;
+                return lerp(_Fog_Color, pre_fog_color, i.tan.y);
             }
             ENDCG
         }

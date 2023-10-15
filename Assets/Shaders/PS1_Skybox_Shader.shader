@@ -4,6 +4,7 @@ Properties {
     [Gamma] _Exposure ("Exposure", Range(0, 8)) = 1.0
     _Rotation ("Rotation", Range(0, 360)) = 0
     _Fog_Color ("Fog Color", Color) = (1, 1, 1, 1)
+    _Fog_Coefficient ("Fog Coefficient", Range(0, 1)) = 0.01
     [NoScaleOffset] _FrontTex ("Front [+Z]   (HDR)", 2D) = "grey" {}
     [NoScaleOffset] _BackTex ("Back [-Z]   (HDR)", 2D) = "grey" {}
     [NoScaleOffset] _LeftTex ("Left [+X]   (HDR)", 2D) = "grey" {}
@@ -23,6 +24,7 @@ SubShader {
     half _Exposure;
     float _Rotation;
     float4 _Fog_Color;
+    float _Fog_Coefficient;
 
     float3 RotateAroundYInDegrees (float3 vertex, float degrees)
     {
@@ -61,8 +63,10 @@ SubShader {
         half3 c = DecodeHDR (tex, smpDecode);
         c = c * _Tint.rgb * unity_ColorSpaceDouble.rgb;
         c *= _Exposure;
-        c = lerp(_Fog_Color, c, i.tan.y / 2.0f);
-        return half4(c, 1);
+        float fog_factor = exp(-pow(_Fog_Coefficient * 0.01f * 1000.0f, 2.0)); // Pretend that the skybox always is 1000 units away from the camera
+        c = lerp(_Fog_Color, c, fog_factor + i.tan.y * 0.5f);
+        //c = lerp(_Fog_Color, c, i.tan.y / 2.0f);
+        return float4(c, 1);
     }
     ENDCG
 

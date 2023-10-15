@@ -68,7 +68,7 @@ Material:
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
     - _DstBlend: 10
-    - _Fog_Coefficient: 0.035
+    - _Fog_Coefficient: 5
     - _GlossMapScale: 1
     - _Glossiness: 1
     - _GlossyReflections: 0
@@ -80,10 +80,11 @@ Material:
     - _SpecularHighlights: 0
     - _SrcBlend: 1
     - _UVSec: 0
+    - _Vertex_Jitter_Coefficient: 85
     - _ZWrite: 0
     m_Colors:
     - _Color: {r: 1, g: 0.9243814, b: 0, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _Fog_Color: {r: 0, g: 0, b: 0, a: 1}
-    - _Light_Color: {r: 0.8679245, g: 0.85970885, b: 0.741011, a: 1}
+    - _Fog_Color: {r: 0.047614805, g: 0.049317773, b: 0.09433961, a: 1}
+    - _Light_Color: {r: 1, g: 0.9827368, b: 0.6650944, a: 1}
   m_BuildTextureStacks: []
