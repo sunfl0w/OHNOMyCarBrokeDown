@@ -25,7 +25,7 @@ public class PlayerMovementController : MonoBehaviour {
     }
 
     void FixedUpdate() {
-        LayerMask layerMask = LayerMask.GetMask("Collidable");
+        LayerMask layerMask = LayerMask.GetMask("Terrain");
         RaycastHit hit;
         // Make a raycast downward to detect the terrain collider and set character position accordingly
         if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.down), out hit, Mathf.Infinity, layerMask)) {
