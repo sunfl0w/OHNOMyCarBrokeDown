@@ -42,7 +42,21 @@ public class FPSController : MonoBehaviour
         float curSpeedX = canMove ? (isRunning ? runSpeed : walkSpeed) * Input.GetAxis("Vertical") : 0;
         float curSpeedY = canMove ? (isRunning ? runSpeed : walkSpeed) * Input.GetAxis("Horizontal") : 0;
         float movementDirectionY = moveDirection.y;
+
         moveDirection = (forward * curSpeedX) + (right * curSpeedY);
+
+        // Player is pressing WA or WD or AS or SD simultaneously
+        if (((Input.GetKey(KeyCode.W)) || (Input.GetKey(KeyCode.S))) && (Input.GetKey(KeyCode.A) || (Input.GetKey(KeyCode.D))))
+        {
+
+            moveDirection = moveDirection / 2;
+        }
+        if (((Input.GetKey(KeyCode.UpArrow)) || (Input.GetKey(KeyCode.DownArrow))) && (Input.GetKey(KeyCode.LeftArrow) || (Input.GetKey(KeyCode.RightArrow))))
+        {
+
+            moveDirection = moveDirection / 2;
+        }
+
 
         #endregion
 
