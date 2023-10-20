@@ -1,11 +1,14 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerMovementController : MonoBehaviour {
     public float movementSpeed = 4.0f;
     public float mouseSensitivity = 250.0f;
     private float groundOffset = 0.85f;
+    private float minWallDistance = 1.0f;
 
     void Update() {
         float verticalTranslation = Input.GetAxis("Vertical") * movementSpeed * Time.deltaTime;
@@ -21,18 +24,6 @@ public class PlayerMovementController : MonoBehaviour {
     void OnGUI() {
         if (GUI.Button(new Rect(0, 0, 100, 50), "Lock Cursor")) {
             Cursor.lockState = CursorLockMode.Locked;
-        }
-    }
-
-    void FixedUpdate() {
-        LayerMask layerMask = LayerMask.GetMask("Terrain");
-        RaycastHit hit;
-        // Make a raycast downward to detect the terrain collider and set character position accordingly
-        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.down), out hit, Mathf.Infinity, layerMask)) {
-            //Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.down) * hit.distance, Color.yellow);
-            //Debug.Log("Did Hit");
-            //Debug.Log(hit.distance);
-            transform.position = new Vector3(transform.position.x, hit.point.y + groundOffset, transform.position.z);
         }
     }
 }
