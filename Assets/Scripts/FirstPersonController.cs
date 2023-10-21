@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(CharacterController))]
-public class FPSController : MonoBehaviour
-{
+public class FPSController : MonoBehaviour {
     public Camera playerCamera;
     public float walkSpeed = 4f;
     public float runSpeed = 7f;
@@ -16,72 +15,52 @@ public class FPSController : MonoBehaviour
     public float lookXLimit = 45f;
 
 
-    Vector3 moveDirection = Vector3.zero;
+    Vector3 moveVector = Vector3.zero;
     float rotationX = 0;
 
     public bool canMove = true;
 
 
     CharacterController characterController;
-    void Start()
-    {
+    void Start() {
         characterController = GetComponent<CharacterController>();
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
 
-    void Update()
-    {
+    void Update() {
 
         #region Handles Movment
-        Vector3 forward = transform.TransformDirection(Vector3.forward);
-        Vector3 right = transform.TransformDirection(Vector3.right);
-
         // Press Left Shift to run
         bool isRunning = Input.GetKey(KeyCode.LeftShift);
-        float curSpeedX = canMove ? (isRunning ? runSpeed : walkSpeed) * Input.GetAxis("Vertical") : 0;
-        float curSpeedY = canMove ? (isRunning ? runSpeed : walkSpeed) * Input.GetAxis("Horizontal") : 0;
-        float movementDirectionY = moveDirection.y;
 
-        moveDirection = (forward * curSpeedX) + (right * curSpeedY);
+        float movementDirectionY = moveVector.y;
 
-        // Player is pressing WA or WD or AS or SD simultaneously
-        if (((Input.GetKey(KeyCode.W)) || (Input.GetKey(KeyCode.S))) && (Input.GetKey(KeyCode.A) || (Input.GetKey(KeyCode.D))))
-        {
-
-            moveDirection = moveDirection / 2;
-        }
-        if (((Input.GetKey(KeyCode.UpArrow)) || (Input.GetKey(KeyCode.DownArrow))) && (Input.GetKey(KeyCode.LeftArrow) || (Input.GetKey(KeyCode.RightArrow))))
-        {
-
-            moveDirection = moveDirection / 2;
-        }
-
+        // Calculate normalized direction of movement based on input axis.
+        // Normalization ensures that diagonal movement is as fast as movements along the x and z axis
+        Vector3 moveDirection = ((Vector3.forward * Input.GetAxisRaw("Vertical")) + (Vector3.right * Input.GetAxisRaw("Horizontal"))).normalized;
+        float speedModifier = canMove ? (isRunning && characterController.isGrounded ? runSpeed : walkSpeed) : 0;
+        moveVector = moveDirection * speedModifier;
 
         #endregion
 
         #region Handles Jumping
-        if (Input.GetButton("Jump") && canMove && characterController.isGrounded)
-        {
-            moveDirection.y = jumpPower;
-        }
-        else
-        {
-            moveDirection.y = movementDirectionY;
+        if (Input.GetButton("Jump") && canMove && characterController.isGrounded) {
+            moveVector.y = jumpPower;
+        } else {
+            moveVector.y = movementDirectionY;
         }
 
-        if (!characterController.isGrounded)
-        {
-            moveDirection.y -= gravity * Time.deltaTime;
+        if (!characterController.isGrounded) {
+            moveVector.y -= gravity * Time.deltaTime;
         }
 
         #endregion
 
         #region Handles Rotation
-        characterController.Move(moveDirection * Time.deltaTime);
+        characterController.Move(transform.TransformDirection(moveVector) * Time.deltaTime);
 
-        if (canMove)
-        {
+        if (canMove) {
             rotationX += -Input.GetAxis("Mouse Y") * lookSpeed;
             rotationX = Mathf.Clamp(rotationX, -lookXLimit, lookXLimit);
             playerCamera.transform.localRotation = Quaternion.Euler(rotationX, 0, 0);
