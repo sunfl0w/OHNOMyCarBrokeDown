@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(CharacterController))]
-public class FPSController : MonoBehaviour {
+public class FirstPersonController : MonoBehaviour {
     public Camera playerCamera;
     public float walkSpeed = 4f;
     public float runSpeed = 7f;
@@ -14,12 +14,18 @@ public class FPSController : MonoBehaviour {
     public float lookSpeed = 2f;
     public float lookXLimit = 45f;
 
+    public Texture2D terrainTypeLookup;
+
 
     Vector3 moveVector = Vector3.zero;
     float rotationX = 0;
 
     public bool canMove = true;
 
+    private bool isRunning = false;
+
+
+    public enum TerrainType {GRASS, CONCRETE, UNDEFINED};
 
     CharacterController characterController;
     void Start() {
@@ -32,7 +38,7 @@ public class FPSController : MonoBehaviour {
 
         #region Handles Movment
         // Press Left Shift to run
-        bool isRunning = Input.GetKey(KeyCode.LeftShift);
+        isRunning = Input.GetKey(KeyCode.LeftShift);
 
         float movementDirectionY = moveVector.y;
 
@@ -68,5 +74,34 @@ public class FPSController : MonoBehaviour {
         }
 
         #endregion
+    }
+
+    public bool GetIsRunning() {
+        return isRunning;
+    }
+
+    public bool GetIsMoving() {
+        return moveVector.x * moveVector.x + moveVector.z * moveVector.z > 0.1f;
+    }
+
+    public bool GetIsGrounded() {
+        return characterController.isGrounded;
+    }
+
+    public TerrainType GetTerrainType() {
+        LayerMask layerMask = LayerMask.GetMask("Terrain");
+        RaycastHit hit;
+        if(Physics.Raycast(transform.position, Vector3.down, out hit, Mathf.Infinity, layerMask)) {
+            // The lookup texture maps the texture coordinates of the terrain to the appropriate sound using the red color channel
+            // This is a really simple and scalable and way of getting the terrain type
+            Color color = terrainTypeLookup.GetPixel((int)(hit.textureCoord.x * terrainTypeLookup.width), (int)(hit.textureCoord.y * terrainTypeLookup.height));
+            int terrainTypeIndex = Mathf.RoundToInt(color.r * 255.0f) / 32;
+            //Debug.Log(color.r + " / " + hit.textureCoord.x + " / " + hit.textureCoord.y + " / " + terrainTypeIndex);
+            if(terrainTypeIndex > 1) {
+                return TerrainType.UNDEFINED;
+            } 
+            return (TerrainType)terrainTypeIndex;
+        }
+        return TerrainType.UNDEFINED;
     }
 }
