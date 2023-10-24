@@ -62,13 +62,13 @@ Material:
     m_Ints: []
     m_Floats:
     - _Alpha_Cutoff: 0.5
-    - _Ambient_Light_Strength: 0.25
+    - _Ambient_Light_Strength: -0.5
     - _BumpScale: 1
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
     - _Diffuse_Strength: 2
     - _DstBlend: 0
-    - _Fog_Coefficient: 5
+    - _Fog_Coefficient: 7
     - _GlossMapScale: 1
     - _Glossiness: 0
     - _GlossyReflections: 1
@@ -88,10 +88,10 @@ Material:
     - _ZWrite: 1
     m_Colors:
     - _Ambient_Light: {r: 0.21035066, g: 0.22183716, b: 0.2735849, a: 1}
-    - _Ambient_Light_Color: {r: 0.15659486, g: 0.22601904, b: 0.6509434, a: 0}
+    - _Ambient_Light_Color: {r: 0.0489498, g: 0.068911135, b: 0.18867922, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _Fog_Color: {r: 0.047614805, g: 0.049317773, b: 0.09433961, a: 1}
+    - _Fog_Color: {r: 0.056603774, g: 0.0581761, b: 0.0754717, a: 1}
     - _Static_Light_0_Color: {r: 0.15619439, g: 0.1815593, b: 0.2830189, a: 1}
     - _Static_Light_0_Diffuse_Color: {r: 1, g: 1, b: 1, a: 1}
     - _Static_Light_0_Direction: {r: 0.02, g: -0.4, b: -0.5, a: 0}
