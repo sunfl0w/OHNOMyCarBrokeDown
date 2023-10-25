@@ -5,6 +5,10 @@ Shader "Custom/PS1_Shader"
         _MainTex ("Texture", 2D) = "white" {}
         _Alpha_Cutoff  ("Alpha Cutoff", Float) = 0.5
         _Vertex_Jitter_Coefficient ("Vertex Jitter Coefficient", Float) = 85.0
+        _Flashlight_Color("Flashlight Color", Color) = (1, 1, 1, 1)
+        _Flashlight_Position("Flashlight Position", Vector) = (0, 0, 0, 0)
+        _Flashlight_Direction("Flashlight Direction", Vector) = (0, 0, 0, 0)
+        _Flashlight_Cone_Arc("Flashlight Cone Arc", Float) = 20.0
         _Fog_Color ("Fog Color", Color) = (1, 1, 1, 1)
         _Fog_Coefficient ("Fog Coefficient", Range(0, 1)) = 0.01
         _Diffuse_Strength ("Diffuse Strength", Float) = 1.0
@@ -103,6 +107,13 @@ Shader "Custom/PS1_Shader"
                 float3 reflect_dir = reflect(-light_dir, norm);
                 float spec_coefficient = pow(max(dot(view_dir, reflect_dir), 0.0), 32);
                 float4 specular = spec_coefficient * _Specular_Strength * _LightColor0;
+
+                // Flashlight lighting
+                /*float theta = dot(lightDir, normalize(-light.direction)); 
+                float epsilon = (light.cutOff - light.outerCutOff);
+                float intensity = clamp((theta - light.outerCutOff) / epsilon, 0.0, 1.0);
+                diffuse  *= intensity;
+                specular *= intensity;*/
 
                 // Experimental emulation of PS1 uv mapping
                 float w = min(view_pos.z * 0.1, -0.1);
