@@ -3,7 +3,6 @@ Shader "Custom/PS1_Shader"
     Properties
     {
         _MainTex ("Texture", 2D) = "white" {}
-        _Alpha_Cutoff  ("Alpha Cutoff", Float) = 0.5
         _Vertex_Jitter_Coefficient ("Vertex Jitter Coefficient", Float) = 85.0
         _Flashlight_Color("Flashlight Color", Color) = (1, 1, 1, 1)
         _Flashlight_Position("Flashlight Position", Vector) = (0, 0, 0, 0)
@@ -11,20 +10,25 @@ Shader "Custom/PS1_Shader"
         _Flashlight_Cone_Arc("Flashlight Cone Arc", Float) = 20.0
         _Fog_Color ("Fog Color", Color) = (1, 1, 1, 1)
         _Fog_Coefficient ("Fog Coefficient", Range(0, 1)) = 0.01
-        _Diffuse_Strength ("Diffuse Strength", Float) = 1.0
-        _Specular_Strength ("Specular Strength", Float) = 1.0
         _Ambient_Light_Color ("Ambient Light Color", Color) = (1, 1, 1, 1)
         _Ambient_Light_Strength ("Ambient Light Strength", Float) = 1.0
+
+        _Diffuse_Strength ("Diffuse Strength", Float) = 1.0
+        _Specular_Strength ("Specular Strength", Float) = 1.0
     }
     SubShader
     {
         Pass
         {
-            Tags { "RenderType"="Opaque" "LightMode" = "ForwardBase" }
+            Lighting On
+            Tags { "RenderType"="Opaque" }
             LOD 100
             Cull Off // Very important for some textures used
             CGPROGRAM
             
+            #pragma target 5.0
+
+
             //#pragma vertex vertex_shader
             #pragma fragment fragment_shader
             #pragma vertex pre_tess_vertex_shader
@@ -69,10 +73,15 @@ Shader "Custom/PS1_Shader"
             float _Vertex_Jitter_Coefficient;
             float4 _Fog_Color;
             float _Fog_Coefficient;
-            float _Diffuse_Strength;
-            float _Specular_Strength;
+            float4 _Flashlight_Color;
+            float4 _Flashlight_Position;
+            float4 _Flashlight_Direction;
+            float _Flashlight_Cone_Arc;
             float4 _Ambient_Light_Color;
             float _Ambient_Light_Strength;
+
+            float _Diffuse_Strength;
+            float _Specular_Strength;
 
             control_point pre_tess_vertex_shader(attributes v) {
                 control_point o;
@@ -109,11 +118,11 @@ Shader "Custom/PS1_Shader"
                 float4 specular = spec_coefficient * _Specular_Strength * _LightColor0;
 
                 // Flashlight lighting
-                /*float theta = dot(lightDir, normalize(-light.direction)); 
-                float epsilon = (light.cutOff - light.outerCutOff);
-                float intensity = clamp((theta - light.outerCutOff) / epsilon, 0.0, 1.0);
-                diffuse  *= intensity;
-                specular *= intensity;*/
+                light_dir = normalize(_Flashlight_Position.xyz - world_pos.xyz);
+                float theta = dot(light_dir, normalize(-_Flashlight_Direction.xyz)); 
+                float epsilon = (_Flashlight_Cone_Arc - _Flashlight_Cone_Arc * 0.1);
+                float intensity = clamp((theta - _Flashlight_Cone_Arc * 0.1) / epsilon, 0.0, 1.0);
+                float4 fcolor = _Flashlight_Color * intensity * (0.2f / distance(_Flashlight_Position.xyz, world_pos.xyz)) * 10.0f;
 
                 // Experimental emulation of PS1 uv mapping
                 float w = min(view_pos.z * 0.1, -0.1);
@@ -123,7 +132,8 @@ Shader "Custom/PS1_Shader"
                 o.pos = clip_pos;
                 o.uv = v.uv * w;
                 // Pass final color to fragment shader
-                o.color = ambient + diffuse + specular + v.color;
+                //o.color = float4(ShadeVertexLightsFull(v.pos, v.norm, 4, true), 1.0);
+                o.color = ambient + diffuse + specular + v.color + fcolor;
                 float fog_factor = exp(-pow(_Fog_Coefficient * 0.01f * distance(_WorldSpaceCameraPos, world_pos), 2.0));
                 //lerp(_Fog_Color, o.color, fog_factor);
                 o.tan.x = w; // Pass w into tan.x as there is no other way to get this float into the fragment shader stage
@@ -192,7 +202,7 @@ Shader "Custom/PS1_Shader"
 
             fixed4 fragment_shader (varyings i) : SV_Target {
                 fixed4 pre_fog_color = tex2D(_MainTex, i.uv / i.tan.x) * i.color;
-                clip(pre_fog_color.a - _Alpha_Cutoff); // Cutoff alpha for binary transparency
+                clip(pre_fog_color.a - 0.5f); // Cutoff alpha for binary transparency
                 return lerp(_Fog_Color, pre_fog_color, i.tan.y);
             }
             ENDCG

@@ -455,7 +455,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fogColor: {r: 0.056603774, g: 0.0581761, b: 0.0754717, a: 1}
-  fogCoefficient: 7
+  fogCoefficient: 12
   ambientLightColor: {r: 0.0489498, g: 0.068911135, b: 0.18867922, a: 0}
   ambientLightStrength: 0.5
   quadMaterial: {fileID: 2100000, guid: 1dfa452d566e5f85aa3a4f2e09a5635b, type: 2}
@@ -1618,7 +1618,7 @@ Light:
   serializedVersion: 10
   m_Type: 1
   m_Shape: 0
-  m_Color: {r: 0.110270575, g: 0.1113089, b: 0.13207549, a: 1}
+  m_Color: {r: 0.12330902, g: 0.12330902, b: 0.16037738, a: 1}
   m_Intensity: 0.3
   m_Range: 10
   m_SpotAngle: 30

@@ -68,8 +68,8 @@ Material:
     - _DetailNormalMapScale: 1
     - _Diffuse_Strength: 2
     - _DstBlend: 0
-    - _Flashlight_Cone_Arc: 20
-    - _Fog_Coefficient: 7
+    - _Flashlight_Cone_Arc: 1.1
+    - _Fog_Coefficient: 12
     - _GlossMapScale: 1
     - _Glossiness: 0
     - _GlossyReflections: 1
@@ -80,7 +80,7 @@ Material:
     - _Parallax: 0.02
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
-    - _Specular_Strength: 1.5
+    - _Specular_Strength: 1
     - _SrcBlend: 1
     - _Static_Light_0_Strength: 0.5
     - _UVSec: 0
@@ -92,9 +92,9 @@ Material:
     - _Ambient_Light_Color: {r: 0.0489498, g: 0.068911135, b: 0.18867922, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _Flashlight_Color: {r: 1, g: 1, b: 1, a: 1}
-    - _Flashlight_Direction: {r: 0, g: 0, b: 0, a: 0}
-    - _Flashlight_Position: {r: 0, g: 0, b: 0, a: 0}
+    - _Flashlight_Color: {r: 1, g: 0.9909464, b: 0.24056602, a: 1}
+    - _Flashlight_Direction: {r: 0, g: 0, b: -1, a: 0}
+    - _Flashlight_Position: {r: 0, g: 2, b: 0, a: 0}
     - _Fog_Color: {r: 0.056603774, g: 0.0581761, b: 0.0754717, a: 1}
     - _Static_Light_0_Color: {r: 0.15619439, g: 0.1815593, b: 0.2830189, a: 1}
     - _Static_Light_0_Diffuse_Color: {r: 1, g: 1, b: 1, a: 1}

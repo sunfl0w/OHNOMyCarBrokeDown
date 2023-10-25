@@ -56,7 +56,7 @@ Shader "Custom/PS1_Spotlight_Shader"
                 o.vertex = clip_pos;
                 o.uv = v.uv * w;
                 float4 world_pos = mul(unity_ObjectToWorld, v.vertex);
-                float fog_factor = exp(-pow(_Fog_Coefficient * 0.01f * distance(_WorldSpaceCameraPos, world_pos), 2.0));
+                float fog_factor = exp(-pow(_Fog_Coefficient * 0.5f * 0.01f * distance(_WorldSpaceCameraPos, world_pos), 2.0));
                 o.tan.x = w;
                 o.tan.y = fog_factor;
                 return o;
