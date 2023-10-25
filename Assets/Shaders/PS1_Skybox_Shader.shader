@@ -19,12 +19,15 @@ SubShader {
 
     CGINCLUDE
     #include "UnityCG.cginc"
+    #include "PSXS_Common.cginc"
 
     half4 _Tint;
     half _Exposure;
     float _Rotation;
     float4 _Fog_Color;
     float _Fog_Coefficient;
+
+    uniform half unity_FogDensity;
 
     float3 RotateAroundYInDegrees (float3 vertex, float degrees)
     {
@@ -63,8 +66,8 @@ SubShader {
         half3 c = DecodeHDR (tex, smpDecode);
         c = c * _Tint.rgb * unity_ColorSpaceDouble.rgb;
         c *= _Exposure;
-        float fog_factor = exp(-pow(_Fog_Coefficient * 0.01f * 1000.0f, 2.0)); // Pretend that the skybox always is 1000 units away from the camera
-        c = lerp(_Fog_Color, c, fog_factor + i.tan.y * 0.5f);
+        float fog_factor = PSXS_getPerVertexFogLerpFactor(1000.0f, unity_FogDensity); // Pretend that the skybox always is 1000 units away from the camera
+        c = lerp(_Fog_Color, c, fog_factor + i.tan.y * 0.1f);
         return float4(c, 1);
     }
     ENDCG

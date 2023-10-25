@@ -3,16 +3,6 @@ Shader "Custom/PS1_Shader"
     Properties
     {
         _MainTex ("Texture", 2D) = "white" {}
-        _Vertex_Jitter_Coefficient ("Vertex Jitter Coefficient", Float) = 85.0
-        _Flashlight_Color("Flashlight Color", Color) = (1, 1, 1, 1)
-        _Flashlight_Position("Flashlight Position", Vector) = (0, 0, 0, 0)
-        _Flashlight_Direction("Flashlight Direction", Vector) = (0, 0, 0, 0)
-        _Flashlight_Cone_Arc("Flashlight Cone Arc", Float) = 20.0
-        _Fog_Color ("Fog Color", Color) = (1, 1, 1, 1)
-        _Fog_Coefficient ("Fog Coefficient", Range(0, 1)) = 0.01
-        _Ambient_Light_Color ("Ambient Light Color", Color) = (1, 1, 1, 1)
-        _Ambient_Light_Strength ("Ambient Light Strength", Float) = 1.0
-
         _Diffuse_Strength ("Diffuse Strength", Float) = 1.0
         _Specular_Strength ("Specular Strength", Float) = 1.0
     }
@@ -28,7 +18,6 @@ Shader "Custom/PS1_Shader"
             
             #pragma target 5.0
 
-
             //#pragma vertex vertex_shader
             #pragma fragment fragment_shader
             #pragma vertex pre_tess_vertex_shader
@@ -37,6 +26,7 @@ Shader "Custom/PS1_Shader"
 
             #include "UnityCG.cginc"
             #include "UnityLightingCommon.cginc"
+            #include "PSXS_Common.cginc"
 
             struct attributes {
                 float4 pos : POSITION;
@@ -66,22 +56,12 @@ Shader "Custom/PS1_Shader"
     		};
 
             // Lighting model is based on Gouraud Shading (per vertex lighting)
-            // The Shader is limited to an ambient light source and a single static light source for now
+            // The Shader is limited to a maximum of four active light sources in a scene
 
             sampler2D _MainTex;
-            float _Alpha_Cutoff;
-            float _Vertex_Jitter_Coefficient;
-            float4 _Fog_Color;
-            float _Fog_Coefficient;
-            float4 _Flashlight_Color;
-            float4 _Flashlight_Position;
-            float4 _Flashlight_Direction;
-            float _Flashlight_Cone_Arc;
-            float4 _Ambient_Light_Color;
-            float _Ambient_Light_Strength;
-
             float _Diffuse_Strength;
             float _Specular_Strength;
+            uniform half unity_FogDensity;
 
             control_point pre_tess_vertex_shader(attributes v) {
                 control_point o;
@@ -93,49 +73,24 @@ Shader "Custom/PS1_Shader"
             }
 
             varyings vertex_shader (attributes v) {
-                // Emulate PS1 style vertex jitter
-                float4 clip_pos = UnityObjectToClipPos(v.pos);;
-                clip_pos.xyz = clip_pos.xyz / clip_pos.w;
-                clip_pos.xy = floor(clip_pos.xy * _Vertex_Jitter_Coefficient + 0.5) / _Vertex_Jitter_Coefficient;
-                clip_pos.xyz *= clip_pos.w;
-
-                float4 world_pos = mul(unity_ObjectToWorld, v.pos);
-                float4 view_pos = mul(UNITY_MATRIX_MV, v.pos);
+                // Emulate PSX style vertex jitter
+                float4 clip_pos = PSXS_posToClipSpaceJitter(v.pos);
 
                 // Ambient Lighting
-                float4 ambient = _Ambient_Light_Strength * _Ambient_Light_Color;
+                float4 ambient = UNITY_LIGHTMODEL_AMBIENT;
 
-                // Diffuse Lighting
-                float3 norm = UnityObjectToWorldNormal(v.norm);
-                float3 light_dir = _WorldSpaceLightPos0.xyz; // Actually direction of directional light source in this case! //-normalize(_WorldSpaceLightPos0.xyz - world_pos.xyz);
-                float angle = max(dot(norm, light_dir), 0.0);
-                float4 diffuse = angle * _Diffuse_Strength * _LightColor0;
-
-                // Specular Lighting
-                float3 view_dir = normalize(_WorldSpaceCameraPos - world_pos);
-                float3 reflect_dir = reflect(-light_dir, norm);
-                float spec_coefficient = pow(max(dot(view_dir, reflect_dir), 0.0), 32);
-                float4 specular = spec_coefficient * _Specular_Strength * _LightColor0;
-
-                // Flashlight lighting
-                light_dir = normalize(_Flashlight_Position.xyz - world_pos.xyz);
-                float theta = dot(light_dir, normalize(-_Flashlight_Direction.xyz)); 
-                float epsilon = (_Flashlight_Cone_Arc - _Flashlight_Cone_Arc * 0.1);
-                float intensity = clamp((theta - _Flashlight_Cone_Arc * 0.1) / epsilon, 0.0, 1.0);
-                float4 fcolor = _Flashlight_Color * intensity * (0.2f / distance(_Flashlight_Position.xyz, world_pos.xyz)) * 10.0f;
-
-                // Experimental emulation of PS1 uv mapping
-                float w = min(view_pos.z * 0.1, -0.1);
+                // Emulate PSX uv mapping. Value is later used in fragment shader texture lookup
+                float w = PSXS_getUVMod(v.pos);
 
                 // Pass position in clip space and uv coords to fragment shader
                 varyings o;
                 o.pos = clip_pos;
                 o.uv = v.uv * w;
                 // Pass final color to fragment shader
-                //o.color = float4(ShadeVertexLightsFull(v.pos, v.norm, 4, true), 1.0);
-                o.color = ambient + diffuse + specular + v.color + fcolor;
-                float fog_factor = exp(-pow(_Fog_Coefficient * 0.01f * distance(_WorldSpaceCameraPos, world_pos), 2.0));
-                //lerp(_Fog_Color, o.color, fog_factor);
+                o.color = float4(PSXS_shadeVertexLightsFull(v.pos, v.norm, _WorldSpaceCameraPos, _Diffuse_Strength, _Specular_Strength, 4, true), 1.0);
+                o.color += (ambient) * v.color;
+                float4 world_pos = mul(unity_ObjectToWorld, v.pos);
+                float fog_factor = PSXS_getPerVertexFogLerpFactor(distance(world_pos, _WorldSpaceCameraPos), unity_FogDensity);
                 o.tan.x = w; // Pass w into tan.x as there is no other way to get this float into the fragment shader stage
                 o.tan.y = fog_factor;
                 return o;
@@ -144,9 +99,9 @@ Shader "Custom/PS1_Shader"
             float getTessLevel(float dist0, float dist1) {
                 float avgDist = (dist0 + dist1) / 2.0;
 
-                if (avgDist <= 2.0) {
+                if (avgDist <= 4.0) {
                     return 4.0;
-                } else if (avgDist <= 6.0) {
+                } else if (avgDist <= 8.0) {
                     return 2.0;
                 } else {
                     return 1.0;
@@ -154,7 +109,6 @@ Shader "Custom/PS1_Shader"
             }
 
             hs_tess_factors patch_constants(InputPatch<control_point, 4> i) {
-                //float4 patch_center_pos = lerp(lerp(i[0].pos, i[1].pos, 0.5), lerp(i[3].pos, i[2].pos, 0.5), 0.5);
                 float dst0 = distance(_WorldSpaceCameraPos, mul(unity_ObjectToWorld, i[0].pos));
                 float dst1 = distance(_WorldSpaceCameraPos, mul(unity_ObjectToWorld, i[1].pos));
                 float dst2 = distance(_WorldSpaceCameraPos, mul(unity_ObjectToWorld, i[2].pos));
@@ -164,7 +118,7 @@ Shader "Custom/PS1_Shader"
                 float edge1 = getTessLevel(dst0, dst1);
                 float edge2 = getTessLevel(dst1, dst2);
                 float edge3 = getTessLevel(dst2, dst3);
-                float avg = (edge0 + edge1 +edge2 + edge3) / 4.0;
+                float avg = (edge0 + edge1 + edge2 + edge3) / 4.0;
 
         		hs_tess_factors o;
         		o.tess_factors[0] = edge0;
@@ -203,7 +157,7 @@ Shader "Custom/PS1_Shader"
             fixed4 fragment_shader (varyings i) : SV_Target {
                 fixed4 pre_fog_color = tex2D(_MainTex, i.uv / i.tan.x) * i.color;
                 clip(pre_fog_color.a - 0.5f); // Cutoff alpha for binary transparency
-                return lerp(_Fog_Color, pre_fog_color, i.tan.y);
+                return lerp(unity_FogColor, pre_fog_color, i.tan.y);
             }
             ENDCG
         }

@@ -4,9 +4,6 @@ Shader "Custom/PS1_Spotlight_Shader"
     {
         _MainTex ("Texture", 2D) = "white" {}
         _Light_Color ("Light Color", Color) = (1, 1, 1, 1)
-        _Fog_Color ("Fog Color", Color) = (1, 1, 1, 1)
-        _Fog_Coefficient ("Fog Coefficient", Range(0, 1)) = 0.01
-        _Vertex_Jitter_Coefficient ("Vertex Jitter Coefficient", Float) = 85.0
     }
     SubShader
     {
@@ -22,6 +19,7 @@ Shader "Custom/PS1_Spotlight_Shader"
             #pragma fragment frag
 
             #include "UnityCG.cginc"
+            #include "PSXS_Common.cginc"
 
             struct appdata {
                 float4 vertex : POSITION;
@@ -37,26 +35,20 @@ Shader "Custom/PS1_Spotlight_Shader"
 
             sampler2D _MainTex;
             float4 _Light_Color;
-            float4 _Fog_Color;
-            float _Fog_Coefficient;
-            float _Vertex_Jitter_Coefficient;
+            uniform half unity_FogDensity;
 
             v2f vert (appdata v) {
-                // Emulate PS1 style vertex jitter
-                float4 clip_pos = UnityObjectToClipPos(v.vertex);
-                clip_pos.xyz = clip_pos.xyz / clip_pos.w;
-                clip_pos.xy = floor(clip_pos.xy * _Vertex_Jitter_Coefficient + 0.5) / _Vertex_Jitter_Coefficient;
-                clip_pos.xyz *= clip_pos.w;
+                // Emulate PSX style vertex jitter
+                float4 clip_pos = PSXS_posToClipSpaceJitter(v.vertex);
 
-                // Experimental emulation of PS1 uv mapping
-                float4 view_pos = mul(UNITY_MATRIX_MV, v.vertex);
-                float w = min(view_pos.z * 0.1, -0.1);
+                // Emulate PSX uv mapping. Value is later used in fragment shader texture lookup
+                float w = PSXS_getUVMod(v.vertex);
 
                 v2f o;
                 o.vertex = clip_pos;
                 o.uv = v.uv * w;
                 float4 world_pos = mul(unity_ObjectToWorld, v.vertex);
-                float fog_factor = exp(-pow(_Fog_Coefficient * 0.5f * 0.01f * distance(_WorldSpaceCameraPos, world_pos), 2.0));
+                float fog_factor = PSXS_getPerVertexFogLerpFactor(distance(_WorldSpaceCameraPos, world_pos) * 0.7, unity_FogDensity);
                 o.tan.x = w;
                 o.tan.y = fog_factor;
                 return o;
@@ -64,7 +56,7 @@ Shader "Custom/PS1_Spotlight_Shader"
 
             fixed4 frag (v2f i) : SV_Target {
                 fixed4 pre_fog_color = tex2D(_MainTex, i.uv / i.tan.x) * _Light_Color;
-                return lerp(_Fog_Color, pre_fog_color, i.tan.y);
+                return lerp(unity_FogColor, pre_fog_color, i.tan.y);
             }
             ENDCG
         }

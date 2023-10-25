@@ -17,7 +17,7 @@ public class GraphicsController : MonoBehaviour {
 
     void Update() {
         // Maybe only set a value if it changed?
-        quadMaterial.SetColor("_Fog_Color", fogColor);
+        /*quadMaterial.SetColor("_Fog_Color", fogColor);
         quadMaterial.SetFloat("_Fog_Coefficient", fogCoefficient);
         quadMaterial.SetColor("_Ambient_Light_Color", ambientLightColor);
         quadMaterial.SetFloat("_Ambient_Light_Strength", ambientLightStrength);
@@ -26,6 +26,6 @@ public class GraphicsController : MonoBehaviour {
         skyboxMaterial.SetFloat("_Fog_Coefficient", fogCoefficient);
 
         spotlightMaterial.SetColor("_Fog_Color", fogColor);
-        spotlightMaterial.SetFloat("_Fog_Coefficient", fogCoefficient);
+        spotlightMaterial.SetFloat("_Fog_Coefficient", fogCoefficient);*/
     }
 }
