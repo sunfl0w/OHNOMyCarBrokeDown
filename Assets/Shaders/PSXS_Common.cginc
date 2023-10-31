@@ -4,7 +4,7 @@
 #define PSX_VERTEX_JITTER_COEFFICIENT 75.0
 
 float PSXS_getPerVertexFogLerpFactor(float view_distance, float fog_density) {
-    return exp(-pow(fog_density * 0.1f * view_distance, 2.0));
+    return exp(-pow(fog_density * 0.2f * view_distance, 2.0));
 }
 
 float4 PSXS_posToClipSpaceJitter(float4 vertex_pos_os) {
@@ -83,7 +83,9 @@ float3 PSXS_shadeVertexLightsFull(float4 vertex_pos_os, float3 vertex_norm_os, f
         float4 vertex_pos_ws = mul(unity_ObjectToWorld, vertex_pos_os);
         float3 light_dir_ws = normalize(light_pos_ws - vertex_pos_ws);
         if (unity_LightPosition[i].w < 0.1f) { // Check if light is directional and set direction accordingly
-            light_dir_ws = normalize(light_pos_ws);
+            //light_dir_ws = normalize(light_pos_ws);
+            light_dir_ws = normalize(_WorldSpaceLightPos0);
+            atten = 1.0f;
         }
         float diffuse = PSXS_vertexDiffuseLighting(vertex_norm_os, light_dir_ws, diffuse_modifier);
         float specular = PSXS_vertexSpecularLighting(vertex_pos_os, vertex_norm_os, camera_pos_ws, light_dir_ws, specular_modifier);

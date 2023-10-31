@@ -24,10 +24,10 @@ public class FirstPersonController : MonoBehaviour {
 
     private bool isRunning = false;
 
-
     public enum TerrainType {GRASS, CONCRETE, UNDEFINED};
 
     CharacterController characterController;
+
     void Start() {
         characterController = GetComponent<CharacterController>();
         Cursor.lockState = CursorLockMode.Locked;
@@ -35,7 +35,6 @@ public class FirstPersonController : MonoBehaviour {
     }
 
     void Update() {
-
         #region Handles Movment
         // Press Left Shift to run
         isRunning = Input.GetKey(KeyCode.LeftShift);
@@ -89,9 +88,9 @@ public class FirstPersonController : MonoBehaviour {
     }
 
     public TerrainType GetTerrainType() {
-        LayerMask layerMask = LayerMask.GetMask("Terrain");
+        LayerMask layerMask = LayerMask.GetMask("TerrainCollider");
         RaycastHit hit;
-        if(Physics.Raycast(transform.position, Vector3.down, out hit, Mathf.Infinity, layerMask)) {
+        if (Physics.Raycast(transform.position, Vector3.down, out hit, Mathf.Infinity, layerMask)) {
             // The lookup texture maps the texture coordinates of the terrain to the appropriate sound using the red color channel
             // This is a really simple and scalable and way of getting the terrain type
             Color color = terrainTypeLookup.GetPixel((int)(hit.textureCoord.x * terrainTypeLookup.width), (int)(hit.textureCoord.y * terrainTypeLookup.height));

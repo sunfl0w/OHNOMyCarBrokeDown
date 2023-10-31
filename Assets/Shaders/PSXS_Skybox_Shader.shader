@@ -50,7 +50,7 @@ Shader "Custom/PS1_Skybox_Shader" {
             c = c * _Tint.rgb * unity_ColorSpaceDouble.rgb;
             c *= _Exposure;
             float fog_factor = PSXS_getPerVertexFogLerpFactor(1000.0f, unity_FogDensity); // Pretend that the skybox always is 1000 units away from the camera
-            c = lerp(unity_FogColor, c, fog_factor + i.tan.y * _Fog_YCoefficient);
+            c = lerp(unity_FogColor, c, fog_factor + max(i.tan.y, 0) * _Fog_YCoefficient);
             return float4(c, 1);
         }
         ENDCG

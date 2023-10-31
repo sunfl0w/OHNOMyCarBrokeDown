@@ -12,10 +12,10 @@ TagManager:
   - Water
   - UI
   - Terrain
-  - Terrain_Collider
+  - TerrainCollider
   - Collider
-  - 
-  - 
+  - FogColliderInner
+  - FogColliderOuter
   - 
   - 
   - 
