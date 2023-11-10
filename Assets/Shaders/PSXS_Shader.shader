@@ -18,11 +18,11 @@ Shader "Custom/PS1_Shader"
             
             #pragma target 5.0
 
-            //#pragma vertex vertex_shader
+            #pragma vertex vertex_shader
             #pragma fragment fragment_shader
-            #pragma vertex pre_tess_vertex_shader
-            #pragma hull hull_shader
-            #pragma domain domain_shader
+            //#pragma vertex pre_tess_vertex_shader
+            //#pragma hull hull_shader
+            //#pragma domain domain_shader
 
             #include "UnityCG.cginc"
             #include "UnityLightingCommon.cginc"

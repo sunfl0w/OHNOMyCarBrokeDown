@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class FogDensityManager : MonoBehaviour {
     float baseFogDensity = 0.0f;
-    float maxFogDensity = 3.0f;
+    float maxFogDensity = 1.0f;
     bool inInnerFog = true;
     void Start() {
         baseFogDensity = RenderSettings.fogDensity;

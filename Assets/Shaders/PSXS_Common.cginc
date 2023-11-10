@@ -1,7 +1,7 @@
 #include "UnityCG.cginc"
 #include "UnityLightingCommon.cginc"
 
-#define PSX_VERTEX_JITTER_COEFFICIENT 75.0
+#define PSX_VERTEX_JITTER_COEFFICIENT 200.0
 
 float PSXS_getPerVertexFogLerpFactor(float view_distance, float fog_density) {
     return exp(-pow(fog_density * 0.2f * view_distance, 2.0));
