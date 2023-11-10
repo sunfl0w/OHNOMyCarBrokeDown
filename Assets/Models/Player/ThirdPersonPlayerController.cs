@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ThirdPersonPlayerController : MonoBehaviour {
     public Camera currentCamera;
+    public Animator animator;
     public float walkSpeed = 2.2f;
     public float runSpeed = 6.0f;
     public float gravity = 10f;
@@ -48,6 +49,8 @@ public class ThirdPersonPlayerController : MonoBehaviour {
         if (targetMoveDirection.magnitude > 0.0f) { // Only rotate if the player inputs a movement direction
             transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(targetMoveDirection, Vector3.up), Time.deltaTime * rotationDampening);
         }
+        animator.SetFloat("movementSpeed", currentSpeed);
+
         moveVector = transform.forward * currentSpeed;
         characterController.Move((moveVector + Vector3.down * gravity) * Time.deltaTime);
         #endregion
