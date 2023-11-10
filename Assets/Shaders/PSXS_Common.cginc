@@ -1,7 +1,9 @@
 #include "UnityCG.cginc"
 #include "UnityLightingCommon.cginc"
 
-#define PSX_VERTEX_JITTER_COEFFICIENT 200.0
+#define PSX_VERTEX_JITTER_COEFFICIENT 120.0
+#define PSX_ENABLE_AFFINE_TEXTURE_MAPPING // Only disable when PSX_ENABLE_TESSELLATION is set for best effect
+//#define PSX_ENABLE_TESSELLATION // Enbales tessellation shader stage
 
 float PSXS_getPerVertexFogLerpFactor(float view_distance, float fog_density) {
     return exp(-pow(fog_density * 0.2f * view_distance, 2.0));
@@ -16,8 +18,12 @@ float4 PSXS_posToClipSpaceJitter(float4 vertex_pos_os) {
 }
 
 float PSXS_getUVMod(float4 vertex_pos_os) {
+    #ifdef PSX_ENABLE_AFFINE_TEXTURE_MAPPING
+    return 1.0f;
+    #else
     float4 view_pos = mul(UNITY_MATRIX_MV, vertex_pos_os);
     return min(view_pos.z * 1.0, -0.1);
+    #endif
 }
 
 float PSXS_vertexDiffuseLighting(float3 vertex_norm_os, float3 light_dir, float diffuse_modifier) {

@@ -18,11 +18,14 @@ Shader "Custom/PS1_Shader"
             
             #pragma target 5.0
 
-            #pragma vertex vertex_shader
             #pragma fragment fragment_shader
-            //#pragma vertex pre_tess_vertex_shader
-            //#pragma hull hull_shader
-            //#pragma domain domain_shader
+            #ifdef PSX_ENABLE_TESSELLATION
+            #pragma vertex pre_tess_vertex_shader
+            #pragma hull hull_shader
+            #pragma domain domain_shader
+            #else
+            #pragma vertex vertex_shader
+            #endif
 
             #include "UnityCG.cginc"
             #include "UnityLightingCommon.cginc"
@@ -131,7 +134,7 @@ Shader "Custom/PS1_Shader"
     		}
 
             [UNITY_domain("quad")]
-    		[UNITY_partitioning("integer")]
+    		[UNITY_partitioning("fractional_odd")]
     		[UNITY_outputtopology("triangle_cw")]
     		[UNITY_patchconstantfunc("patch_constants")]
     		[UNITY_outputcontrolpoints(4)]
