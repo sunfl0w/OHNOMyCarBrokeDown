@@ -32,17 +32,21 @@ public class ThirdPersonPlayerController : MonoBehaviour {
         Cursor.visible = false;
     }
 
-    void Update() {
+    void FixedUpdate() {
         #region Handles Movment
         // Press Left Shift to run
         //isRunning = Input.GetKey(KeyCode.LeftShift);
 
         // Calculate normalized direction of movement based on input axis and current camera location.
         GameObject virtualCam = camController.getCurrentVirtualCamera();
-        Vector3 camForward = virtualCam.transform.forward;
+        Vector3 camForward = Vector3.zero;
+        Vector3 camRight = Vector3.zero;
+        if(virtualCam != null) {
+            camForward = virtualCam.transform.forward;
+            camRight = virtualCam.transform.right;
+        }
         camForward.y = 0;
         camForward.Normalize();
-        Vector3 camRight = virtualCam.transform.right;
         camRight.y = 0;
         camRight.Normalize();
         // Normalization ensures that diagonal movement is as fast as movements along the x and z axis
