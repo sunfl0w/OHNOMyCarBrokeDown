@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ThirdPersonPlayerController : MonoBehaviour {
-    public Camera currentCamera;
+    public GameObject mainCamera;
     public Animator animator;
     public float walkSpeed = 2.2f;
     public float runSpeed = 6.0f;
@@ -23,9 +23,11 @@ public class ThirdPersonPlayerController : MonoBehaviour {
     public enum TerrainType { GRASS, CONCRETE, UNDEFINED };
 
     CharacterController characterController;
+    CameraController camController;
 
     void Start() {
         characterController = GetComponent<CharacterController>();
+        camController = mainCamera.GetComponent<CameraController>();
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
@@ -36,10 +38,11 @@ public class ThirdPersonPlayerController : MonoBehaviour {
         //isRunning = Input.GetKey(KeyCode.LeftShift);
 
         // Calculate normalized direction of movement based on input axis and current camera location.
-        Vector3 camForward = currentCamera.transform.forward;
+        GameObject virtualCam = camController.getCurrentVirtualCamera();
+        Vector3 camForward = virtualCam.transform.forward;
         camForward.y = 0;
         camForward.Normalize();
-        Vector3 camRight = currentCamera.transform.right;
+        Vector3 camRight = virtualCam.transform.right;
         camRight.y = 0;
         camRight.Normalize();
         // Normalization ensures that diagonal movement is as fast as movements along the x and z axis

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerAudioDirector : MonoBehaviour {
     public float maxVolume = 1.0f;
-    public FirstPersonController firstPersonController;
+    public ThirdPersonPlayerController thirdPersonController;
     public AudioSource playerAudioSource;
 
     public AudioClip walkGrassClip;
@@ -19,22 +19,22 @@ public class PlayerAudioDirector : MonoBehaviour {
     void Update() {
         // TODO: Code needs to be refactored
         // Based on the player controller and the terrain type play appropriate walking/running sound clips
-        if(firstPersonController.GetIsMoving() && firstPersonController.GetIsGrounded()) {
+        if(thirdPersonController.GetIsMoving() && thirdPersonController.GetIsGrounded()) {
             playerAudioSource.volume = maxVolume;
-            FirstPersonController.TerrainType terrainType = firstPersonController.GetTerrainType();
-            if(terrainType == FirstPersonController.TerrainType.GRASS) {
-                if(firstPersonController.GetIsRunning() && playerAudioSource.clip != runGrassClip) {
+            ThirdPersonPlayerController.TerrainType terrainType = thirdPersonController.GetTerrainType();
+            if(terrainType == ThirdPersonPlayerController.TerrainType.GRASS) {
+                if(thirdPersonController.GetIsRunning() && playerAudioSource.clip != runGrassClip) {
                     playerAudioSource.clip = runGrassClip;
                     playerAudioSource.Play();
-                } else if (!firstPersonController.GetIsRunning() && playerAudioSource.clip != walkGrassClip) {
+                } else if (!thirdPersonController.GetIsRunning() && playerAudioSource.clip != walkGrassClip) {
                     playerAudioSource.clip = walkGrassClip;
                     playerAudioSource.Play();
                 }
-            } else if(terrainType == FirstPersonController.TerrainType.CONCRETE) {
-                if(firstPersonController.GetIsRunning() && playerAudioSource.clip != runConcreteClip) {
+            } else if(terrainType == ThirdPersonPlayerController.TerrainType.CONCRETE) {
+                if(thirdPersonController.GetIsRunning() && playerAudioSource.clip != runConcreteClip) {
                     playerAudioSource.clip = runConcreteClip;
                     playerAudioSource.Play();
-                } else if (!firstPersonController.GetIsRunning() && playerAudioSource.clip != walkConcreteClip) {
+                } else if (!thirdPersonController.GetIsRunning() && playerAudioSource.clip != walkConcreteClip) {
                     playerAudioSource.clip = walkConcreteClip;
                     playerAudioSource.Play();
                 }
