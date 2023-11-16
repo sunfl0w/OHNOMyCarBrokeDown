@@ -1795,7 +1795,7 @@ MonoBehaviour:
   canMove: 1
   currentSpeed: 0
   translationDampening: 3
-  rotationDampening: 5
+  rotationDampening: 2
 --- !u!95 &1183858474
 Animator:
   serializedVersion: 5

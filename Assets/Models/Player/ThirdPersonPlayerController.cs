@@ -33,12 +33,11 @@ public class ThirdPersonPlayerController : MonoBehaviour {
     }
 
     void FixedUpdate() {
-        #region Handles Movment
         // Press Left Shift to run
         //isRunning = Input.GetKey(KeyCode.LeftShift);
 
-        // Calculate normalized direction of movement based on input axis and current camera location.
-        GameObject virtualCam = camController.getCurrentVirtualCamera();
+        // Player movement based on camera position
+        /*GameObject virtualCam = camController.getCurrentVirtualCamera();
         Vector3 camForward = Vector3.zero;
         Vector3 camRight = Vector3.zero;
         if(virtualCam != null) {
@@ -59,8 +58,19 @@ public class ThirdPersonPlayerController : MonoBehaviour {
         animator.SetFloat("movementSpeed", currentSpeed);
 
         moveVector = transform.forward * currentSpeed;
+        characterController.Move((moveVector + Vector3.down * gravity) * Time.deltaTime);*/
+
+        // "Tank-Control" player movement
+        targetMoveDirection = ((transform.forward * Input.GetAxisRaw("Vertical")) + (transform.right * Input.GetAxisRaw("Horizontal"))).normalized;
+        float targetSpeed = canMove && targetMoveDirection.magnitude > 0.0f ? (isRunning && characterController.isGrounded ? runSpeed : walkSpeed) : 0;
+        currentSpeed = Mathf.Lerp(currentSpeed, targetSpeed, Time.deltaTime * translationDampening);
+        if (targetMoveDirection.magnitude > 0.0f) { // Only rotate if the player inputs a movement direction
+            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(targetMoveDirection, Vector3.up), Time.deltaTime * rotationDampening);
+        }
+        animator.SetFloat("movementSpeed", currentSpeed);
+
+        moveVector = transform.forward * currentSpeed;
         characterController.Move((moveVector + Vector3.down * gravity) * Time.deltaTime);
-        #endregion
     }
 
     public bool GetIsRunning() {
