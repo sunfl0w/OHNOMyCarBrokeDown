@@ -91,7 +91,7 @@ Shader "Custom/PS1_Shader"
                 o.uv = v.uv * w;
                 // Pass final color to fragment shader
                 o.color = float4(PSXS_shadeVertexLightsFull(v.pos, v.norm, _WorldSpaceCameraPos, _Diffuse_Strength, _Specular_Strength, 4, true), 1.0);
-                o.color += (ambient) * v.color;
+                o.color += ambient;// * v.color;
                 float4 world_pos = mul(unity_ObjectToWorld, v.pos);
                 float fog_factor = PSXS_getPerVertexFogLerpFactor(distance(world_pos, _WorldSpaceCameraPos), unity_FogDensity);
                 o.tan.x = w; // Pass w into tan.x as there is no other way to get this float into the fragment shader stage
