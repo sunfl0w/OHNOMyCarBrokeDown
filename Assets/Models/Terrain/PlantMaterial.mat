@@ -67,7 +67,7 @@ Material:
     - _BumpScale: 1
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
-    - _Diffuse_Strength: 1
+    - _Diffuse_Strength: 2
     - _DstBlend: 10
     - _Fog_Coefficient: 12
     - _GlossMapScale: 1
