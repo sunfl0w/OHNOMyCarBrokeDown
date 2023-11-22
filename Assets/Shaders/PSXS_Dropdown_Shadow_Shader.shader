@@ -1,9 +1,8 @@
-Shader "Custom/PSXS_Spotlight_Shader"
+Shader "Custom/PSXS_Dropdown_Shadow_Shader"
 {
     Properties
     {
         _MainTex ("Texture", 2D) = "white" {}
-        _Light_Color ("Light Color", Color) = (1, 1, 1, 1)
     }
     SubShader
     {
@@ -34,7 +33,6 @@ Shader "Custom/PSXS_Spotlight_Shader"
             };
 
             sampler2D _MainTex;
-            float4 _Light_Color;
             uniform half unity_FogDensity;
 
             v2f vert (appdata v) {
@@ -55,7 +53,7 @@ Shader "Custom/PSXS_Spotlight_Shader"
             }
 
             fixed4 frag (v2f i) : SV_Target {
-                fixed4 pre_fog_color = tex2D(_MainTex, i.uv / i.tan.x) * _Light_Color;
+                fixed4 pre_fog_color = tex2D(_MainTex, i.uv / i.tan.x);
                 return lerp(unity_FogColor, pre_fog_color, i.tan.y);
             }
             ENDCG

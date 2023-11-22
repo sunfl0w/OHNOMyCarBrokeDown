@@ -1,4 +1,4 @@
-Shader "Custom/PS1_Skybox_Shader" {
+Shader "Custom/PSXS_Skybox_Shader" {
     Properties {
         _Tint ("Tint Color", Color) = (.5, .5, .5, .5)
         [Gamma] _Exposure ("Exposure", Range(0, 8)) = 1.0

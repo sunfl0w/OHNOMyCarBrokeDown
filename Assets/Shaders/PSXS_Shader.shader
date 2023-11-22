@@ -1,4 +1,4 @@
-Shader "Custom/PS1_Shader"
+Shader "Custom/PSXS_Shader"
 {
     Properties
     {

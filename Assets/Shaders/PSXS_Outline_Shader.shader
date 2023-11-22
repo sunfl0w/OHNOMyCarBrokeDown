@@ -1,4 +1,4 @@
-Shader "Custom/PS1_Outline_Shader"
+Shader "Custom/PSXS_Outline_Shader"
 {
     Properties
     {
