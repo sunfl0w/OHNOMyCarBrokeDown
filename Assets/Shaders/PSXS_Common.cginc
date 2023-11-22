@@ -77,9 +77,9 @@ float3 PSXS_shadeVertexLightsFull(float4 vertex_pos_os, float3 vertex_norm_os, f
         // don't produce NaNs if some vertex position overlaps with the light
         lengthSq = max(lengthSq, 0.000001);
         to_light_vs *= rsqrt(lengthSq);
-        float atten = 1.0 / (1.0 + lengthSq * unity_LightAtten[i].z);
+        float atten = 1.0 / (1.0 + to_light_vs + lengthSq * unity_LightAtten[i].z);
         if (spotLight) {
-            float rho = max (0, dot(to_light_vs, unity_SpotDirection[i].xyz));
+            float rho = max(0, dot(to_light_vs, unity_SpotDirection[i].xyz));
             float spotAtt = (rho - unity_LightAtten[i].x) * unity_LightAtten[i].y;
             atten *= saturate(spotAtt);
         }
