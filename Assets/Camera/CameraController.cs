@@ -12,7 +12,7 @@ public class CameraController : MonoBehaviour {
     }
 
     void Update() {
-        if(virtualCam.GetComponent<CameraDataHolder>().camData.swivel && lookAtTarget != null) {
+        if(virtualCam != null && virtualCam.GetComponent<CameraDataHolder>().camData.swivel && lookAtTarget != null) {
             cam.transform.LookAt(lookAtTarget);
         }
     }

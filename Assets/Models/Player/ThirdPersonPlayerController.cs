@@ -22,8 +22,8 @@ public class ThirdPersonPlayerController : MonoBehaviour {
 
     public enum TerrainType { GRASS, CONCRETE, UNDEFINED };
 
-    CharacterController characterController;
     CameraController camController;
+    CharacterController characterController;
 
     void Start() {
         characterController = GetComponent<CharacterController>();
@@ -62,7 +62,7 @@ public class ThirdPersonPlayerController : MonoBehaviour {
 
         // "Tank-Control" player movement
         targetMoveDirection = ((transform.forward * Input.GetAxisRaw("Vertical")) + (transform.right * Input.GetAxisRaw("Horizontal"))).normalized;
-        float targetSpeed = canMove && targetMoveDirection.magnitude > 0.0f ? (isRunning && characterController.isGrounded ? runSpeed : walkSpeed) : 0;
+        float targetSpeed = canMove && targetMoveDirection.magnitude > 0.0f ? (isRunning && GetIsGrounded() ? runSpeed : walkSpeed) : 0;
         currentSpeed = Mathf.Lerp(currentSpeed, targetSpeed, Time.deltaTime * translationDampening);
         if (targetMoveDirection.magnitude > 0.0f) { // Only rotate if the player inputs a movement direction
             transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(targetMoveDirection, Vector3.up), Time.deltaTime * rotationDampening);
