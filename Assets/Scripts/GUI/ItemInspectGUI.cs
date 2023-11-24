@@ -11,6 +11,9 @@ public class ItemInspectGUI : MonoBehaviour {
 
     private GameObject inspectedItem = null;
 
+    public static event Action onInspectionGUIEnter;
+    public static event Action onInspectionGUILeave;
+
     private static ItemInspectGUI instance;
     public static ItemInspectGUI Instance { get { return instance; } }
 
@@ -29,6 +32,7 @@ public class ItemInspectGUI : MonoBehaviour {
 
     public void Show(ItemData itemData) {
         Debug.Log("Show item inspect GUI");
+        onInspectionGUIEnter?.Invoke();
         containerGameObject.SetActive(true);
         textGUI.text = itemData.interactText;
 
@@ -38,6 +42,8 @@ public class ItemInspectGUI : MonoBehaviour {
     }
 
     public void Hide() {
+        Debug.Log("Hide item inspect GUI");
+        onInspectionGUILeave?.Invoke();
         containerGameObject.SetActive(false);
         textGUI.text = String.Empty;
         if (inspectedItem != null) {

@@ -30,6 +30,10 @@ public class ThirdPersonPlayerController : MonoBehaviour {
         camController = mainCamera.GetComponent<CameraController>();
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+
+        // Add callbacks to GUI events
+        ItemInspectGUI.onInspectionGUIEnter += DisableMovement;
+        ItemInspectGUI.onInspectionGUILeave += EnableMovement;
     }
 
     void FixedUpdate() {
@@ -64,7 +68,7 @@ public class ThirdPersonPlayerController : MonoBehaviour {
         targetMoveDirection = ((transform.forward * Input.GetAxisRaw("Vertical")) + (transform.right * Input.GetAxisRaw("Horizontal"))).normalized;
         float targetSpeed = canMove && targetMoveDirection.magnitude > 0.0f ? (isRunning && GetIsGrounded() ? runSpeed : walkSpeed) : 0;
         currentSpeed = Mathf.Lerp(currentSpeed, targetSpeed, Time.deltaTime * translationDampening);
-        if (targetMoveDirection.magnitude > 0.0f) { // Only rotate if the player inputs a movement direction
+        if (targetMoveDirection.magnitude > 0.0f && canMove) { // Only rotate if the player inputs a movement direction
             transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(targetMoveDirection, Vector3.up), Time.deltaTime * rotationDampening);
         }
         animator.SetFloat("movementSpeed", currentSpeed);
@@ -100,5 +104,13 @@ public class ThirdPersonPlayerController : MonoBehaviour {
             return (TerrainType)terrainTypeIndex;
         }
         return TerrainType.UNDEFINED;
+    }
+
+    public void DisableMovement() {
+        canMove = false;
+    }
+
+    public void EnableMovement() {
+        canMove = true;
     }
 }
