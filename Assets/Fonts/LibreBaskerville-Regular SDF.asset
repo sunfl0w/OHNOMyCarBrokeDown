@@ -1,13 +1,13 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!21 &-7281201580350821460
+--- !u!21 &-6035800332068588380
 Material:
   serializedVersion: 8
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: LibreBaskerville-Regular SDF 12 Material
+  m_Name: LibreBaskerville-Regular SDF Material
   m_Shader: {fileID: 4800000, guid: 68e6db2ebdc24f95958faec2be5558d6, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -36,7 +36,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 6917431386411808653}
+        m_Texture: {fileID: 3964217622426114912}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OutlineTex:
@@ -118,11 +118,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 71c1514a6bd24e1e882cebbe1904ce04, type: 3}
-  m_Name: LibreBaskerville-Regular SDF 12
+  m_Name: LibreBaskerville-Regular SDF
   m_EditorClassIdentifier: 
-  hashCode: -2090284925
-  material: {fileID: -7281201580350821460}
-  materialHashCode: 1302478915
+  hashCode: 235623040
+  material: {fileID: -6035800332068588380}
+  materialHashCode: -1748365792
   m_Version: 1.1.0
   m_SourceFontFileGUID: 6c4541154ee91178aad2ac654d7ebd93
   m_SourceFontFile_EditorRef: {fileID: 12800000, guid: 6c4541154ee91178aad2ac654d7ebd93, type: 3}
@@ -1996,7 +1996,7 @@ MonoBehaviour:
     m_GlyphIndex: 206
     m_Scale: 1
   m_AtlasTextures:
-  - {fileID: 6917431386411808653}
+  - {fileID: 3964217622426114912}
   m_AtlasTextureIndex: 0
   m_IsMultiAtlasTexturesEnabled: 0
   m_ClearDynamicDataOnBuild: 0
@@ -2793,13 +2793,13 @@ MonoBehaviour:
   boldSpacing: 7
   italicStyle: 35
   tabSize: 10
---- !u!28 &6917431386411808653
+--- !u!28 &3964217622426114912
 Texture2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: LibreBaskerville-Regular SDF 12 Atlas
+  m_Name: LibreBaskerville-Regular SDF Atlas
   m_ImageContentsHash:
     serializedVersion: 2
     Hash: 00000000000000000000000000000000

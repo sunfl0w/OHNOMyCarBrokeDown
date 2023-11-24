@@ -12,11 +12,10 @@ Shader "Custom/PSXS_Outline_Shader"
     {
         Pass
         {
-            Lighting On
-            Tags { "RenderType"="Opaque" }
+            Tags { "RenderType"="Opaque" "RenderPipeline" = "UniversalRenderPipeline" "LightMode" = "UniversalForward" }
             LOD 100
             Cull Off // Very important for some textures used
-            CGPROGRAM
+            HLSLPROGRAM
             
             #pragma target 5.0
 
@@ -29,29 +28,27 @@ Shader "Custom/PSXS_Outline_Shader"
             #pragma vertex vertex_shader
             #endif
 
-            #include "UnityCG.cginc"
-            #include "UnityLightingCommon.cginc"
-            #include "PSXS_Common.cginc"
+            #include "PSXS_Common.hlsl"
 
             struct attributes {
                 float4 pos : POSITION;
                 float3 norm : NORMAL;
                 float2 uv : TEXCOORD0;
-                fixed4 color : COLOR0;
+                float4 color : COLOR0;
             };
 
             struct control_point {
                 float4 pos : INTERNALTESPOS;
                 float3 norm : NORMAL;
                 float2 uv : TEXCOORD0;
-                fixed4 color : COLOR0;
+                float4 color : COLOR0;
             };
 
             struct varyings {
                 float4 pos : SV_POSITION;
                 float3 norm : NORMAL;
                 float2 uv : TEXCOORD0;
-                fixed4 color : COLOR0;
+                float4 color : COLOR0;
                 float3 tan : TANGENT;
             };
 
@@ -159,43 +156,40 @@ Shader "Custom/PSXS_Outline_Shader"
         		return vertex_shader(v);
     		}
 
-            fixed4 fragment_shader (varyings i) : SV_Target {
-                fixed4 pre_fog_color = tex2D(_MainTex, i.uv / i.tan.x) * i.color;
+            float4 fragment_shader (varyings i) : SV_Target {
+                float4 pre_fog_color = tex2D(_MainTex, i.uv / i.tan.x) * i.color;
                 clip(pre_fog_color.a - 0.5f); // Cutoff alpha for binary transparency
                 return lerp(unity_FogColor, pre_fog_color, i.tan.y);
             }
-            ENDCG
+            ENDHLSL
         }
 
         Pass
         {
-            Lighting On
-            Tags { "RenderType"="Opaque" }
+            Tags { "RenderType"="Opaque" "RenderPipeline" = "UniversalRenderPipeline" "LightMode" = "SRPDefaultUnlit" }
             LOD 100
             Cull Front
-            CGPROGRAM
+            HLSLPROGRAM
             
             #pragma target 5.0
 
             #pragma fragment fragment_shader
             #pragma vertex vertex_shader
 
-            #include "UnityCG.cginc"
-            #include "UnityLightingCommon.cginc"
-            #include "PSXS_Common.cginc"
+            #include "PSXS_Common.hlsl"
 
             struct attributes {
                 float4 pos : POSITION;
                 float3 norm : NORMAL;
                 float2 uv : TEXCOORD0;
-                fixed4 color : COLOR0;
+                float4 color : COLOR0;
             };
 
             struct varyings {
                 float4 pos : SV_POSITION;
                 float3 norm : NORMAL;
                 float2 uv : TEXCOORD0;
-                fixed4 color : COLOR0;
+                float4 color : COLOR0;
                 float3 tan : TANGENT;
             };
 
@@ -203,15 +197,15 @@ Shader "Custom/PSXS_Outline_Shader"
             float _Diffuse_Strength;
             float _Specular_Strength;
             float _Outline_Width;
-            fixed4 _Outline_Color;
+            float4 _Outline_Color;
             uniform half unity_FogDensity;
 
             varyings vertex_shader (attributes v) {
-                float4 clip_pos = UnityObjectToClipPos(v.pos);
-                float3 normalHCS = mul((float3x3)UNITY_MATRIX_VP, mul((float3x3)UNITY_MATRIX_M, v.norm));
+                float4 clip_pos = TransformObjectToHClip(v.pos);
+                float3 normal_cs = mul((float3x3)UNITY_MATRIX_VP, mul((float3x3)UNITY_MATRIX_M, v.norm));
 
                 // Move vertex along normal vector in clip space.
-                clip_pos.xy += normalize(normalHCS.xy) / _ScreenParams.xy * clip_pos.w * _Outline_Width * 2;
+                clip_pos.xy += normalize(normal_cs.xy) / _ScreenParams.xy * clip_pos.w * _Outline_Width * 2;
 
                 // Pass position in clip space and uv coords to fragment shader
                 varyings o;
@@ -221,10 +215,10 @@ Shader "Custom/PSXS_Outline_Shader"
                 return o;
             }
 
-            fixed4 fragment_shader (varyings i) : SV_Target {
+            float4 fragment_shader (varyings i) : SV_Target {
                 return _Outline_Color;
             }
-            ENDCG
+            ENDHLSL
         }
     }
 }

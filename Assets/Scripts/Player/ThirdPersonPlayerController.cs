@@ -25,15 +25,17 @@ public class ThirdPersonPlayerController : MonoBehaviour {
     CameraController camController;
     CharacterController characterController;
 
+    void Awake() {
+        // Add callbacks to GUI events
+        ItemInspectGUI.onInspectionGUIEnter += DisableMovement;
+        ItemInspectGUI.onInspectionGUILeave += EnableMovement;
+    }
+
     void Start() {
         characterController = GetComponent<CharacterController>();
         camController = mainCamera.GetComponent<CameraController>();
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-
-        // Add callbacks to GUI events
-        ItemInspectGUI.onInspectionGUIEnter += DisableMovement;
-        ItemInspectGUI.onInspectionGUILeave += EnableMovement;
     }
 
     void FixedUpdate() {

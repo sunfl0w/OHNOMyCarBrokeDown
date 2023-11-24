@@ -3,7 +3,7 @@ guid: 6c4541154ee91178aad2ac654d7ebd93
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
-  fontSize: 12
+  fontSize: 30
   forceTextureCase: -2
   characterSpacing: 0
   characterPadding: 1
@@ -12,7 +12,7 @@ TrueTypeFontImporter:
   - Libre Baskerville
   fallbackFontReferences: []
   customCharacters: 
-  fontRenderingMode: 0
+  fontRenderingMode: 2
   ascentCalculationMode: 1
   useLegacyBoundsCalculation: 0
   shouldRoundAdvanceValue: 1

@@ -7,19 +7,19 @@ Shader "Custom/PSXS_Spotlight_Shader"
     }
     SubShader
     {
-        Tags { "RenderType"="Transparent" "Queue"="Transparent" }
+        Tags { "RenderType"="Transparent" "Queue"="Transparent" "RenderPipeline" = "UniversalRenderPipeline" }
         LOD 100
 
         Pass
         {   
             Cull Off
             Blend SrcAlpha OneMinusSrcAlpha
-            CGPROGRAM
+            ZWrite Off
+            HLSLPROGRAM
             #pragma vertex vert
             #pragma fragment frag
 
-            #include "UnityCG.cginc"
-            #include "PSXS_Common.cginc"
+            #include "PSXS_Common.hlsl"
 
             struct appdata {
                 float4 vertex : POSITION;
@@ -54,11 +54,11 @@ Shader "Custom/PSXS_Spotlight_Shader"
                 return o;
             }
 
-            fixed4 frag (v2f i) : SV_Target {
-                fixed4 pre_fog_color = tex2D(_MainTex, i.uv / i.tan.x) * _Light_Color;
+            float4 frag (v2f i) : SV_Target {
+                float4 pre_fog_color = tex2D(_MainTex, i.uv / i.tan.x) * _Light_Color;
                 return lerp(unity_FogColor, pre_fog_color, i.tan.y);
             }
-            ENDCG
+            ENDHLSL
         }
     }
 }

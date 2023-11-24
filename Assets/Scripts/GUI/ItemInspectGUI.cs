@@ -23,6 +23,9 @@ public class ItemInspectGUI : MonoBehaviour {
         } else {
             instance = this;
         }
+    }
+
+    private void Start() {
         Hide();
     }
 
@@ -37,13 +40,14 @@ public class ItemInspectGUI : MonoBehaviour {
         textGUI.text = itemData.interactText;
 
         inspectedItem = Instantiate(itemData.prefab);
+        inspectedItem.layer = LayerMask.NameToLayer("UI");
         inspectedItem.transform.position = mainCamera.transform.position + mainCamera.transform.forward * 1.0f;
         StartCoroutine(HideCoroutine());
     }
 
     public void Hide() {
         Debug.Log("Hide item inspect GUI");
-        onInspectionGUILeave?.Invoke();
+        onInspectionGUILeave.Invoke();
         containerGameObject.SetActive(false);
         textGUI.text = String.Empty;
         if (inspectedItem != null) {

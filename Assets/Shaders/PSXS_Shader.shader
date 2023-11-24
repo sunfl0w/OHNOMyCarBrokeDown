@@ -10,11 +10,10 @@ Shader "Custom/PSXS_Shader"
     {
         Pass
         {
-            Lighting On
-            Tags { "RenderType"="Opaque" }
+            Tags { "RenderType"="Opaque" "RenderPipeline" = "UniversalRenderPipeline" }
             LOD 100
             Cull Off // Very important for some textures used
-            CGPROGRAM
+            HLSLPROGRAM
             
             #pragma target 5.0
 
@@ -27,29 +26,29 @@ Shader "Custom/PSXS_Shader"
             #pragma vertex vertex_shader
             #endif
 
-            #include "UnityCG.cginc"
-            #include "UnityLightingCommon.cginc"
-            #include "PSXS_Common.cginc"
+            #include "PSXS_Common.hlsl"
+            #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl" 
+            #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
 
             struct attributes {
                 float4 pos : POSITION;
                 float3 norm : NORMAL;
                 float2 uv : TEXCOORD0;
-                fixed4 color : COLOR0;
+                float4 color : COLOR0;
             };
 
             struct control_point {
                 float4 pos : INTERNALTESPOS;
                 float3 norm : NORMAL;
                 float2 uv : TEXCOORD0;
-                fixed4 color : COLOR0;
+                float4 color : COLOR0;
             };
 
             struct varyings {
                 float4 pos : SV_POSITION;
                 float3 norm : NORMAL;
                 float2 uv : TEXCOORD0;
-                fixed4 color : COLOR0;
+                float4 color : COLOR0;
                 float3 tan : TANGENT;
             };
 
@@ -80,7 +79,7 @@ Shader "Custom/PSXS_Shader"
                 float4 clip_pos = PSXS_posToClipSpaceJitter(v.pos);
 
                 // Ambient Lighting
-                float4 ambient = UNITY_LIGHTMODEL_AMBIENT;
+                float4 ambient = half4(unity_SHAr.w, unity_SHAg.w, unity_SHAb.w, 0);
 
                 // Emulate PSX uv mapping. Value is later used in fragment shader texture lookup
                 float w = PSXS_getUVMod(v.pos);
@@ -157,12 +156,12 @@ Shader "Custom/PSXS_Shader"
         		return vertex_shader(v);
     		}
 
-            fixed4 fragment_shader (varyings i) : SV_Target {
-                fixed4 pre_fog_color = tex2D(_MainTex, i.uv / i.tan.x) * i.color;
+            float4 fragment_shader (varyings i) : SV_Target {
+                float4 pre_fog_color = tex2D(_MainTex, i.uv / i.tan.x) * i.color;
                 clip(pre_fog_color.a - 0.5f); // Cutoff alpha for binary transparency
                 return lerp(unity_FogColor, pre_fog_color, i.tan.y);
             }
-            ENDCG
+            ENDHLSL
         }
     }
 }
