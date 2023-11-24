@@ -4,8 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using TMPro;
 
-public class Pickup : MonoBehaviour
-{
+public class Pickup : MonoBehaviour {
     public Item item;
     public GameObject pickupDialog;
     public TextMeshProUGUI pickupText;
@@ -14,30 +13,23 @@ public class Pickup : MonoBehaviour
 
     private bool canRotate = false;
 
-
-    void Update()
-    {
-        if (canRotate)
-        {
+    void Update() {
+        if (canRotate) {
             gameObject.transform.Rotate(new Vector3(15, 30, 45) * Time.deltaTime);
         }
     }
 
 
 
-    void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Reach"))
-        {
-
+    void OnTriggerEnter(Collider other) {
+        if (other.CompareTag("Reach")) {
             ShowPickupDialog();
             //Inventory.instance.AddItem(item);
             //Destroy(gameObject);
         }
     }
 
-    void ShowPickupDialog()
-    {
+    void ShowPickupDialog() {
 
         Vector3 cameraPosition = Camera.main.transform.position;
         Vector3 cameraForward = Camera.main.transform.forward;
@@ -54,23 +46,14 @@ public class Pickup : MonoBehaviour
         pickupDialog.SetActive(true);
 
         StartCoroutine(DisableDialog());
-
-
-
     }
 
-    IEnumerator DisableDialog()
-    {
+    IEnumerator DisableDialog() {
         yield return new WaitForSeconds(2f);
         pickupDialog.SetActive(false);
-        Inventory.instance.AddItem(item);
+        //Inventory.instance.AddItem(item);
         Destroy(gameObject);
 
         firstPersonController.canMove = true;
-
     }
-
-
-
-
 }
