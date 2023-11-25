@@ -89,7 +89,7 @@ Shader "Custom/PSXS_Shader"
                 o.pos = clip_pos;
                 o.uv = v.uv * w;
                 // Use up to eight lights for now
-                o.color = float4(PSXS_shadeVertexLightsFull(v.pos, v.norm, _WorldSpaceCameraPos, _Diffuse_Strength, _Specular_Strength, 8, true), 1.0);
+                o.color = float4(PSXS_shadeVertexLightsFull(v.pos, v.norm, _WorldSpaceCameraPos, _Diffuse_Strength, _Specular_Strength), 1.0);
                 o.color += ambient * v.color;
                 float4 world_pos = mul(unity_ObjectToWorld, v.pos);
                 float fog_factor = PSXS_getPerVertexFogLerpFactor(distance(world_pos, _WorldSpaceCameraPos), unity_FogDensity);
@@ -132,16 +132,16 @@ Shader "Custom/PSXS_Shader"
         		return o;
     		}
 
-            [UNITY_domain("quad")]
-    		[UNITY_partitioning("fractional_odd")]
-    		[UNITY_outputtopology("triangle_cw")]
-    		[UNITY_patchconstantfunc("patch_constants")]
-    		[UNITY_outputcontrolpoints(4)]
+            [domain("quad")]
+    		[partitioning("fractional_odd")]
+    		[outputtopology("triangle_cw")]
+    		[patchconstantfunc("patch_constants")]
+    		[outputcontrolpoints(4)]
     		control_point hull_shader(InputPatch<control_point, 4> input_patch, uint id : SV_OutputControlPointID) {
         		return input_patch[id];
     		}
     
-    		[UNITY_domain("quad")]
+    		[domain("quad")]
     		varyings domain_shader(hs_tess_factors tess_factor_data, const OutputPatch<control_point, 4> patch, float2 barycentricCoordinates : SV_DomainLocation) {
         		#define DomainPos(fieldName) v.fieldName = \
                 lerp(lerp(patch[0].fieldName, patch[1].fieldName, barycentricCoordinates.x), lerp(patch[3].fieldName, patch[2].fieldName, barycentricCoordinates.x), barycentricCoordinates.y);

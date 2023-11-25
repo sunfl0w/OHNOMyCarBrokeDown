@@ -26,7 +26,7 @@ float PSXS_getUVMod(float4 vertex_pos_os) {
     #endif
 }
 
-float3 PSXS_shadeVertexLightsFull(float4 vertex_pos_os, float3 vertex_norm_os, float3 camera_pos_ws, float diffuse_modifier, float specular_modifier, int lightCount, bool spotLight) {
+float3 PSXS_shadeVertexLightsFull(float4 vertex_pos_os, float3 vertex_norm_os, float3 camera_pos_ws, float diffuse_modifier, float specular_modifier) {
     float4 vertex_pos_ws = mul(unity_ObjectToWorld, vertex_pos_os);
     float3 vertex_norm_ws = TransformObjectToWorldNormal(vertex_norm_os);
     float3 view_dir = normalize(camera_pos_ws - vertex_pos_ws);

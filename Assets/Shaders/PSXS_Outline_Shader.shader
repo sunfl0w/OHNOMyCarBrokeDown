@@ -89,7 +89,7 @@ Shader "Custom/PSXS_Outline_Shader"
                 o.pos = clip_pos;
                 o.uv = v.uv * w;
                 // Pass final color to fragment shader
-                o.color = float4(PSXS_shadeVertexLightsFull(v.pos, v.norm, _WorldSpaceCameraPos, _Diffuse_Strength, _Specular_Strength, 4, true), 1.0);
+                o.color = float4(PSXS_shadeVertexLightsFull(v.pos, v.norm, _WorldSpaceCameraPos, _Diffuse_Strength, _Specular_Strength), 1.0);
                 o.color += (ambient) * v.color;
                 float4 world_pos = mul(unity_ObjectToWorld, v.pos);
                 float fog_factor = PSXS_getPerVertexFogLerpFactor(distance(world_pos, _WorldSpaceCameraPos), unity_FogDensity);
