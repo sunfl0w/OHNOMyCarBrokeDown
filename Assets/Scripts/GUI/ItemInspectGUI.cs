@@ -30,7 +30,7 @@ public class ItemInspectGUI : MonoBehaviour {
         Hide();
     }
 
-    public void FixedUpdate () {
+    public void Update () {
         if (inspectedItem != null) {
             rotationSpeed.y += Input.GetAxisRaw("Horizontal") * 3.5f * Time.deltaTime - Mathf.Sign(rotationSpeed.y) * rotationSpeed.magnitude * 2.0f * Time.deltaTime;
             rotationSpeed.x += Input.GetAxisRaw("Vertical") * 3.5f * Time.deltaTime - Mathf.Sign(rotationSpeed.x) * rotationSpeed.magnitude * 2.0f * Time.deltaTime;
@@ -53,7 +53,6 @@ public class ItemInspectGUI : MonoBehaviour {
         inspectedItem.layer = LayerMask.NameToLayer("UI");
         inspectedItem.transform.position = guiCamera.transform.position + guiCamera.transform.forward * 1.0f;
         inspectedItem.transform.rotation = guiCamera.transform.rotation;
-        //StartCoroutine(HideCoroutine());
     }
 
     public void Hide() {
