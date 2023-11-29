@@ -37,7 +37,7 @@ public class ItemInspectGUI : MonoBehaviour {
             inspectedItem.transform.RotateAround(inspectedItem.transform.position, guiCamera.transform.up, rotationSpeed.y);
             inspectedItem.transform.RotateAround(inspectedItem.transform.position, guiCamera.transform.right, rotationSpeed.x);
 
-            if (Input.GetKeyDown(KeyCode.E)) {
+            if (Input.GetButtonDown("Interact")) {
                 Hide();
             }
         }

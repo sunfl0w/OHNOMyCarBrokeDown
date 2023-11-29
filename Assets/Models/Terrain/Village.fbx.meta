@@ -17,6 +17,11 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: PoliceCarMaterial
+    second: {fileID: 2100000, guid: 5fd090379cece3a9f8280b05362a97a3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: SpotLightMaterial
     second: {fileID: 2100000, guid: 50d49dc7adcc2a1fea883a6bcfc95258, type: 2}
   materials:

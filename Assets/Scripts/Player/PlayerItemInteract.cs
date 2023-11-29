@@ -12,7 +12,7 @@ public class PlayerItemInteract : MonoBehaviour {
             // Show item pickup GUI
             ItemPickupGUI.Instance.Show(closestInteractableItem);
 
-            if (Input.GetKeyDown(KeyCode.E)) { // Pickup item
+            if (Input.GetButtonDown("Interact")) { // Pickup item
                 closestInteractableItem.AddToPlayerInventroy(); // Add item to player inventory
 
                 closestInteractableItem.Destroy(); // Remove item from scene

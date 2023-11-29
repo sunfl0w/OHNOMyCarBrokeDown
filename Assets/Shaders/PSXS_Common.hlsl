@@ -36,10 +36,10 @@ float3 PSXS_shadeVertexLightsFull(float4 vertex_pos_os, float3 vertex_norm_os, f
     for (int j = 0; j < lightsCount; j++) {
         Light light = GetAdditionalLight(j, vertex_pos_ws);
         light_color.rgb += LightingLambert(light.color * light.distanceAttenuation * 1.0, light.direction, vertex_norm_ws) * diffuse_modifier;
-        light_color.rgb += LightingSpecular(light.color * light.distanceAttenuation * 1.0, light.direction, vertex_norm_ws, view_dir, half4(light.color, 0), 8.0) * specular_modifier;
+        light_color.rgb += LightingSpecular(light.color * light.distanceAttenuation * 1.0, light.direction, vertex_norm_ws, view_dir, half4(light.color, 0), 16.0) * specular_modifier;
     }
     Light light = GetMainLight();
     light_color.rgb += LightingLambert(light.color * light.distanceAttenuation * 1.0, light.direction, vertex_norm_ws) * diffuse_modifier;
-    light_color.rgb += LightingSpecular(light.color * light.distanceAttenuation * 1.0, light.direction, vertex_norm_ws, view_dir, half4(light.color, 0), 8.0) * specular_modifier;
+    light_color.rgb += LightingSpecular(light.color * light.distanceAttenuation * 1.0, light.direction, vertex_norm_ws, view_dir, half4(light.color, 0), 16.0) * specular_modifier;
     return light_color;
 }
