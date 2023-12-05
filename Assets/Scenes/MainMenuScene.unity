@@ -2026,7 +2026,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8271f30affc72de7496240685aee3ce7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cam: {fileID: 1980986476}
+  tex: {fileID: 8400000, guid: 6e44f8052a198dc7ca7d8ac53dcc5dc8, type: 2}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

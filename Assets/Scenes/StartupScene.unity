@@ -312,8 +312,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   videoPlayer: {fileID: 1032622787}
-  startupClip: {fileID: 32900000, guid: cccf74910cd91b631af371b13cec6717, type: 3}
-  problemClip: {fileID: 32900000, guid: 90e3981b417599b949e3be4f5e86e021, type: 3}
+  startupClip: {fileID: 32900000, guid: 4e053df4bd1d0c25081cb75b7e5c1fb7, type: 3}
 --- !u!114 &1032622789
 MonoBehaviour:
   m_ObjectHideFlags: 0
