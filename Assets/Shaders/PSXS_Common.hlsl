@@ -10,7 +10,12 @@ float PSXS_getPerVertexFogLerpFactor(float view_distance, float fog_density) {
 }
 
 float4 PSXS_posToClipSpaceJitter(float4 vertex_pos_os) {
-    float4 clip_pos = TransformObjectToHClip(vertex_pos_os);
+    float3 vertex_pos_ws = TransformObjectToWorld(vertex_pos_os);
+    // Round vertex position in world space to avoid most seams between adjacent edges.
+    // This will not eliminate all seams but most of them
+    vertex_pos_ws.x = round(vertex_pos_ws.x * 250.0) / 250.0;
+    vertex_pos_ws.y = round(vertex_pos_ws.y * 250.0) / 250.0;
+    float4 clip_pos = TransformWorldToHClip(vertex_pos_ws);
     clip_pos.xyz = clip_pos.xyz / clip_pos.w;
     clip_pos.xy = floor(clip_pos.xy * PSX_VERTEX_JITTER_COEFFICIENT + 0.5) / PSX_VERTEX_JITTER_COEFFICIENT;
     clip_pos.xyz *= clip_pos.w;
