@@ -67,7 +67,7 @@ Material:
     - _BumpScale: 1
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
-    - _Diffuse_Strength: 1.2
+    - _Diffuse_Strength: 0.8
     - _DstBlend: 10
     - _Fog_Coefficient: 12
     - _GlossMapScale: 1
@@ -80,7 +80,7 @@ Material:
     - _Parallax: 0.02
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 0
-    - _Specular_Strength: 0.2
+    - _Specular_Strength: 0
     - _SrcBlend: 1
     - _UVSec: 0
     - _Vertex_Jitter_Coefficient: 85

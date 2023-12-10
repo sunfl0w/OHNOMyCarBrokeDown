@@ -88,13 +88,20 @@ Shader "Custom/PSXS_Shader"
                 varyings o;
                 o.pos = clip_pos;
                 o.uv = v.uv * w;
-                // Use up to eight lights for now
-                o.color = float4(PSXS_shadeVertexLightsFull(v.pos, v.norm, _WorldSpaceCameraPos, _Diffuse_Strength, _Specular_Strength), 1.0);
-                float brightness = 0.2126 * o.color.r + 0.7152 * o.color.g + 0.0722 * o.color.b;
+
+                float4 vertex_pos_ws = mul(unity_ObjectToWorld, v.pos);
+                float3 vertex_norm_ws = TransformObjectToWorldNormal(v.norm);
+                float3 view_dir = normalize(_WorldSpaceCameraPos - vertex_pos_ws);
+                float4 light_color = float4(PSXS_shadeVertexLightsPoint(vertex_pos_ws, vertex_norm_ws, view_dir, _Diffuse_Strength, _Specular_Strength), 1.0);
+                float brightness = 0.2126 * light_color.r + 0.7152 * light_color.g + 0.0722 * light_color.b;
+                light_color.rgb += PSXS_shadeVertexLightsDirectional(vertex_norm_ws, view_dir, _Diffuse_Strength, _Specular_Strength);
+                o.color = float4(light_color.rgb, 1.0);
                 o.color += ambient;
                 o.color *= v.color;
                 float4 world_pos = mul(unity_ObjectToWorld, v.pos);
-                float fog_factor = PSXS_getPerVertexFogLerpFactor(distance(world_pos, _WorldSpaceCameraPos), unity_FogDensity) + brightness / 100.0;
+
+                // Add brightness of oint lights to make them more visible in the fog
+                float fog_factor = clamp(0.0, 1.0, PSXS_getPerVertexFogLerpFactor(distance(world_pos, _WorldSpaceCameraPos), unity_FogDensity) + brightness);
                 o.tan.x = w; // Pass w into tan.x as there is no other way to get this float into the fragment shader stage
                 o.tan.y = fog_factor;
                 return o;

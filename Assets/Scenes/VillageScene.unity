@@ -17,7 +17,7 @@ RenderSettings:
   m_Fog: 1
   m_FogColor: {r: 0.05490196, g: 0.05882353, b: 0.07450981, a: 1}
   m_FogMode: 2
-  m_FogDensity: 0.45
+  m_FogDensity: 0.75
   m_LinearFogStart: 11.41
   m_LinearFogEnd: 300
   m_AmbientSkyColor: {r: 0.764151, g: 0.764151, b: 0.764151, a: 1}
@@ -776,36 +776,6 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -2013637587946229873, guid: 0428bc53c72b039998a3822c995978fe, type: 3}
---- !u!114 &468585977
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 468585966}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe732c99187b1ef148a017d0cbbfc2f3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mainCameraTransform: {fileID: 1164314356}
-  lightObject: {fileID: 1044135101}
-  toggleDistance: 15
---- !u!114 &468585980
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 468585968}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe732c99187b1ef148a017d0cbbfc2f3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mainCameraTransform: {fileID: 1164314356}
-  lightObject: {fileID: 1599152418}
-  toggleDistance: 15
 --- !u!1 &487734211
 GameObject:
   m_ObjectHideFlags: 0
@@ -1067,21 +1037,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 647012196}
   m_CullTransparentMesh: 1
---- !u!114 &687882309
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 468585967}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe732c99187b1ef148a017d0cbbfc2f3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mainCameraTransform: {fileID: 1164314356}
-  lightObject: {fileID: 2048953790}
-  toggleDistance: 15
 --- !u!1 &790490304
 GameObject:
   m_ObjectHideFlags: 0
@@ -1848,27 +1803,15 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -7983819470327719093, guid: bafec3d28157fe6718d8f6954c44e1a1, type: 3}
       insertIndex: -1
       addedObject: {fileID: 468585973}
-    - targetCorrespondingSourceObject: {fileID: -7983819470327719093, guid: bafec3d28157fe6718d8f6954c44e1a1, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1987022573}
     - targetCorrespondingSourceObject: {fileID: 4570862300211735375, guid: bafec3d28157fe6718d8f6954c44e1a1, type: 3}
       insertIndex: -1
       addedObject: {fileID: 468585972}
-    - targetCorrespondingSourceObject: {fileID: 4570862300211735375, guid: bafec3d28157fe6718d8f6954c44e1a1, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 468585980}
     - targetCorrespondingSourceObject: {fileID: 5534354634684086230, guid: bafec3d28157fe6718d8f6954c44e1a1, type: 3}
       insertIndex: -1
       addedObject: {fileID: 468585971}
-    - targetCorrespondingSourceObject: {fileID: 5534354634684086230, guid: bafec3d28157fe6718d8f6954c44e1a1, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 687882309}
     - targetCorrespondingSourceObject: {fileID: 3153786237753517408, guid: bafec3d28157fe6718d8f6954c44e1a1, type: 3}
       insertIndex: -1
       addedObject: {fileID: 468585970}
-    - targetCorrespondingSourceObject: {fileID: 3153786237753517408, guid: bafec3d28157fe6718d8f6954c44e1a1, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 468585977}
     - targetCorrespondingSourceObject: {fileID: 143965948972512777, guid: bafec3d28157fe6718d8f6954c44e1a1, type: 3}
       insertIndex: -1
       addedObject: {fileID: 904246103}
@@ -2216,13 +2159,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 987678353}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0.10452846, y: 0, z: 0, w: 0.9945219}
   m_LocalPosition: {x: 0.169, y: 0.839, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1183858475}
-  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 12, y: 0, z: 0}
 --- !u!108 &987678355
 Light:
   m_ObjectHideFlags: 0
@@ -2235,10 +2178,10 @@ Light:
   m_Type: 0
   m_Shape: 0
   m_Color: {r: 1, g: 0.9585924, b: 0.5801887, a: 1}
-  m_Intensity: 40
+  m_Intensity: 50
   m_Range: 18
-  m_SpotAngle: 70
-  m_InnerSpotAngle: 45
+  m_SpotAngle: 35
+  m_InnerSpotAngle: 35
   m_CookieSize: 10
   m_Shadows:
     m_Type: 0
@@ -2353,11 +2296,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   camData: {fileID: 11400000, guid: a7f2dbe966a4477fbb8aa2568e5fcadf, type: 2}
---- !u!1 &1044135101 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: -6983272036905864723, guid: bafec3d28157fe6718d8f6954c44e1a1, type: 3}
-  m_PrefabInstance: {fileID: 904246101}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1047416196
 GameObject:
   m_ObjectHideFlags: 0
@@ -3116,11 +3054,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1543438471}
   m_CullTransparentMesh: 1
---- !u!1 &1599152418 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3917574184922305012, guid: bafec3d28157fe6718d8f6954c44e1a1, type: 3}
-  m_PrefabInstance: {fileID: 904246101}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1636895387
 GameObject:
   m_ObjectHideFlags: 0
@@ -3957,31 +3890,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 10}
   m_SizeDelta: {x: 320, y: 16}
   m_Pivot: {x: 0.5, y: 0}
---- !u!1 &1951678665 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: -8656075419406477148, guid: bafec3d28157fe6718d8f6954c44e1a1, type: 3}
-  m_PrefabInstance: {fileID: 904246101}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1987022573
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 468585969}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe732c99187b1ef148a017d0cbbfc2f3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mainCameraTransform: {fileID: 1164314356}
-  lightObject: {fileID: 1951678665}
-  toggleDistance: 15
---- !u!1 &2048953790 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2550256746841797018, guid: bafec3d28157fe6718d8f6954c44e1a1, type: 3}
-  m_PrefabInstance: {fileID: 904246101}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &3313289312108126087
 PrefabInstance:
   m_ObjectHideFlags: 0

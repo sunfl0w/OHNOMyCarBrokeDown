@@ -31,8 +31,27 @@ float PSXS_getUVMod(float4 vertex_pos_os) {
     #endif
 }
 
+float3 PSXS_shadeVertexLightsDirectional(float3 vertex_norm_ws, float3 view_dir, float diffuse_modifier, float specular_modifier) {
+    float4 light_color = float4(0, 0, 0, 1);
+    Light light = GetMainLight();
+    light_color.rgb += LightingLambert(light.color * light.distanceAttenuation * 1.0, light.direction, vertex_norm_ws) * diffuse_modifier;
+    light_color.rgb += LightingSpecular(light.color * light.distanceAttenuation * 1.0, light.direction, vertex_norm_ws, view_dir, half4(light.color, 0), 16.0) * specular_modifier;
+    return light_color;
+}
+
+float3 PSXS_shadeVertexLightsPoint(float4 vertex_pos_ws, float3 vertex_norm_ws, float3 view_dir, float diffuse_modifier, float specular_modifier) {
+    float4 light_color = float4(0, 0, 0, 1);
+    uint lightsCount = GetAdditionalLightsCount();
+    for (int j = 0; j < lightsCount; j++) {
+        Light light = GetAdditionalLight(j, vertex_pos_ws);
+        light_color.rgb += LightingLambert(light.color * light.distanceAttenuation * 1.0, light.direction, vertex_norm_ws) * diffuse_modifier;
+        light_color.rgb += LightingSpecular(light.color * light.distanceAttenuation * 1.0, light.direction, vertex_norm_ws, view_dir, half4(light.color, 0), 16.0) * specular_modifier;
+    }
+    return light_color;
+}
+
 float3 PSXS_shadeVertexLightsFull(float4 vertex_pos_os, float3 vertex_norm_os, float3 camera_pos_ws, float diffuse_modifier, float specular_modifier) {
-    float4 vertex_pos_ws = mul(unity_ObjectToWorld, vertex_pos_os);
+    /*float4 vertex_pos_ws = mul(unity_ObjectToWorld, vertex_pos_os);
     float3 vertex_norm_ws = TransformObjectToWorldNormal(vertex_norm_os);
     float3 view_dir = normalize(camera_pos_ws - vertex_pos_ws);
 
@@ -41,10 +60,17 @@ float3 PSXS_shadeVertexLightsFull(float4 vertex_pos_os, float3 vertex_norm_os, f
     for (int j = 0; j < lightsCount; j++) {
         Light light = GetAdditionalLight(j, vertex_pos_ws);
         light_color.rgb += LightingLambert(light.color * light.distanceAttenuation * 1.0, light.direction, vertex_norm_ws) * diffuse_modifier;
-        light_color.rgb += LightingSpecular(light.color * light.distanceAttenuation * 1.0, light.direction, vertex_norm_ws, view_dir, half4(light.color, 0), 16.0) * specular_modifier;
+        light_color.rgb += LightingSpecular(light.color * light.distanceAttenuation * 1.0, light.direction, vertex_norm_ws, view_dir, half4(light.color, 0), 32.0) * specular_modifier;
     }
     Light light = GetMainLight();
     light_color.rgb += LightingLambert(light.color * light.distanceAttenuation * 1.0, light.direction, vertex_norm_ws) * diffuse_modifier;
-    light_color.rgb += LightingSpecular(light.color * light.distanceAttenuation * 1.0, light.direction, vertex_norm_ws, view_dir, half4(light.color, 0), 16.0) * specular_modifier;
-    return light_color;
+    light_color.rgb += LightingSpecular(light.color * light.distanceAttenuation * 1.0, light.direction, vertex_norm_ws, view_dir, half4(light.color, 0), 32.0) * specular_modifier;
+    return light_color;*/
+    float4 vertex_pos_ws = mul(unity_ObjectToWorld, vertex_pos_os);
+    float3 vertex_norm_ws = TransformObjectToWorldNormal(vertex_norm_os);
+    float3 view_dir = normalize(camera_pos_ws - vertex_pos_ws);
+    float4 light_color = float4(0, 0, 0, 1);
+    light_color.rgb += PSXS_shadeVertexLightsDirectional(vertex_norm_ws, view_dir, diffuse_modifier, specular_modifier);
+    light_color.rgb += PSXS_shadeVertexLightsPoint(vertex_pos_ws, vertex_norm_ws, view_dir, diffuse_modifier, specular_modifier);
+    return light_color.rgb;
 }
