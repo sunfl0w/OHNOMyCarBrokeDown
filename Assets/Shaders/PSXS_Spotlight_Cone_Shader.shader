@@ -55,7 +55,7 @@ Shader "Custom/PSXS_Spotlight_Shader"
             }
 
             float4 frag (v2f i) : SV_Target {
-                float4 pre_fog_color = tex2D(_MainTex, i.uv / i.tan.x) * _Light_Color;
+                float4 pre_fog_color = pow(tex2D(_MainTex, i.uv / i.tan.x), 5.0) * _Light_Color;
                 return lerp(unity_FogColor, pre_fog_color, i.tan.y);
             }
             ENDHLSL
