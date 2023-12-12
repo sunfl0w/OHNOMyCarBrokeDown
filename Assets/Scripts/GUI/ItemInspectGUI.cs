@@ -30,14 +30,14 @@ public class ItemInspectGUI : MonoBehaviour {
         Hide();
     }
 
-    public void Update () {
+    public void FixedUpdate () {
         if (inspectedItem != null) {
             rotationSpeed.y += Input.GetAxisRaw("Horizontal") * 3.5f * Time.deltaTime - Mathf.Sign(rotationSpeed.y) * rotationSpeed.magnitude * 2.0f * Time.deltaTime;
             rotationSpeed.x += Input.GetAxisRaw("Vertical") * 3.5f * Time.deltaTime - Mathf.Sign(rotationSpeed.x) * rotationSpeed.magnitude * 2.0f * Time.deltaTime;
             inspectedItem.transform.RotateAround(inspectedItem.transform.position, guiCamera.transform.up, rotationSpeed.y);
             inspectedItem.transform.RotateAround(inspectedItem.transform.position, guiCamera.transform.right, rotationSpeed.x);
 
-            if (Input.GetButtonDown("Interact")) {
+            if (Input.GetButtonDown("Cancel")) {
                 Hide();
             }
         }
@@ -47,7 +47,7 @@ public class ItemInspectGUI : MonoBehaviour {
         Debug.Log("Show item inspect GUI");
         onInspectionGUIEnter?.Invoke();
         containerGameObject.SetActive(true);
-        textGUI.text = itemData.interactText + "\nExit with [E]. Move item with [WASD].";
+        textGUI.text = itemData.interactText + "\nExit with [ESC]. Move item with [WASD].";
 
         inspectedItem = Instantiate(itemData.prefab);
         inspectedItem.layer = LayerMask.NameToLayer("UI");

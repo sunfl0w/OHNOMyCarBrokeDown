@@ -9,7 +9,6 @@ public class RenderTextureBlitter : MonoBehaviour {
     }
 
     void OnEndContextRendering(ScriptableRenderContext context, List<Camera> cameras) {
-        // Put the code that you want to execute at the end of RenderPipeline.Render here
         Graphics.Blit(tex, (RenderTexture)null);
     }
 
