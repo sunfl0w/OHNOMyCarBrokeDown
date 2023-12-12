@@ -38,8 +38,7 @@ Shader "Custom/Pixelize" {
         Pass {
             HLSLPROGRAM
             half4 frag(Varyings IN) : SV_TARGET {
-                float4 tex = SAMPLE_TEXTURE2D(_MainTex, sampler_point_clamp, IN.uv);
-                return tex;
+                return SAMPLE_TEXTURE2D(_MainTex, sampler_point_clamp, IN.uv);
             }
             ENDHLSL
         }

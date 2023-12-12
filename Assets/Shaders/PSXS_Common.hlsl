@@ -1,7 +1,7 @@
 #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl" 
 #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
 
-#define PSX_VERTEX_JITTER_COEFFICIENT 120.0
+#define PSX_VERTEX_JITTER_COEFFICIENT 150.0
 #define PSX_ENABLE_AFFINE_TEXTURE_MAPPING // Only disable when PSX_ENABLE_TESSELLATION is set for best effect
 //#define PSX_ENABLE_TESSELLATION // Enbales tessellation shader stage
 
