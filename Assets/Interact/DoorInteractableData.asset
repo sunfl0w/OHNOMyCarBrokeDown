@@ -10,6 +10,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a3e520289c06be1b7b7e029629d2171e, type: 3}
-  m_Name: DoorInteractableData 1
+  m_Name: DoorInteractableData
   m_EditorClassIdentifier: 
   interactText: Press [E] to use door.

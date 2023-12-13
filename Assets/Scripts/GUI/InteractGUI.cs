@@ -30,4 +30,8 @@ public class InteractGUI : MonoBehaviour {
         containerGameObject.SetActive(false);
         textGUI.text = String.Empty;
     }
+
+    public bool IsVisible() {
+        return containerGameObject.activeSelf;
+    }
 }

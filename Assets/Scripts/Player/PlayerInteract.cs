@@ -8,8 +8,10 @@ public class PlayerInteract : MonoBehaviour {
 
         if (closestInteractable != null) {
             // Show interact GUI
-            Debug.Log("Interactable in range");
-            InteractGUI.Instance.Show(closestInteractable);
+            if(!InteractGUI.Instance.IsVisible()) {
+                Debug.Log("Interactable in range");
+                InteractGUI.Instance.Show(closestInteractable);
+            }
 
             if (Input.GetButtonDown("Interact")) {
                 closestInteractable.Interact();

@@ -140,15 +140,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d7a651ebdbadd56f4a1a050fd0475476, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 4.872
+      value: 4.5
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d7a651ebdbadd56f4a1a050fd0475476, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.055
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d7a651ebdbadd56f4a1a050fd0475476, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 15.251
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d7a651ebdbadd56f4a1a050fd0475476, type: 3}
       propertyPath: m_LocalRotation.w
@@ -297,6 +297,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: d7a651ebdbadd56f4a1a050fd0475476, type: 3}
       propertyPath: m_Layer
       value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: d7a651ebdbadd56f4a1a050fd0475476, type: 3}
+      propertyPath: m_TagString
+      value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 986612437532216590, guid: d7a651ebdbadd56f4a1a050fd0475476, type: 3}
       propertyPath: m_Layer
@@ -497,7 +501,7 @@ CharacterController:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 75776
+    m_Bits: 73728
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
