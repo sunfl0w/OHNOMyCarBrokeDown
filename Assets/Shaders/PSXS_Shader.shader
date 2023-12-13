@@ -93,7 +93,8 @@ Shader "Custom/PSXS_Shader"
                 float3 vertex_norm_ws = TransformObjectToWorldNormal(v.norm);
                 float3 view_dir = normalize(_WorldSpaceCameraPos - vertex_pos_ws);
                 float4 light_color = float4(PSXS_shadeVertexLightsPoint(vertex_pos_ws, vertex_norm_ws, view_dir, _Diffuse_Strength, _Specular_Strength), 1.0);
-                float brightness = 0.2126 * light_color.r + 0.7152 * light_color.g + 0.0722 * light_color.b;
+                float brightness = 0.2126 * light_color.r + 0.7152 * light_color.g + 0.0722 * light_color.b + 0.001;
+                light_color /= brightness * 0.5; // Limit max brightness to not oversaturate lighting
                 light_color.rgb += PSXS_shadeVertexLightsDirectional(vertex_norm_ws, view_dir, _Diffuse_Strength, _Specular_Strength);
                 o.color = float4(light_color.rgb, 1.0);
                 o.color += ambient;
