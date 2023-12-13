@@ -19,7 +19,7 @@ public class PlayerAudioDirector : MonoBehaviour {
     void Update() {
         // TODO: Code needs to be refactored
         // Based on the player controller and the terrain type play appropriate walking/running sound clips
-        if(thirdPersonController.GetIsMoving() && thirdPersonController.GetIsGrounded()) {
+        /*if(thirdPersonController.GetIsMoving() && thirdPersonController.GetIsGrounded()) {
             playerAudioSource.volume = maxVolume;
             ThirdPersonPlayerController.TerrainType terrainType = thirdPersonController.GetTerrainType();
             if(terrainType == ThirdPersonPlayerController.TerrainType.GRASS) {
@@ -45,6 +45,6 @@ public class PlayerAudioDirector : MonoBehaviour {
         } else {
             playerAudioSource.time = 0.0f;
             playerAudioSource.volume = 0.0f;
-        }
+        }*/
     }
 }

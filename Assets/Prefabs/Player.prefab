@@ -140,15 +140,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d7a651ebdbadd56f4a1a050fd0475476, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 4.5
+      value: 4.872
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d7a651ebdbadd56f4a1a050fd0475476, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.055
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d7a651ebdbadd56f4a1a050fd0475476, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.5
+      value: 15.251
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d7a651ebdbadd56f4a1a050fd0475476, type: 3}
       propertyPath: m_LocalRotation.w
@@ -444,9 +444,6 @@ PrefabInstance:
       addedObject: {fileID: 2564661380606491669}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: d7a651ebdbadd56f4a1a050fd0475476, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 6855465894643754238}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: d7a651ebdbadd56f4a1a050fd0475476, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 5984268569681685550}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: d7a651ebdbadd56f4a1a050fd0475476, type: 3}
       insertIndex: -1
@@ -454,6 +451,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: d7a651ebdbadd56f4a1a050fd0475476, type: 3}
       insertIndex: -1
       addedObject: {fileID: 9441562912263995}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: d7a651ebdbadd56f4a1a050fd0475476, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1215050439610509494}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: d7a651ebdbadd56f4a1a050fd0475476, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1637057080451795308}
   m_SourcePrefab: {fileID: 100100000, guid: d7a651ebdbadd56f4a1a050fd0475476, type: 3}
 --- !u!4 &6959117380186747406 stripped
 Transform:
@@ -483,7 +486,6 @@ MonoBehaviour:
   runSpeed: 6
   gravity: 10
   rotationSpeed: 20
-  terrainTypeLookup: {fileID: 2800000, guid: 409ba083d703db0b58518014b6713e24, type: 3}
   canMove: 1
   currentSpeed: 0
   translationDampening: 3
@@ -535,25 +537,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &6855465894643754238
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7770979636107241652}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b1d106be92272924a8a1793276bfb647, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxVolume: 0.1
-  thirdPersonController: {fileID: 3347641768980847596}
-  playerAudioSource: {fileID: 5984268569681685550}
-  walkGrassClip: {fileID: 8300000, guid: e1f86ea7db0f69c249bf80c0eb7ef418, type: 3}
-  runGrassClip: {fileID: 8300000, guid: b7907190808094db999661849a60df6d, type: 3}
-  walkConcreteClip: {fileID: 8300000, guid: 8ffb72fdfa0e677e5abab3191607b8d7, type: 3}
-  runConcreteClip: {fileID: 8300000, guid: cb37c5a6008df6a3eaedf422d75cf476, type: 3}
 --- !u!82 &5984268569681685550
 AudioSource:
   m_ObjectHideFlags: 0
@@ -674,3 +657,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca71c3f81f1014d928e5b115771876f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1215050439610509494
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7770979636107241652}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5890d511a4283222a98995997e190852, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  terrainTypeLookup: {fileID: 2800000, guid: 27ce9c2ced13457b1aa37052095d7684, type: 3}
+--- !u!114 &1637057080451795308
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7770979636107241652}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06cfc0661ff323233bc52b507220c227, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxVolume: 1
+  playerTerrainChecker: {fileID: 1215050439610509494}
+  playerAudioSource: {fileID: 5984268569681685550}
+  stepGrassClips: []
+  stepConcreteClips: []

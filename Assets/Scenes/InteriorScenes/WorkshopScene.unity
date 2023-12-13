@@ -644,6 +644,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1637057080451795308, guid: 2bea7eb78fe50bfc8af92e4fb3c8f219, type: 3}
+      propertyPath: stepGrassClips.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1637057080451795308, guid: 2bea7eb78fe50bfc8af92e4fb3c8f219, type: 3}
+      propertyPath: stepConcreteClips.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1637057080451795308, guid: 2bea7eb78fe50bfc8af92e4fb3c8f219, type: 3}
+      propertyPath: stepGrassClips.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: e1f86ea7db0f69c249bf80c0eb7ef418, type: 3}
+    - target: {fileID: 1637057080451795308, guid: 2bea7eb78fe50bfc8af92e4fb3c8f219, type: 3}
+      propertyPath: stepConcreteClips.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: 8ffb72fdfa0e677e5abab3191607b8d7, type: 3}
     - target: {fileID: 3347641768980847596, guid: 2bea7eb78fe50bfc8af92e4fb3c8f219, type: 3}
       propertyPath: mainCamera
       value: 
@@ -829,10 +845,18 @@ PrefabInstance:
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 9ab41eca012f69e5c8b5ac7c3ec154af, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1730947864}
     - targetCorrespondingSourceObject: {fileID: 143965948972512777, guid: 9ab41eca012f69e5c8b5ac7c3ec154af, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1730947863}
   m_SourcePrefab: {fileID: 100100000, guid: 9ab41eca012f69e5c8b5ac7c3ec154af, type: 3}
+--- !u!1 &1730947862 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 9ab41eca012f69e5c8b5ac7c3ec154af, type: 3}
+  m_PrefabInstance: {fileID: 1730947861}
+  m_PrefabAsset: {fileID: 0}
 --- !u!64 &1730947863
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -855,6 +879,30 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 1393034328629632231, guid: 9ab41eca012f69e5c8b5ac7c3ec154af, type: 3}
+--- !u!167 &1730947864
+AudioReverbZone:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1730947862}
+  m_Enabled: 1
+  m_MinDistance: 25
+  m_MaxDistance: 25
+  m_ReverbPreset: 1
+  m_Room: -1000
+  m_RoomHF: -100
+  m_DecayTime: 1.49
+  m_DecayHFRatio: 0.83
+  m_Reflections: -2602
+  m_ReflectionsDelay: 0.007
+  m_Reverb: 200
+  m_ReverbDelay: 0.011
+  m_HFReference: 5000
+  m_Diffusion: 100
+  m_Density: 100
+  m_LFReference: 250
+  m_RoomLF: 0
 --- !u!1 &1769564819
 GameObject:
   m_ObjectHideFlags: 0
