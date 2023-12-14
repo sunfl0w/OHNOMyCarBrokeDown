@@ -457,6 +457,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: d7a651ebdbadd56f4a1a050fd0475476, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1637057080451795308}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: d7a651ebdbadd56f4a1a050fd0475476, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3932678032419610857}
   m_SourcePrefab: {fileID: 100100000, guid: d7a651ebdbadd56f4a1a050fd0475476, type: 3}
 --- !u!4 &6959117380186747406 stripped
 Transform:
@@ -549,7 +552,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 24300002, guid: d5189a4b45e3b267489b09dacf2c2b29, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -557,8 +560,8 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 2
-  MaxDistance: 10
+  MinDistance: 1
+  MaxDistance: 25
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -685,5 +688,18 @@ MonoBehaviour:
   maxVolume: 1
   playerTerrainChecker: {fileID: 1215050439610509494}
   playerAudioSource: {fileID: 5984268569681685550}
-  stepGrassClips: []
-  stepConcreteClips: []
+  stepGrassClips:
+  - {fileID: 8300000, guid: 516795b900990b3698e7a6faf460f150, type: 3}
+  stepConcreteClips:
+  - {fileID: 8300000, guid: 516795b900990b3698e7a6faf460f150, type: 3}
+  - {fileID: 8300000, guid: 72136a55a0ad932b2b46b5e480e3b83b, type: 3}
+  - {fileID: 8300000, guid: 75e00c7df27755ba38aecbe32e8ed24d, type: 3}
+  - {fileID: 8300000, guid: 686f8430fc514a30a89039ad24082416, type: 3}
+--- !u!81 &3932678032419610857
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7770979636107241652}
+  m_Enabled: 1
