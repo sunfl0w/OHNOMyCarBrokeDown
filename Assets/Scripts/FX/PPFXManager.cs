@@ -25,6 +25,8 @@ public class PPFXManager : MonoBehaviour
 
         ItemInspectGUI.onInspectionGUIEnter += SetBlurProfile;
         ItemInspectGUI.onInspectionGUILeave += SetBaseProfile;
+        InventoryGUI.onInspectionGUIEnter += SetBlurProfile;
+        InventoryGUI.onInspectionGUILeave += SetBaseProfile;
 
     }
 
