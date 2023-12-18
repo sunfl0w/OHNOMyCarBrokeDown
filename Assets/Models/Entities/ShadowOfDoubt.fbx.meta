@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 13bb6192c9b64b1a1b2ff75b8fc3ce51
+guid: 94e18bf077c69d3f3b26a358beba2099
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -7,8 +7,8 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: BaseMaterial
-    second: {fileID: 2100000, guid: 91a7ed015fd2045ee8fef5edd74758df, type: 2}
+      name: ShadowOfDouptMaterial
+    second: {fileID: 2100000, guid: b48871610daaab79b8ede4901df0c048, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -29,7 +29,7 @@ ModelImporter:
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
     importConstraints: 0
-    animationCompression: 3
+    animationCompression: 1
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
@@ -38,11 +38,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Armature|ArmatureAction
-      takeName: Armature|ArmatureAction
-      internalID: 4781951162920444690
+      name: ShadowOfDoubtArmature|0TPose
+      takeName: ShadowOfDoubtArmature|0TPose
+      internalID: -2986078513323208073
       firstFrame: 0
-      lastFrame: 79
+      lastFrame: 0
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -67,11 +67,11 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Armature|Idle
-      takeName: Armature|Idle
-      internalID: -8945691123924629249
+      name: ShadowOfDoubtArmature|Attack
+      takeName: ShadowOfDoubtArmature|Attack
+      internalID: -6604300288099199826
       firstFrame: 0
-      lastFrame: 39
+      lastFrame: 80
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -96,11 +96,11 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Armature|Walk
-      takeName: Armature|Walk
-      internalID: 8349542763059015795
+      name: ShadowOfDoubtArmature|Idle_Walk
+      takeName: ShadowOfDoubtArmature|Idle_Walk
+      internalID: 2990764036273995984
       firstFrame: 0
-      lastFrame: 1
+      lastFrame: 80
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -174,87 +174,7 @@ ModelImporter:
   humanDescription:
     serializedVersion: 3
     human: []
-    skeleton:
-    - name: Specter(Clone)
-      parentName: 
-      position: {x: 0, y: 0, z: 0}
-      rotation: {x: 0, y: 0, z: 0, w: 1}
-      scale: {x: 1, y: 1, z: 1}
-    - name: Body
-      parentName: Specter(Clone)
-      position: {x: 0, y: 0, z: 0}
-      rotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-      scale: {x: 100, y: 100, z: 100}
-    - name: Hands
-      parentName: Specter(Clone)
-      position: {x: 0, y: 0.037403345, z: -0.6686347}
-      rotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-      scale: {x: -15.310228, y: -15.310228, z: -15.310228}
-    - name: Armature
-      parentName: Specter(Clone)
-      position: {x: 0, y: 1.1241353, z: 0.6952965}
-      rotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-      scale: {x: 30.05283, y: 30.05283, z: 30.05283}
-    - name: Spine
-      parentName: Armature
-      position: {x: 0, y: -0.002881469, z: -0.00041568757}
-      rotation: {x: -0.64720154, y: -0.00000009087546, z: 0.0000000771524, w: 0.7623189}
-      scale: {x: 1, y: 1, z: 1.0000001}
-    - name: Arm.L
-      parentName: Spine
-      position: {x: -0.012241461, y: 0.0042856545, z: -0.0008441263}
-      rotation: {x: 0.69525373, y: -0.026351133, z: 0.70447576, w: 0.14014944}
-      scale: {x: 1.0000005, y: 1.0000006, z: 1.0000007}
-    - name: Hand.L
-      parentName: Arm.L
-      position: {x: -5.820766e-10, y: 0.0118595045, z: 4.656613e-10}
-      rotation: {x: -0.06243205, y: 0.0062635415, z: 0.023955874, w: 0.997742}
-      scale: {x: 1.0000005, y: 1.0000005, z: 1.0000004}
-    - name: Hand.L_end
-      parentName: Hand.L
-      position: {x: 0, y: 0.0080676405, z: 0}
-      rotation: {x: 0, y: 0, z: 0, w: 1}
-      scale: {x: 1, y: 1, z: 1}
-    - name: Head
-      parentName: Spine
-      position: {x: -3.5527136e-17, y: 0.012694335, z: -1.4901161e-10}
-      rotation: {x: -0.04448858, y: -4.2632564e-14, z: 0.0000000106069, w: 0.9990099}
-      scale: {x: 1, y: 1.0000002, z: 1.0000002}
-    - name: Head_end
-      parentName: Head
-      position: {x: 0, y: 0.01111783, z: 0}
-      rotation: {x: 0, y: 0, z: 0, w: 1}
-      scale: {x: 1, y: 1, z: 1}
-    - name: LowerSpine
-      parentName: Spine
-      position: {x: -3.201404e-12, y: -0.0033274794, z: -0.0000134272495}
-      rotation: {x: -0.00000007455542, y: -0.1575352, z: 0.9875134, w: 0.000000049452996}
-      scale: {x: 1.0000005, y: 1.0000006, z: 0.9999986}
-    - name: Tail
-      parentName: LowerSpine
-      position: {x: 5.2430503e-16, y: 0.023144374, z: -8.9406965e-10}
-      rotation: {x: -0.17267105, y: 0.00000082192946, z: -0.00000021132847, w: 0.98497957}
-      scale: {x: 1.0000008, y: 1.0000006, z: 1.0000002}
-    - name: Tail_end
-      parentName: Tail
-      position: {x: 0, y: 0.015843378, z: 0}
-      rotation: {x: 0, y: 0, z: 0, w: 1}
-      scale: {x: 1, y: 1, z: 1}
-    - name: Arm.R
-      parentName: Spine
-      position: {x: 0.012241461, y: 0.0042856545, z: -0.00084413204}
-      rotation: {x: 0.6952535, y: 0.02635105, z: -0.70447594, w: 0.14014938}
-      scale: {x: 1.0000004, y: 1.0000006, z: 1.0000006}
-    - name: Hand.R
-      parentName: Arm.R
-      position: {x: 1.0011717e-10, y: 0.011859503, z: 4.8894433e-10}
-      rotation: {x: -0.06243201, y: -0.006263645, z: -0.023955815, w: 0.99774206}
-      scale: {x: 1.0000008, y: 1.0000006, z: 1.0000005}
-    - name: Hand.R_end
-      parentName: Hand.R
-      position: {x: 0, y: 0.0080676405, z: 0}
-      rotation: {x: 0, y: 0, z: 0, w: 1}
-      scale: {x: 1, y: 1, z: 1}
+    skeleton: []
     armTwist: 0.5
     foreArmTwist: 0.5
     upperLegTwist: 0.5
@@ -265,13 +185,13 @@ ModelImporter:
     globalScale: 1
     rootMotionBoneName: 
     hasTranslationDoF: 0
-    hasExtraRoot: 1
+    hasExtraRoot: 0
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 2
   humanoidOversampling: 1
-  avatarSetup: 1
+  avatarSetup: 0
   addHumanoidExtraRootOnlyWhenUsingAvatar: 1
   importBlendShapeDeformPercent: 1
   remapMaterialsIfMaterialImportModeIsNone: 0

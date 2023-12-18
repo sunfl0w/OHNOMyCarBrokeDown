@@ -46,6 +46,13 @@ public class NavAgent : MonoBehaviour {
         }
     }
 
+    public Vector3 GetNextWaypoint() {
+        if(path != null && currentPathIndex < path.Count) {
+            return path[currentPathIndex];
+        }
+        return Vector3.positiveInfinity;
+    }
+
     IEnumerator UpdatePath() {
         while (true) {
             if (movementEnabled) {
