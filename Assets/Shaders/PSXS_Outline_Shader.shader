@@ -79,7 +79,7 @@ Shader "Custom/PSXS_Outline_Shader"
                 float4 clip_pos = PSXS_posToClipSpaceJitter(v.pos);
 
                 // Ambient Lighting
-                float4 ambient = UNITY_LIGHTMODEL_AMBIENT;
+                float4 ambient = half4(unity_SHAr.w, unity_SHAg.w, unity_SHAb.w, 0);
 
                 // Emulate PSX uv mapping. Value is later used in fragment shader texture lookup
                 float w = PSXS_getUVMod(v.pos);
@@ -88,10 +88,19 @@ Shader "Custom/PSXS_Outline_Shader"
                 varyings o;
                 o.pos = clip_pos;
                 o.uv = v.uv * w;
-                // Pass final color to fragment shader
-                o.color = float4(PSXS_shadeVertexLightsFull(v.pos, v.norm, _WorldSpaceCameraPos, _Diffuse_Strength, _Specular_Strength), 1.0);
-                o.color += (ambient) * v.color;
+
+                float4 vertex_pos_ws = mul(unity_ObjectToWorld, v.pos);
+                float3 vertex_norm_ws = TransformObjectToWorldNormal(v.norm);
+                float3 view_dir = normalize(_WorldSpaceCameraPos - vertex_pos_ws);
+                float4 light_color = float4(PSXS_shadeVertexLightsPoint(vertex_pos_ws, vertex_norm_ws, view_dir, _Diffuse_Strength, _Specular_Strength), 1.0);
+                float brightness = 0.2126 * light_color.r + 0.7152 * light_color.g + 0.0722 * light_color.b + 0.001;
+                light_color /= brightness * 0.5; // Limit max brightness to not oversaturate lighting
+                light_color.rgb += PSXS_shadeVertexLightsDirectional(vertex_norm_ws, view_dir, _Diffuse_Strength, _Specular_Strength);
+                o.color = float4(light_color.rgb, 1.0);
+                o.color += ambient;
+                o.color *= v.color;
                 float4 world_pos = mul(unity_ObjectToWorld, v.pos);
+                
                 float fog_factor = PSXS_getPerVertexFogLerpFactor(distance(world_pos, _WorldSpaceCameraPos), unity_FogDensity);
                 o.tan.x = w; // Pass w into tan.x as there is no other way to get this float into the fragment shader stage
                 o.tan.y = fog_factor;
@@ -159,7 +168,7 @@ Shader "Custom/PSXS_Outline_Shader"
             float4 fragment_shader (varyings i) : SV_Target {
                 float4 pre_fog_color = tex2D(_MainTex, i.uv / i.tan.x) * i.color;
                 clip(pre_fog_color.a - 0.5f); // Cutoff alpha for binary transparency
-                return lerp(unity_FogColor, pre_fog_color, i.tan.y);
+                return pre_fog_color;//lerp(unity_FogColor, pre_fog_color, i.tan.y);
             }
             ENDHLSL
         }
@@ -205,7 +214,7 @@ Shader "Custom/PSXS_Outline_Shader"
                 float3 normal_cs = mul((float3x3)UNITY_MATRIX_VP, mul((float3x3)UNITY_MATRIX_M, v.norm));
 
                 // Move vertex along normal vector in clip space.
-                clip_pos.xy += normalize(normal_cs.xy) / _ScreenParams.xy * clip_pos.w * _Outline_Width * 2;
+                clip_pos.xy += normalize(normal_cs.xy) / _ScreenParams.xy * clip_pos.w * _Outline_Width * 1;
 
                 // Pass position in clip space and uv coords to fragment shader
                 varyings o;
