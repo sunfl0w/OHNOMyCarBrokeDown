@@ -168,7 +168,7 @@ Shader "Custom/PSXS_Outline_Shader"
             float4 fragment_shader (varyings i) : SV_Target {
                 float4 pre_fog_color = tex2D(_MainTex, i.uv / i.tan.x) * i.color;
                 clip(pre_fog_color.a - 0.5f); // Cutoff alpha for binary transparency
-                return pre_fog_color;//lerp(unity_FogColor, pre_fog_color, i.tan.y);
+                return lerp(unity_FogColor, pre_fog_color, i.tan.y);
             }
             ENDHLSL
         }
