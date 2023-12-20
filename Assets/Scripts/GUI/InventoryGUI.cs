@@ -25,6 +25,7 @@ public class InventoryGUI : MonoBehaviour
     private Vector3 rotationSpeed = Vector3.zero;
 
     private GameObject inspectedItem = null;
+    private int itemsCount = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -53,8 +54,28 @@ public class InventoryGUI : MonoBehaviour
             onInspectionGUIEnter?.Invoke();
             InventoryCanvas.SetActive(true);
             canvasActivated = true;
+            currentItemIndex = 0;
             PlayerInventory.Instance.printItems();
             updateUI();
+        }
+        else if ((Input.GetKeyDown(KeyCode.L) || Input.GetKeyDown(KeyCode.LeftArrow)) && canvasActivated)
+        {
+
+            if (leftArrow.color == Color.white)
+            {
+                currentItemIndex -= 1;
+                updateUI();
+            }
+
+        }
+        else if ((Input.GetKeyDown(KeyCode.R) || Input.GetKeyDown(KeyCode.RightArrow)) && canvasActivated)
+        {
+            if (rightArrow.color == Color.white)
+            {
+                currentItemIndex += 1;
+                updateUI();
+            }
+
         }
 
 
@@ -66,24 +87,29 @@ public class InventoryGUI : MonoBehaviour
         {
             itemName.text = "No item in inventory.";
             itemDescription.text = "";
+            leftArrow.color = Color.grey;
+            rightArrow.color = Color.grey;
 
         }
         else
         {
-            (ItemData item, uint count) tuple = PlayerInventory.Instance.items[currentItemIndex];
-            currentItemData = tuple.item;
-            itemName.text = currentItemData.itemName;
-            itemDescription.text = currentItemData.interactText;
-
-            if (inspectedItem != null)
+            if (currentItemIndex >= 0 && (currentItemIndex + 1) < PlayerInventory.Instance.items.Count)
             {
-                Destroy(inspectedItem.gameObject);
+                rightArrow.color = Color.white;
             }
-
-            inspectedItem = Instantiate(currentItemData.prefab);
-            inspectedItem.layer = LayerMask.NameToLayer("UI");
-            inspectedItem.transform.position = guiCamera.transform.position + guiCamera.transform.forward * 1.0f;
-            inspectedItem.transform.rotation = guiCamera.transform.rotation;
+            else
+            {
+                rightArrow.color = Color.grey;
+            }
+            if (currentItemIndex != 0)
+            {
+                leftArrow.color = Color.white;
+            }
+            else
+            {
+                leftArrow.color = Color.grey;
+            }
+            ViewCurrentItem();
 
         }
     }
@@ -98,6 +124,24 @@ public class InventoryGUI : MonoBehaviour
             inspectedItem.transform.RotateAround(inspectedItem.transform.position, guiCamera.transform.right, rotationSpeed.x);
 
         }
+    }
+
+    private void ViewCurrentItem()
+    {
+        (ItemData item, uint count) tuple = PlayerInventory.Instance.items[currentItemIndex];
+        currentItemData = tuple.item;
+        itemName.text = currentItemData.itemName;
+        itemDescription.text = currentItemData.interactText;
+
+        if (inspectedItem != null)
+        {
+            Destroy(inspectedItem.gameObject);
+        }
+
+        inspectedItem = Instantiate(currentItemData.prefab);
+        inspectedItem.layer = LayerMask.NameToLayer("UI");
+        inspectedItem.transform.position = guiCamera.transform.position + guiCamera.transform.forward * 1.0f;
+        inspectedItem.transform.rotation = guiCamera.transform.rotation;
     }
 
 
