@@ -869,7 +869,7 @@ Transform:
   m_GameObject: {fileID: 784709011}
   serializedVersion: 2
   m_LocalRotation: {x: 0.18739274, y: 0.8063375, z: -0.33748096, w: 0.44811884}
-  m_LocalPosition: {x: -6.347534, y: 3.908966, z: 12.322388}
+  m_LocalPosition: {x: -6.16, y: 3.909, z: 12.625}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2314,6 +2314,10 @@ PrefabInstance:
       value: 1.8
       objectReference: {fileID: 0}
     - target: {fileID: 1146746092227789866, guid: efbb051ea5c933d9d9d27520e78b5177, type: 3}
+      propertyPath: m_Radius
+      value: 0.26
+      objectReference: {fileID: 0}
+    - target: {fileID: 1146746092227789866, guid: efbb051ea5c933d9d9d27520e78b5177, type: 3}
       propertyPath: m_Center.y
       value: 0.9
       objectReference: {fileID: 0}
@@ -2373,6 +2377,10 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 1994147993}
+    - target: {fileID: 7129296078381360694, guid: efbb051ea5c933d9d9d27520e78b5177, type: 3}
+      propertyPath: attackCooldownTime
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
