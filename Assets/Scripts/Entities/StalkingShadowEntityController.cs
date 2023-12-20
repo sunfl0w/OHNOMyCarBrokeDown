@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SODEntityController : MonoBehaviour {
+public class StalkingShadowEntityController : MonoBehaviour {
     public GameObject player;
     public float aggroRange = 10.0f;
     public float attackRange = 1.0f;

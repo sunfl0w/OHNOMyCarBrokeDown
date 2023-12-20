@@ -53,7 +53,7 @@ Shader "Custom/PSXS_Dropdown_Shadow_Shader"
 
             float4 frag (v2f i) : SV_Target {
                 float4 pre_fog_color = tex2D(_MainTex, i.uv / i.tan.x);
-                return lerp(unity_FogColor, pre_fog_color, i.tan.y);
+                return float4(lerp(unity_FogColor.rgb, pre_fog_color.rgb, i.tan.y), pre_fog_color.a);
             }
             ENDHLSL
         }

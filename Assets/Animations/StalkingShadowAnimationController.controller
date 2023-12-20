@@ -21,7 +21,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 2990764036273995984, guid: 94e18bf077c69d3f3b26a358beba2099, type: 3}
+  m_Motion: {fileID: -6348277011411150764, guid: 6dc4f054b20e983859fd4dfbce2b4bc4, type: 3}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -33,7 +33,7 @@ AnimatorController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: SODAnimationController
+  m_Name: StalkingShadowAnimationController
   serializedVersion: 5
   m_AnimatorParameters:
   - m_Name: AttackTrigger
@@ -41,7 +41,7 @@ AnimatorController:
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
@@ -148,7 +148,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: -6604300288099199826, guid: 94e18bf077c69d3f3b26a358beba2099, type: 3}
+  m_Motion: {fileID: 6463435060706948853, guid: 6dc4f054b20e983859fd4dfbce2b4bc4, type: 3}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 

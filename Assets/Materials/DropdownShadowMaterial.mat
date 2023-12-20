@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: PlayerDropdownShadowMaterial
+  m_Name: DropdownShadowMaterial
   m_Shader: {fileID: 4800000, guid: 87da2b136358778c1842d862d534e247, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
