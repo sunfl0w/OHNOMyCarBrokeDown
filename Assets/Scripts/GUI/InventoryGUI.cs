@@ -17,6 +17,9 @@ public class InventoryGUI : MonoBehaviour
     public TextMeshProUGUI leftArrow;
     public TextMeshProUGUI rightArrow;
 
+    public TextMeshProUGUI status;
+    public TextMeshProUGUI equipButton;
+
     public static event Action onInspectionGUIEnter;
     public static event Action onInspectionGUILeave;
 
@@ -25,7 +28,6 @@ public class InventoryGUI : MonoBehaviour
     private Vector3 rotationSpeed = Vector3.zero;
 
     private GameObject inspectedItem = null;
-    private int itemsCount = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -76,6 +78,16 @@ public class InventoryGUI : MonoBehaviour
                 updateUI();
             }
 
+        }
+        else if (Input.GetKeyDown(KeyCode.E) && canvasActivated && inspectedItem != null)
+        {
+            if (equipButton.text != "")
+            {
+                (ItemData item, uint count) tuple = PlayerInventory.Instance.items[currentItemIndex];
+                currentItemData = tuple.item;
+                PlayerInventory.Instance.equipItem(currentItemData);
+                updateUI();
+            }
         }
 
 
@@ -132,6 +144,16 @@ public class InventoryGUI : MonoBehaviour
         currentItemData = tuple.item;
         itemName.text = currentItemData.itemName;
         itemDescription.text = currentItemData.interactText;
+        if (PlayerInventory.Instance.equipment == currentItemData)
+        {
+            status.text = "*equipped";
+            equipButton.text = "";
+        }
+        else
+        {
+            status.text = "";
+            equipButton.text = "[E]quip";
+        }
 
         if (inspectedItem != null)
         {

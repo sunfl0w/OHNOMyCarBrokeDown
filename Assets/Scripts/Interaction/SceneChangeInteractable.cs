@@ -24,7 +24,7 @@ public class SceneChanceInteractable : MonoBehaviour, IInteractable
         }
         else
         {
-            hintText.text = "The door is locked...\n(Hint: Press [I] to check the inventory)";
+            hintText.text = "The door is locked...\n(Hint: Press [I] to toggle the inventory)";
             StartCoroutine(ClearHint());
 
         }

@@ -4,6 +4,7 @@ using UnityEngine;
 public class PlayerInventory : MonoBehaviour
 {
     public List<(ItemData, uint)> items = new List<(ItemData, uint)>();
+    public ItemData equipment = null;
 
     private static PlayerInventory instance;
     public static PlayerInventory Instance { get { return instance; } }
@@ -74,5 +75,13 @@ public class PlayerInventory : MonoBehaviour
         }
 
         return false;
+    }
+
+    public void equipItem(ItemData item)
+    {
+        if (itemExists(item))
+        {
+            equipment = item;
+        }
     }
 }
