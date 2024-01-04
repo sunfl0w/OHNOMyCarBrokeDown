@@ -17,8 +17,8 @@ public class InventoryGUI : MonoBehaviour
     public TextMeshProUGUI leftArrow;
     public TextMeshProUGUI rightArrow;
 
-    public TextMeshProUGUI status;
-    public TextMeshProUGUI equipButton;
+    public TextMeshProUGUI state;
+    public TextMeshProUGUI usageButton;
 
     public static event Action onInspectionGUIEnter;
     public static event Action onInspectionGUILeave;
@@ -42,11 +42,7 @@ public class InventoryGUI : MonoBehaviour
         {
             onInspectionGUILeave?.Invoke();
 
-            if (inspectedItem != null)
-            {
-                Destroy(inspectedItem.gameObject);
-            }
-            inspectedItem = null;
+            DestroyInspectedItem();
             rotationSpeed = Vector3.zero;
             InventoryCanvas.SetActive(false);
             canvasActivated = false;
@@ -79,15 +75,24 @@ public class InventoryGUI : MonoBehaviour
             }
 
         }
-        else if (Input.GetKeyDown(KeyCode.E) && canvasActivated && inspectedItem != null)
+        else if (Input.GetKeyDown(KeyCode.E) && canvasActivated && usageButton.text == "[E]quip")
         {
-            if (equipButton.text != "")
+            (ItemData item, uint count) tuple = PlayerInventory.Instance.items[currentItemIndex];
+            currentItemData = tuple.item;
+            PlayerInventory.Instance.EquipItem(currentItemData);
+            updateUI();
+
+        }
+        else if (Input.GetKeyDown(KeyCode.U) && canvasActivated && usageButton.text == "[U]se")
+        {
+            (ItemData item, uint count) tuple = PlayerInventory.Instance.items[currentItemIndex];
+            currentItemData = tuple.item;
+            PlayerInventory.Instance.UseItem(currentItemData);
+            if (!PlayerInventory.Instance.itemExists(currentItemData))
             {
-                (ItemData item, uint count) tuple = PlayerInventory.Instance.items[currentItemIndex];
-                currentItemData = tuple.item;
-                PlayerInventory.Instance.equipItem(currentItemData);
-                updateUI();
+                currentItemIndex = 0;
             }
+            updateUI();
         }
 
 
@@ -101,6 +106,9 @@ public class InventoryGUI : MonoBehaviour
             itemDescription.text = "";
             leftArrow.color = Color.grey;
             rightArrow.color = Color.grey;
+            state.text = "";
+            usageButton.text = "";
+            DestroyInspectedItem();
 
         }
         else
@@ -121,7 +129,11 @@ public class InventoryGUI : MonoBehaviour
             {
                 leftArrow.color = Color.grey;
             }
-            ViewCurrentItem();
+
+            (ItemData item, uint count) tuple = PlayerInventory.Instance.items[currentItemIndex];
+            currentItemData = tuple.item;
+            ViewCurrentItem(currentItemData);
+            ShowItemUsage(currentItemData);
 
         }
     }
@@ -138,27 +150,13 @@ public class InventoryGUI : MonoBehaviour
         }
     }
 
-    private void ViewCurrentItem()
+    private void ViewCurrentItem(ItemData currentItemData)
     {
-        (ItemData item, uint count) tuple = PlayerInventory.Instance.items[currentItemIndex];
-        currentItemData = tuple.item;
+
         itemName.text = currentItemData.itemName;
         itemDescription.text = currentItemData.interactText;
-        if (PlayerInventory.Instance.equipment == currentItemData)
-        {
-            status.text = "*equipped";
-            equipButton.text = "";
-        }
-        else
-        {
-            status.text = "";
-            equipButton.text = "[E]quip";
-        }
 
-        if (inspectedItem != null)
-        {
-            Destroy(inspectedItem.gameObject);
-        }
+        DestroyInspectedItem();
 
         inspectedItem = Instantiate(currentItemData.prefab);
         inspectedItem.layer = LayerMask.NameToLayer("UI");
@@ -166,6 +164,38 @@ public class InventoryGUI : MonoBehaviour
         inspectedItem.transform.rotation = guiCamera.transform.rotation;
     }
 
+    private void ShowItemUsage(ItemData currentItemData)
+    {
+        if (PlayerInventory.Instance.equipment == currentItemData)
+        {
+            state.text = "*equipped";
+            usageButton.text = "";
+        }
+        else if (currentItemData.category == ItemCategory.Weapon)
+        {
+            state.text = "";
+            usageButton.text = "[E]quip";
+        }
+        else if (currentItemData.category == ItemCategory.Resource)
+        {
+            state.text = "";
+            usageButton.text = "[U]se";
+        }
+        else if (currentItemData.category == ItemCategory.Normal)
+        {
+            state.text = "";
+            usageButton.text = "";
+        }
+    }
+
+    private void DestroyInspectedItem()
+    {
+        if (inspectedItem != null)
+        {
+            Destroy(inspectedItem.gameObject);
+        }
+        inspectedItem = null;
+    }
 
 
 

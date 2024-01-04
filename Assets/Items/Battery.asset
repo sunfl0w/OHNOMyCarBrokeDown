@@ -15,3 +15,4 @@ MonoBehaviour:
   itemName: Battery
   interactText: A battery to power small electrical tools.
   prefab: {fileID: 629789630054557206, guid: 69ef0950d9133dde099dc75f1c08f6b2, type: 3}
+  category: 1

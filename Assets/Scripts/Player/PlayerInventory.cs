@@ -30,9 +30,10 @@ public class PlayerInventory : MonoBehaviour
         for (int i = 0; i < items.Count; i++)
         {
             (ItemData item, uint count) tuple = items[i];
-            if (tuple.item.name == itemToAdd.itemName)
+            if (tuple.item.itemName == itemToAdd.itemName)
             {
                 itemExistsIndex = i;
+                items[i] = (tuple.item, tuple.count + 1);
                 tuple.count++;
                 Debug.Log("Copy of existing item " + itemToAdd.name + " added to player inventory. New total is " + tuple.count + ".");
                 break;
@@ -68,7 +69,7 @@ public class PlayerInventory : MonoBehaviour
         for (int i = 0; i < items.Count; i++)
         {
             (ItemData item, uint count) tuple = items[i];
-            if (tuple.item.name == item.itemName)
+            if (tuple.item.itemName == item.itemName)
             {
                 return true;
             }
@@ -77,11 +78,37 @@ public class PlayerInventory : MonoBehaviour
         return false;
     }
 
-    public void equipItem(ItemData item)
+    public void EquipItem(ItemData item)
     {
         if (itemExists(item))
         {
             equipment = item;
+        }
+    }
+
+    public void UseItem(ItemData itemToUse)
+    {
+        int itemIndex = -1;
+
+        for (int i = 0; i < items.Count; i++)
+        {
+            (ItemData item, uint count) tuple = items[i];
+            if (tuple.item == itemToUse)
+            {
+                itemIndex = i;
+                if (tuple.count > 1)
+                {
+                    items[i] = (tuple.item, tuple.count - 1);
+                    tuple.count--;
+                    Debug.Log("Used one " + itemToUse.itemName + ". Remaining count: " + tuple.count);
+                }
+                else
+                {
+                    items.RemoveAt(itemIndex);
+                    Debug.Log("Used the last " + itemToUse.itemName + ". Removed from inventory.");
+                }
+                break;
+            }
         }
     }
 }
