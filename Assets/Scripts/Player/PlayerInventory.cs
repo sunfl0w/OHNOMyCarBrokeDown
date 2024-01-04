@@ -61,4 +61,18 @@ public class PlayerInventory : MonoBehaviour
             }
         }
     }
+
+    public bool itemExists(ItemData item)
+    {
+        for (int i = 0; i < items.Count; i++)
+        {
+            (ItemData item, uint count) tuple = items[i];
+            if (tuple.item.name == item.itemName)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
 }
