@@ -85,7 +85,7 @@ public class InventoryGUI : MonoBehaviour
             }
             else if (usageButton.color == Color.green)
             {
-                PlayerInventory.Instance.DisequipItem();
+                PlayerInventory.Instance.UnequipItem();
             }
             updateUI();
 

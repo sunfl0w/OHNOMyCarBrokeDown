@@ -91,10 +91,10 @@ public class PlayerInventory : MonoBehaviour
         }
     }
 
-    public void DisequipItem()
+    public void UnequipItem()
     {
         equipment = null;
-        FlashlightManager.Instance.DisequipFlashlight();
+        FlashlightManager.Instance.UnequipFlashlight();
 
     }
 

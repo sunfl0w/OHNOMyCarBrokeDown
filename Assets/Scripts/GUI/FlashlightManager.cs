@@ -59,7 +59,7 @@ public class FlashlightManager : MonoBehaviour
         lightActive = true;
     }
 
-    public void DisequipFlashlight()
+    public void UnequipFlashlight()
     {
         batteryObject.SetActive(false);
         spotLight.SetActive(false);
