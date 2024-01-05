@@ -83,6 +83,11 @@ public class PlayerInventory : MonoBehaviour
         if (itemExists(item))
         {
             equipment = item;
+            if (item.itemName == "Flashlight")
+            {
+                BatteryCountdown.Instance.EquipFlashlight();
+            }
+
         }
     }
 
@@ -107,8 +112,16 @@ public class PlayerInventory : MonoBehaviour
                     items.RemoveAt(itemIndex);
                     Debug.Log("Used the last " + itemToUse.itemName + ". Removed from inventory.");
                 }
+                if (tuple.item.itemName == "Battery")
+                {
+                    BatteryCountdown.Instance.ChangeBattery();
+                }
                 break;
             }
         }
     }
+
+
+
+
 }
