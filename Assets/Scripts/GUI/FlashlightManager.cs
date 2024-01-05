@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class BatteryCountdown : MonoBehaviour
+public class FlashlightManager : MonoBehaviour
 {
     public float batteryLife = 100f; // Initial battery life in percentage
     public float depletionRate = 1f; // Rate at which battery depletes per second
@@ -15,9 +15,9 @@ public class BatteryCountdown : MonoBehaviour
 
     private bool lightActive = false;
 
-    private static BatteryCountdown instance;
+    private static FlashlightManager instance;
 
-    public static BatteryCountdown Instance { get { return instance; } }
+    public static FlashlightManager Instance { get { return instance; } }
 
     void Awake()
     {
@@ -57,6 +57,14 @@ public class BatteryCountdown : MonoBehaviour
         batteryObject.SetActive(true);
         spotLight.SetActive(true);
         lightActive = true;
+    }
+
+    public void DisequipFlashlight()
+    {
+        batteryObject.SetActive(false);
+        spotLight.SetActive(false);
+        lightActive = false;
+
     }
 
 }

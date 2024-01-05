@@ -79,7 +79,14 @@ public class InventoryGUI : MonoBehaviour
         {
             (ItemData item, uint count) tuple = PlayerInventory.Instance.items[currentItemIndex];
             currentItemData = tuple.item;
-            PlayerInventory.Instance.EquipItem(currentItemData);
+            if (usageButton.color == Color.white)
+            {
+                PlayerInventory.Instance.EquipItem(currentItemData);
+            }
+            else if (usageButton.color == Color.green)
+            {
+                PlayerInventory.Instance.DisequipItem();
+            }
             updateUI();
 
         }
@@ -87,12 +94,16 @@ public class InventoryGUI : MonoBehaviour
         {
             (ItemData item, uint count) tuple = PlayerInventory.Instance.items[currentItemIndex];
             currentItemData = tuple.item;
-            PlayerInventory.Instance.UseItem(currentItemData);
-            if (!PlayerInventory.Instance.itemExists(currentItemData))
+            if (usageButton.color == Color.white)
             {
-                currentItemIndex = 0;
+                PlayerInventory.Instance.UseItem(currentItemData);
+                if (!PlayerInventory.Instance.itemExists(currentItemData))
+                {
+                    currentItemIndex = 0;
+                }
+                updateUI();
             }
-            updateUI();
+
         }
 
 
@@ -169,22 +180,35 @@ public class InventoryGUI : MonoBehaviour
         if (PlayerInventory.Instance.equipment == currentItemData)
         {
             state.text = "*equipped";
-            usageButton.text = "";
+            usageButton.text = "[E]quip";
+            usageButton.color = Color.green;
         }
         else if (currentItemData.category == ItemCategory.Weapon)
         {
             state.text = "";
             usageButton.text = "[E]quip";
+            usageButton.color = Color.white;
         }
         else if (currentItemData.category == ItemCategory.Resource)
         {
             state.text = "";
             usageButton.text = "[U]se";
+            if (currentItemData.itemName == "Battery" && PlayerInventory.Instance.equipment == null)
+            {
+                usageButton.color = Color.grey;
+            }
+            else
+            {
+                usageButton.color = Color.white;
+            }
+
+
         }
         else if (currentItemData.category == ItemCategory.Normal)
         {
             state.text = "";
             usageButton.text = "";
+            usageButton.color = Color.white;
         }
     }
 
