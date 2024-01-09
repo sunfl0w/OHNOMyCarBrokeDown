@@ -4,7 +4,8 @@ using UnityEngine;
 using TMPro;
 using System;
 
-public class ItemInspectGUI : MonoBehaviour {
+public class ItemInspectGUI : MonoBehaviour
+{
     public Camera guiCamera;
     public GameObject containerGameObject;
     public TextMeshProUGUI textGUI;
@@ -18,32 +19,41 @@ public class ItemInspectGUI : MonoBehaviour {
     private static ItemInspectGUI instance;
     public static ItemInspectGUI Instance { get { return instance; } }
 
-    private void Awake() {
-        if (instance != null && instance != this) {
+    private void Awake()
+    {
+        if (instance != null && instance != this)
+        {
             Destroy(this.gameObject);
-        } else {
+        }
+        else
+        {
             instance = this;
         }
     }
 
-    private void Start() {
+    private void Start()
+    {
         Hide();
     }
 
-    public void FixedUpdate () {
-        if (inspectedItem != null) {
+    public void FixedUpdate()
+    {
+        if (inspectedItem != null)
+        {
             rotationSpeed.y += Input.GetAxisRaw("Horizontal") * 3.5f * Time.deltaTime - Mathf.Sign(rotationSpeed.y) * rotationSpeed.magnitude * 2.0f * Time.deltaTime;
             rotationSpeed.x += Input.GetAxisRaw("Vertical") * 3.5f * Time.deltaTime - Mathf.Sign(rotationSpeed.x) * rotationSpeed.magnitude * 2.0f * Time.deltaTime;
             inspectedItem.transform.RotateAround(inspectedItem.transform.position, guiCamera.transform.up, rotationSpeed.y);
             inspectedItem.transform.RotateAround(inspectedItem.transform.position, guiCamera.transform.right, rotationSpeed.x);
 
-            if (Input.GetButtonDown("Cancel")) {
+            if (Input.GetButtonDown("Cancel"))
+            {
                 Hide();
             }
         }
     }
 
-    public void Show(ItemData itemData) {
+    public void Show(ItemData itemData)
+    {
         Debug.Log("Show item inspect GUI");
         onInspectionGUIEnter?.Invoke();
         containerGameObject.SetActive(true);
@@ -55,15 +65,22 @@ public class ItemInspectGUI : MonoBehaviour {
         inspectedItem.transform.rotation = guiCamera.transform.rotation;
     }
 
-    public void Hide() {
+    public void Hide()
+    {
         Debug.Log("Hide item inspect GUI");
         onInspectionGUILeave.Invoke();
         containerGameObject.SetActive(false);
         textGUI.text = String.Empty;
         rotationSpeed = Vector3.zero;
-        if (inspectedItem != null) {
+        if (inspectedItem != null)
+        {
             Destroy(inspectedItem);
         }
         inspectedItem = null;
+    }
+
+    public bool IsVisible()
+    {
+        return containerGameObject.activeSelf;
     }
 }

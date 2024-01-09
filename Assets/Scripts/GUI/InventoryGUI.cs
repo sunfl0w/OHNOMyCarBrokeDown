@@ -29,6 +29,21 @@ public class InventoryGUI : MonoBehaviour
 
     private GameObject inspectedItem = null;
 
+    private static InventoryGUI instance;
+    public static InventoryGUI Instance { get { return instance; } }
+
+    private void Awake()
+    {
+        if (instance != null && instance != this)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            instance = this;
+        }
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -47,7 +62,7 @@ public class InventoryGUI : MonoBehaviour
             InventoryCanvas.SetActive(false);
             canvasActivated = false;
         }
-        else if (Input.GetButtonDown("Inventory") && !canvasActivated)
+        else if (Input.GetButtonDown("Inventory") && !canvasActivated && !ItemInspectGUI.Instance.IsVisible())
         {
             onInspectionGUIEnter?.Invoke();
             InventoryCanvas.SetActive(true);
@@ -219,6 +234,11 @@ public class InventoryGUI : MonoBehaviour
             Destroy(inspectedItem.gameObject);
         }
         inspectedItem = null;
+    }
+
+    public bool IsVisible()
+    {
+        return InventoryCanvas.activeSelf;
     }
 
 
