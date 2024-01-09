@@ -12,6 +12,8 @@ public class FlashlightManager : MonoBehaviour
     public GameObject batteryObject;
 
     public GameObject spotLight;
+    public float originalIntensity = 50f;
+    private bool isFlickering = false;
 
     private bool lightActive = false;
 
@@ -37,6 +39,11 @@ public class FlashlightManager : MonoBehaviour
         {
             batteryLife -= depletionRate * Time.deltaTime;
             batteryText.text = Mathf.Round(batteryLife).ToString();
+            if (batteryLife < 10 && !isFlickering)
+            {
+                isFlickering = true;
+                StartCoroutine(Flicker());
+            }
         }
         if (batteryLife < 0 && lightActive)
         {
@@ -45,11 +52,25 @@ public class FlashlightManager : MonoBehaviour
         }
     }
 
+    private IEnumerator Flicker()
+    {
+
+        while (batteryLife < 10)
+        {
+            // Flicker effect
+            spotLight.GetComponent<Light>().intensity = Random.Range(originalIntensity * 0.5f, originalIntensity * 0.8f);
+
+            yield return new WaitForSeconds(0.1f); // Adjust the duration between flickers
+        }
+        isFlickering = false;
+    }
     public void ChangeBattery()
     {
         spotLight.SetActive(true);
         batteryLife = 100f;
         lightActive = true;
+        spotLight.GetComponent<Light>().intensity = originalIntensity;
+        isFlickering = false;
     }
 
     public void EquipFlashlight()
@@ -66,5 +87,6 @@ public class FlashlightManager : MonoBehaviour
         lightActive = false;
 
     }
+
 
 }

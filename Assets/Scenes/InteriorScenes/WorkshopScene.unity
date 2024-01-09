@@ -360,6 +360,7 @@ MonoBehaviour:
   batteryText: {fileID: 17047646}
   batteryObject: {fileID: 1693703316}
   spotLight: {fileID: 1219968108}
+  originalIntensity: 50
 --- !u!4 &265474291 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4242965379939175367, guid: fd4a6391f5cca106c94670bd58fea17a, type: 3}
