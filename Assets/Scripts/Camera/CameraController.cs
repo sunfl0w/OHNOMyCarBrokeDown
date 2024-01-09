@@ -5,6 +5,7 @@ using UnityEngine;
 public class CameraController : MonoBehaviour {
     Camera cam;
     public Transform lookAtTarget;
+    public float targetYOffset = 1.0f;
     GameObject virtualCam;
 
     void Start() {
@@ -13,7 +14,7 @@ public class CameraController : MonoBehaviour {
 
     void Update() {
         if(virtualCam != null && virtualCam.GetComponent<CameraDataHolder>().camData.swivel && lookAtTarget != null) {
-            cam.transform.LookAt(lookAtTarget);
+            cam.transform.LookAt(lookAtTarget.position + Vector3.up * targetYOffset);
         }
     }
 
