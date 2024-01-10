@@ -12,6 +12,16 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: Car4Material
+    second: {fileID: 2100000, guid: c53139134b1e845078d1711c6ad71f45, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Car6Material
+    second: {fileID: 2100000, guid: 716f1c46132a767c29bbd1f64993b9e2, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: PlantMaterial
     second: {fileID: 2100000, guid: 5e40c7c708ed963118d55bbd29c9b1c5, type: 2}
   - first:
