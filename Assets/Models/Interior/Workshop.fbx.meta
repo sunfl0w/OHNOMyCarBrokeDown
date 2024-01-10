@@ -27,6 +27,16 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: PSXFOElectronicsMaterial
+    second: {fileID: 2100000, guid: 7271ec6bb6a094437968deacf7c7223c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: PSXFOMetalMaterial
+    second: {fileID: 2100000, guid: e7e127358918be035a36ccbd381f522f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: PoliceCarMaterial
     second: {fileID: 2100000, guid: 5fd090379cece3a9f8280b05362a97a3, type: 2}
   - first:
