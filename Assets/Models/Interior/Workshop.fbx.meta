@@ -7,6 +7,26 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: BoxIndustryProductsMaterial
+    second: {fileID: 2100000, guid: a55cfba52d8821680af7d590431b4e1f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Car2Material
+    second: {fileID: 2100000, guid: 4d04d7075a58768c0a810728ae276cc9, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: DrinkCanSodaMaterial
+    second: {fileID: 2100000, guid: 709f0aeef616c372088bb48641ce22fb, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: FoodSnackChipsMaterial
+    second: {fileID: 2100000, guid: b040736ada5952926a540ab6611dff25, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: PoliceCarMaterial
     second: {fileID: 2100000, guid: 5fd090379cece3a9f8280b05362a97a3, type: 2}
   - first:
