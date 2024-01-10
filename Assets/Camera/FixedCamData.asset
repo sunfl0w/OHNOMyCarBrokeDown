@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 540c658484a30ad64b7fd4a6fe0c0af7, type: 3}
   m_Name: FixedCamData
   m_EditorClassIdentifier: 
-  fov: 40
+  fov: 50
   swivel: 0
