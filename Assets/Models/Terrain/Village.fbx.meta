@@ -12,13 +12,53 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: Bush3Material
+    second: {fileID: 2100000, guid: 15e4a0538d8e2f46491aa84fb310bafc, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Bush6Material
+    second: {fileID: 2100000, guid: 5f38fb7838545b793a5c91b382320402, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Bush8Material
+    second: {fileID: 2100000, guid: c9843aead9010dd588c83502fb1fe48f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Bush8Material.001
+    second: {fileID: 2100000, guid: c9843aead9010dd588c83502fb1fe48f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Car1Material
+    second: {fileID: 2100000, guid: 80c8a86b9b4b26b7b83888aba26064a8, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: Car4Material
     second: {fileID: 2100000, guid: c53139134b1e845078d1711c6ad71f45, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: Car5Material
+    second: {fileID: 2100000, guid: be0f39f2093da07e5a3336623f6aab29, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: Car6Material
     second: {fileID: 2100000, guid: 716f1c46132a767c29bbd1f64993b9e2, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: GrassMaterial
+    second: {fileID: 2100000, guid: 699a334c414d85311afa7a26a1849982, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: GrassPatchMaterial
+    second: {fileID: 2100000, guid: fd308e2109ab9c6df841b40e24ad1bf8, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
@@ -32,8 +72,18 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: PropMaterial
+    second: {fileID: 2100000, guid: d36ab4fe6e2fa5a9f8549880e6d8b58f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: SpotLightMaterial
     second: {fileID: 2100000, guid: 50d49dc7adcc2a1fea883a6bcfc95258, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Tree1Material
+    second: {fileID: 2100000, guid: 90785c0cd10224adc8a20b614d005f41, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
