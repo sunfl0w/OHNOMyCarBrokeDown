@@ -27,8 +27,6 @@ Shader "Custom/PSXS_Shader"
             #endif
 
             #include "PSXS_Common.hlsl"
-            #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl" 
-            #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
 
             struct attributes {
                 float4 pos : POSITION;
