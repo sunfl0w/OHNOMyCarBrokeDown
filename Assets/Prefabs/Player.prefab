@@ -17,7 +17,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5723347861972532275
 Transform:
   m_ObjectHideFlags: 0
@@ -140,7 +140,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d7a651ebdbadd56f4a1a050fd0475476, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.79
+      value: 4.5
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d7a651ebdbadd56f4a1a050fd0475476, type: 3}
       propertyPath: m_LocalPosition.y
@@ -148,7 +148,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d7a651ebdbadd56f4a1a050fd0475476, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 12.34
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d7a651ebdbadd56f4a1a050fd0475476, type: 3}
       propertyPath: m_LocalRotation.w
@@ -663,6 +663,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca71c3f81f1014d928e5b115771876f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  equipment: {fileID: 0}
 --- !u!114 &1215050439610509494
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -710,7 +711,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d19a3f0bf1e84083ab2b34a4ac43f133, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 10
+  health: 5
+  playerHP: {fileID: 0}
+  gameOverCanvas: {fileID: 0}
+  gui: {fileID: 0}
 --- !u!81 &3932678032419610857
 AudioListener:
   m_ObjectHideFlags: 0

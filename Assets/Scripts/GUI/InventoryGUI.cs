@@ -225,6 +225,12 @@ public class InventoryGUI : MonoBehaviour
             usageButton.text = "";
             usageButton.color = Color.white;
         }
+        else if (currentItemData.category == ItemCategory.CarPart)
+        {
+            state.text = "";
+            usageButton.text = "";
+            usageButton.color = Color.white;
+        }
     }
 
     private void DestroyInspectedItem()
