@@ -85,7 +85,7 @@ public class PlayerInventory : MonoBehaviour
             equipment = item;
             if (item.itemName == "Flashlight")
             {
-                FlashlightManager.Instance.EquipFlashlight();
+                //FlashlightManager.Instance.EquipFlashlight();
             }
 
         }
@@ -94,7 +94,7 @@ public class PlayerInventory : MonoBehaviour
     public void UnequipItem()
     {
         equipment = null;
-        FlashlightManager.Instance.UnequipFlashlight();
+        //FlashlightManager.Instance.UnequipFlashlight();
 
     }
 
@@ -121,14 +121,18 @@ public class PlayerInventory : MonoBehaviour
                 }
                 if (tuple.item.itemName == "Battery")
                 {
-                    FlashlightManager.Instance.ChangeBattery();
+                    //FlashlightManager.Instance.ChangeBattery();
                 }
                 break;
             }
         }
     }
 
+    public ItemData GetEquippedItem() {
+        return equipment;
+    }
 
-
-
+    public bool IsFlashlightEquipped() {
+        return equipment != null && equipment.name == "Flashlight"; 
+    }
 }

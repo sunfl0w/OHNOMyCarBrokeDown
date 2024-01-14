@@ -6,8 +6,9 @@ using System;
 
 public class ItemInspectGUI : MonoBehaviour {
     public Camera guiCamera;
-    public GameObject containerGameObject;
-    public TextMeshProUGUI textGUI;
+    //public GameObject containerGameObject;
+    private TextMeshProUGUI hintTextGUI;
+    private bool isVisible = false;
 
     private GameObject inspectedItem = null;
     private Vector3 rotationSpeed = Vector3.zero;
@@ -27,6 +28,7 @@ public class ItemInspectGUI : MonoBehaviour {
     }
 
     private void Start() {
+        hintTextGUI = GetComponent<TextMeshProUGUI>();
         Hide();
     }
 
@@ -48,28 +50,28 @@ public class ItemInspectGUI : MonoBehaviour {
     public void Show(ItemData itemData) {
         Debug.Log("Show item inspect GUI");
         onInspectionGUIEnter?.Invoke();
-        containerGameObject.SetActive(true);
-        textGUI.text = itemData.interactText + "\nExit with [ESC]. Move item with [WASD].";
+        hintTextGUI.text = itemData.interactText + "\nExit with [ESC]. Move item with [WASD].";
 
         inspectedItem = Instantiate(itemData.prefab);
         inspectedItem.layer = LayerMask.NameToLayer("UI");
         inspectedItem.transform.position = guiCamera.transform.position + guiCamera.transform.forward * 1.0f;
         inspectedItem.transform.rotation = guiCamera.transform.rotation;
+        isVisible = true;
     }
 
     public void Hide() {
         Debug.Log("Hide item inspect GUI");
         onInspectionGUILeave.Invoke();
-        containerGameObject.SetActive(false);
-        textGUI.text = String.Empty;
+        hintTextGUI.text = String.Empty;
         rotationSpeed = Vector3.zero;
         if (inspectedItem != null) {
             Destroy(inspectedItem);
         }
         inspectedItem = null;
+        isVisible = false;
     }
 
     public bool IsVisible() {
-        return containerGameObject.activeSelf;
+        return isVisible;
     }
 }

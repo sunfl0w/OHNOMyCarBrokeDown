@@ -17,7 +17,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &5723347861972532275
 Transform:
   m_ObjectHideFlags: 0
@@ -140,7 +140,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d7a651ebdbadd56f4a1a050fd0475476, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 4.5
+      value: 5.977
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d7a651ebdbadd56f4a1a050fd0475476, type: 3}
       propertyPath: m_LocalPosition.y
@@ -148,7 +148,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d7a651ebdbadd56f4a1a050fd0475476, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.5
+      value: -18.232
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d7a651ebdbadd56f4a1a050fd0475476, type: 3}
       propertyPath: m_LocalRotation.w
@@ -463,6 +463,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: d7a651ebdbadd56f4a1a050fd0475476, type: 3}
       insertIndex: -1
       addedObject: {fileID: 3932678032419610857}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: d7a651ebdbadd56f4a1a050fd0475476, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3534401201464186223}
   m_SourcePrefab: {fileID: 100100000, guid: d7a651ebdbadd56f4a1a050fd0475476, type: 3}
 --- !u!4 &6959117380186747406 stripped
 Transform:
@@ -712,9 +715,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 5
-  playerHP: {fileID: 0}
-  gameOverCanvas: {fileID: 0}
-  gui: {fileID: 0}
 --- !u!81 &3932678032419610857
 AudioListener:
   m_ObjectHideFlags: 0
@@ -723,3 +723,19 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7770979636107241652}
   m_Enabled: 1
+--- !u!114 &3534401201464186223
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7770979636107241652}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a9a3a95948bc72191f0991f92f37be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  batteryLife: 100
+  depletionRate: 1
+  flashlight: {fileID: 8546399963908605479}
+  uiLight: {fileID: 0}

@@ -1,45 +1,39 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using System;
 
-public class InteractGUI : MonoBehaviour
-{
-    public GameObject containerGameObject;
-    public TextMeshProUGUI textGUI;
+public class InteractGUI : MonoBehaviour {
+    private TextMeshProUGUI hintTextGUI;
+    private bool isVisible = false;
 
     private static InteractGUI instance;
     public static InteractGUI Instance { get { return instance; } }
 
-    private void Awake()
-    {
-        if (instance != null && instance != this)
-        {
+    private void Awake() {
+        if (instance != null && instance != this) {
             Destroy(this.gameObject);
-        }
-        else
-        {
+        } else {
             instance = this;
         }
+    }
+
+    public void Start() {
+        hintTextGUI = GetComponent<TextMeshProUGUI>();
         Hide();
     }
 
-    public void Show(IInteractable interactable)
-    {
+    public void Show(IInteractable interactable) {
         Debug.Log("Show item pickup GUI");
-        containerGameObject.SetActive(true);
-        textGUI.text = interactable.GetData().interactText;
+        hintTextGUI.text = interactable.GetData().interactText;
+        isVisible = true;
     }
 
-    public void Hide()
-    {
-        containerGameObject.SetActive(false);
-        textGUI.text = String.Empty;
+    public void Hide() {
+        hintTextGUI.text = String.Empty;
+        isVisible = false;
     }
 
-    public bool IsVisible()
-    {
-        return containerGameObject.activeSelf;
+    public bool IsVisible() {
+        return isVisible;
     }
 }
