@@ -7,6 +7,8 @@ public class AutoCarController : MonoBehaviour
     public Light carLight;
     private bool isDriving = true;
 
+    public GameObject menu;
+
     private void Update()
     {
         if (isDriving)
@@ -25,6 +27,11 @@ public class AutoCarController : MonoBehaviour
             // Gradually slow down and stop
             speed = Mathf.Max(0f, speed - decelerationRate * Time.deltaTime);
             transform.Translate(-Vector3.forward * speed * Time.deltaTime);
+
+            if (speed <= 0 && !menu.activeSelf)
+            {
+                menu.SetActive(true);
+            }
 
             // Dim the spotlight
             carLight.intensity = Mathf.Lerp(carLight.intensity, 0f, decelerationRate * Time.deltaTime);

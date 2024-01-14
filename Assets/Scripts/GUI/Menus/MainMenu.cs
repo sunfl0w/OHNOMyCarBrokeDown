@@ -10,6 +10,7 @@ public class MainMenu : MonoBehaviour
     public TextMeshProUGUI startGame;
     public TextMeshProUGUI credits;
     public TextMeshProUGUI quit;
+    public GameObject canvas;
 
     private int selectedIndex = 0;
 
@@ -21,19 +22,23 @@ public class MainMenu : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W))
+        if (canvas.activeSelf)
         {
-            ChangeSelection(-1);
-        }
-        else if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S))
-        {
-            ChangeSelection(1);
+            if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W))
+            {
+                ChangeSelection(-1);
+            }
+            else if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S))
+            {
+                ChangeSelection(1);
+            }
+
+            if (Input.GetKeyDown(KeyCode.Return))
+            {
+                HandleSelection();
+            }
         }
 
-        if (Input.GetKeyDown(KeyCode.Return))
-        {
-            HandleSelection();
-        }
     }
 
     void ChangeSelection(int direction)
