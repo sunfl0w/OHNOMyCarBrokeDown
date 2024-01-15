@@ -4,8 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
 
-public class MainMenu : MonoBehaviour
-{
+public class MainMenu : MonoBehaviour {
 
     public TextMeshProUGUI startGame;
     public TextMeshProUGUI credits;
@@ -14,35 +13,26 @@ public class MainMenu : MonoBehaviour
 
     private int selectedIndex = 0;
 
-    void Start()
-    {
-
+    void Start() {
         ChangeSelection(0);
     }
 
-    void Update()
-    {
-        if (canvas.activeSelf)
-        {
-            if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W))
-            {
+    void Update() {
+        if (canvas.activeSelf) {
+            if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W)) {
                 ChangeSelection(-1);
-            }
-            else if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S))
-            {
+            } else if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S)) {
                 ChangeSelection(1);
             }
 
-            if (Input.GetKeyDown(KeyCode.Return))
-            {
+            if (Input.GetKeyDown(KeyCode.Return)) {
                 HandleSelection();
             }
         }
 
     }
 
-    void ChangeSelection(int direction)
-    {
+    void ChangeSelection(int direction) {
         selectedIndex = (selectedIndex + direction + 3) % 3;
 
         startGame.color = (selectedIndex == 0) ? Color.red : Color.white;
@@ -50,10 +40,8 @@ public class MainMenu : MonoBehaviour
         quit.color = (selectedIndex == 2) ? Color.red : Color.white;
     }
 
-    void HandleSelection()
-    {
-        switch (selectedIndex)
-        {
+    void HandleSelection() {
+        switch (selectedIndex) {
             case 0:
                 // Start Game
                 SceneManager.LoadScene("VillageScene");

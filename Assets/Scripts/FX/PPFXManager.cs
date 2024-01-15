@@ -1,55 +1,40 @@
 using System.Collections.Generic;
 using System.Linq;
-//using UnityEditor.Media;
 using UnityEngine;
 using UnityEngine.Rendering;
 
-public class PPFXManager : MonoBehaviour
-{
+public class PPFXManager : MonoBehaviour {
     public Volume volume;
     public List<VolumeProfile> vplist = new List<VolumeProfile>();
 
     private static PPFXManager instance;
     public static PPFXManager Instance { get { return instance; } }
 
-    private void Awake()
-    {
-        if (instance != null && instance != this)
-        {
+    private void Awake() {
+        if (instance != null && instance != this) {
             Destroy(this.gameObject);
-        }
-        else
-        {
+        } else {
             instance = this;
         }
 
-        ItemInspectGUI.onInspectionGUIEnter += SetBlurProfile;
-        ItemInspectGUI.onInspectionGUILeave += SetBaseProfile;
-        InventoryGUI.onInspectionGUIEnter += SetBlurProfile;
-        InventoryGUI.onInspectionGUILeave += SetBaseProfile;
-
+        UnifiedGUI.GUIEnterEvent += SetBlurProfile;
+        UnifiedGUI.GUILeaveEvent += SetBaseProfile;
     }
 
-    void SetBlurProfile()
-    {
+    void SetBlurProfile() {
         SetProfile("BlurVP");
     }
 
-    void SetBaseProfile()
-    {
+    void SetBaseProfile() {
         SetProfile("BaseVP");
     }
 
-    void SetProfile(string vpName)
-    {
+    void SetProfile(string vpName) {
         VolumeProfile vp = vplist.FirstOrDefault(vp => vp.name == vpName);
-        if (vplist.Count > 0 && vp != null)
-        {
+        if (vplist.Count > 0 && vp != null) {
             Debug.Log("New current volume profile is: " + vpName);
             volume.profile = vp;
-        }
-        else
-        {
+        } else {
             Debug.Log("Missing " + vpName + " volume profile");
         }
     }

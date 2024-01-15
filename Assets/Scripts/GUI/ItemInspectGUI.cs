@@ -13,8 +13,8 @@ public class ItemInspectGUI : MonoBehaviour {
     private GameObject inspectedItem = null;
     private Vector3 rotationSpeed = Vector3.zero;
 
-    public static event Action onInspectionGUIEnter;
-    public static event Action onInspectionGUILeave;
+    public static event Action InspectionGUIEnterEvent;
+    public static event Action InspectionGUILeaveEvent;
 
     private static ItemInspectGUI instance;
     public static ItemInspectGUI Instance { get { return instance; } }
@@ -49,7 +49,7 @@ public class ItemInspectGUI : MonoBehaviour {
 
     public void Show(ItemData itemData) {
         Debug.Log("Show item inspect GUI");
-        onInspectionGUIEnter?.Invoke();
+        InspectionGUIEnterEvent?.Invoke();
         hintTextGUI.text = itemData.interactText + "\nExit with [ESC]. Move item with [WASD].";
 
         inspectedItem = Instantiate(itemData.prefab);
@@ -61,7 +61,7 @@ public class ItemInspectGUI : MonoBehaviour {
 
     public void Hide() {
         Debug.Log("Hide item inspect GUI");
-        onInspectionGUILeave.Invoke();
+        InspectionGUILeaveEvent?.Invoke();
         hintTextGUI.text = String.Empty;
         rotationSpeed = Vector3.zero;
         if (inspectedItem != null) {

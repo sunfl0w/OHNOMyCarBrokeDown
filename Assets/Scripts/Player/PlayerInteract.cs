@@ -1,14 +1,18 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerInteract : MonoBehaviour {
+    private UnifiedGUI unifiedGUI;
+
+    private void Start() {
+        unifiedGUI = GameObject.FindGameObjectWithTag("UnifiedGUI").GetComponent<UnifiedGUI>();
+    }
+
     private void Update() {
         IInteractable closestInteractable = GetClosestInteractable();
 
-        if (closestInteractable != null && !InventoryGUI.Instance.IsVisible()) {
+        if (closestInteractable != null && !unifiedGUI.IsAnyGUIVisible()) {
             // Show interact GUI
-            bool test = InteractGUI.Instance.IsVisible();
             if (!InteractGUI.Instance.IsVisible()) {
                 Debug.Log("Interactable in range");
                 InteractGUI.Instance.Show(closestInteractable);

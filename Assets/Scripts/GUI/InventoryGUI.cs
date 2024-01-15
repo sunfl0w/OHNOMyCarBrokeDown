@@ -16,9 +16,10 @@ public class InventoryGUI : MonoBehaviour {
     public TextMeshProUGUI state;
     public TextMeshProUGUI usageButton;
 
-    public static event Action onInspectionGUIEnter;
-    public static event Action onInspectionGUILeave;
+    public static event Action InventoryGUIEnterEvent;
+    public static event Action InventoryGUILeaveEvent;
 
+    private UnifiedGUI unifiedGUI;
     private int currentItemIndex = 0;
     private ItemData currentItemData;
     private Vector3 rotationSpeed = Vector3.zero;
@@ -38,24 +39,25 @@ public class InventoryGUI : MonoBehaviour {
 
     // Start is called before the first frame update
     void Start() {
+        unifiedGUI = GameObject.FindGameObjectWithTag("UnifiedGUI").GetComponent<UnifiedGUI>();
         Hide();
     }
 
     // Update is called once per frame
     void Update() {
         if (Input.GetButtonDown("Inventory") && isVisible) {
-            onInspectionGUILeave?.Invoke();
+            InventoryGUILeaveEvent?.Invoke();
             DestroyInspectedItem();
             rotationSpeed = Vector3.zero;
             isVisible = false;
             Hide();
-        } else if (Input.GetButtonDown("Inventory") && !isVisible && !ItemInspectGUI.Instance.IsVisible()) {
-            onInspectionGUIEnter?.Invoke();
+        } else if (Input.GetButtonDown("Inventory") && !isVisible && !unifiedGUI.IsAnyGUIVisible()) {
+            InventoryGUIEnterEvent?.Invoke();
             isVisible = true;
             currentItemIndex = 0;
             PlayerInventory.Instance.printItems();
             updateUI();
-            Unhide();
+            Show();
         } 
         
         if ((Input.GetKeyDown(KeyCode.L) || Input.GetKeyDown(KeyCode.LeftArrow)) && isVisible) {
@@ -93,7 +95,7 @@ public class InventoryGUI : MonoBehaviour {
         }
     }
 
-    void Unhide() {
+    void Show() {
         itemNameText.enabled = true;
         itemDescriptionText.enabled = true;
         leftArrow.enabled = true;

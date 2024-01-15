@@ -653,6 +653,7 @@ MonoBehaviour:
   startGame: {fileID: 1931272373}
   credits: {fileID: 1214605600}
   quit: {fileID: 1300855801}
+  canvas: {fileID: 1334196043}
 --- !u!1 &1441637823
 GameObject:
   m_ObjectHideFlags: 0

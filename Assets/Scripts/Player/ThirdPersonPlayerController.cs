@@ -2,8 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ThirdPersonPlayerController : MonoBehaviour
-{
+public class ThirdPersonPlayerController : MonoBehaviour {
     public GameObject mainCamera;
     public Animator animator;
     public float walkSpeed = 2.2f;
@@ -22,25 +21,20 @@ public class ThirdPersonPlayerController : MonoBehaviour
     CameraController camController;
     CharacterController characterController;
 
-    void Awake()
-    {
+    void Awake() {
         // Add callbacks to GUI events
-        ItemInspectGUI.onInspectionGUIEnter += DisableMovement;
-        ItemInspectGUI.onInspectionGUILeave += EnableMovement;
-        InventoryGUI.onInspectionGUIEnter += DisableMovement;
-        InventoryGUI.onInspectionGUILeave += EnableMovement;
+        UnifiedGUI.GUIEnterEvent += DisableMovement;
+        UnifiedGUI.GUILeaveEvent += EnableMovement;
     }
 
-    void Start()
-    {
+    void Start() {
         characterController = GetComponent<CharacterController>();
         camController = mainCamera.GetComponent<CameraController>();
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
 
-    void FixedUpdate()
-    {
+    void FixedUpdate() {
         // Press Left Shift to run
         //isRunning = Input.GetKey(KeyCode.LeftShift);
 
@@ -48,8 +42,7 @@ public class ThirdPersonPlayerController : MonoBehaviour
         targetMoveDirection = ((transform.forward * Input.GetAxisRaw("Vertical")) + (transform.right * Input.GetAxisRaw("Horizontal"))).normalized;
         float targetSpeed = canMove && targetMoveDirection.magnitude > 0.0f ? (isRunning && GetIsGrounded() ? runSpeed : walkSpeed) : 0;
         currentSpeed = Mathf.Lerp(currentSpeed, targetSpeed, Time.deltaTime * translationDampening);
-        if (targetMoveDirection.magnitude > 0.0f && canMove)
-        { // Only rotate if the player inputs a movement direction
+        if (targetMoveDirection.magnitude > 0.0f && canMove) { // Only rotate if the player inputs a movement direction
             transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(targetMoveDirection, Vector3.up), Time.deltaTime * rotationDampening);
         }
         animator.SetFloat("movementSpeed", currentSpeed);
@@ -58,28 +51,23 @@ public class ThirdPersonPlayerController : MonoBehaviour
         characterController.Move((moveVector + Vector3.down * gravity) * Time.deltaTime);
     }
 
-    public bool GetIsRunning()
-    {
+    public bool GetIsRunning() {
         return isRunning;
     }
 
-    public bool GetIsMoving()
-    {
+    public bool GetIsMoving() {
         return moveVector.x * moveVector.x + moveVector.z * moveVector.z > 0.1f;
     }
 
-    public bool GetIsGrounded()
-    {
+    public bool GetIsGrounded() {
         return characterController.isGrounded;
     }
 
-    public void DisableMovement()
-    {
+    public void DisableMovement() {
         canMove = false;
     }
 
-    public void EnableMovement()
-    {
+    public void EnableMovement() {
         canMove = true;
     }
 }
