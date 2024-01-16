@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.11567902, g: 0.12303675, b: 0.13938317, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -785,6 +785,51 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 30, y: 6, z: 40}
   m_Center: {x: 0, y: 2, z: 10}
+--- !u!1 &1494532509 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9181669327626173419, guid: 9ae0feac4643faced95a330b81246cdd, type: 3}
+  m_PrefabInstance: {fileID: 2016172514}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1494532511
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1494532509}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: abee3063970fb4067b181e850a9bb249, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetSceneName: 
+  targetTransformName: 
+  data: {fileID: 11400000, guid: 9b301fc9fd69a455f986f7a954533f44, type: 2}
+  audioSource: {fileID: 0}
+  requiredItem1: {fileID: 11400000, guid: e91e005fdd968e1e382f60331fd4faca, type: 2}
+  requiredItem2: {fileID: 11400000, guid: b1063567a4ef30b65a9b8ccda515a573, type: 2}
+  hintText: {fileID: 6340352912067341487}
+--- !u!65 &1494532514
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1494532509}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.019626344, y: 0.047629148, z: 0.015000001}
+  m_Center: {x: -6.246915e-13, y: -0.0003000154, z: -0.0074999994}
 --- !u!1 &1508145711
 GameObject:
   m_ObjectHideFlags: 0
@@ -1167,10 +1212,20 @@ PrefabInstance:
       propertyPath: m_Name
       value: OminousStreet
       objectReference: {fileID: 0}
+    - target: {fileID: 9181669327626173419, guid: 9ae0feac4643faced95a330b81246cdd, type: 3}
+      propertyPath: m_Layer
+      value: 16
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 9181669327626173419, guid: 9ae0feac4643faced95a330b81246cdd, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1494532511}
+    - targetCorrespondingSourceObject: {fileID: 9181669327626173419, guid: 9ae0feac4643faced95a330b81246cdd, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1494532514}
     - targetCorrespondingSourceObject: {fileID: 143965948972512777, guid: 9ae0feac4643faced95a330b81246cdd, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2016172516}
