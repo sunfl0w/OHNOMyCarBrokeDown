@@ -5341,7 +5341,7 @@ MonoBehaviour:
   targetTransformName: WorkshopMainDoor
   data: {fileID: 11400000, guid: 0475930d0fecb2bd48f46f6622ff12d1, type: 2}
   audioSource: {fileID: 2119204171}
-  requiredItem: {fileID: 0}
+  requiredItem: {fileID: 11400000, guid: 4afabff86ebc199e7ac4b2bcbe8aab6d, type: 2}
   hintText: {fileID: 725530614}
 --- !u!65 &2119204170
 BoxCollider:
