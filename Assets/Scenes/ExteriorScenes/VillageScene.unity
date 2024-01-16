@@ -3627,7 +3627,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a6fd405a60fa6708bda060291cfb2f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetSceneName: OminousStreet
+  targetSceneName: OminousStreetScene
   targetTransformName: VillageEntry
   data: {fileID: 11400000, guid: 42676a45959aa7bccaa8d498b42768d6, type: 2}
   audioSource: {fileID: 988532824}
