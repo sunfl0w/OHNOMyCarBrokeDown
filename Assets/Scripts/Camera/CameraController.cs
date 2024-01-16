@@ -1,31 +1,53 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CameraController : MonoBehaviour {
     Camera cam;
     public Transform lookAtTarget;
     public float targetYOffset = 1.0f;
-    GameObject virtualCam;
+    public float camTranslationSmoothTime = 0.1f;
+    public float camRotationDampeningCoefficient = 3.0f;
+
+    private GameObject virtualCam;
+    private Vector3 camVelocity = Vector3.zero;
 
     void Start() {
         cam = GetComponent<Camera>();
     }
 
     void Update() {
-        if(virtualCam != null && virtualCam.GetComponent<CameraDataHolder>().camData.swivel && lookAtTarget != null) {
-            cam.transform.LookAt(lookAtTarget.position + Vector3.up * targetYOffset);
+        CameraData camData = virtualCam?.GetComponent<CameraDataHolder>().camData;
+        if (virtualCam != null) {
+            if (camData.camType == CamType.FixedSwivel && lookAtTarget != null) {
+                cam.transform.LookAt(lookAtTarget.position + Vector3.up * targetYOffset);
+            } else if ((camData.camType == CamType.Follow || camData.camType == CamType.FollowSwivel) && lookAtTarget != null) {
+                Vector3 camPosTarget = GetCameraPositionTarget(camData);
+                Vector3 camToTarget = lookAtTarget.position - cam.transform.position;
+                cam.transform.position = Vector3.SmoothDamp(cam.transform.position, camPosTarget, ref camVelocity, camTranslationSmoothTime);
+                if (camData.camType == CamType.FollowSwivel) {
+                    cam.transform.rotation = Quaternion.Slerp(cam.transform.rotation, Quaternion.LookRotation(camToTarget, Vector3.up), Time.deltaTime * camRotationDampeningCoefficient);
+                }
+            }
         }
     }
 
-    public void setVirtualCamera(GameObject virtualCam) {
+    public void SetVirtualCamera(GameObject virtualCam) {
         this.virtualCam = virtualCam;
-        cam.fieldOfView = virtualCam.GetComponent<CameraDataHolder>().camData.fov;
+        CameraData camData = virtualCam?.GetComponent<CameraDataHolder>().camData;
+        cam.fieldOfView = camData.fov;
         cam.transform.position = virtualCam.transform.position;
         cam.transform.rotation = virtualCam.transform.rotation;
+        if ((camData.camType == CamType.Follow || camData.camType == CamType.FollowSwivel) && lookAtTarget != null) {
+            cam.transform.position = GetCameraPositionTarget(camData); // Instantly move follow cam to target position before letting it follow
+        }
     }
 
-    public GameObject getCurrentVirtualCamera() {
+    public GameObject GetCurrentVirtualCamera() {
         return virtualCam;
+    }
+
+    Vector3 GetCameraPositionTarget(CameraData camData) {
+        Vector3 camToTarget = lookAtTarget.position - cam.transform.position;
+        Vector3 projectedFollowAxis = Vector3.Project(camToTarget - camData.followAxis.normalized * camData.followDistance, camData.followAxis);
+        return cam.transform.position + projectedFollowAxis;
     }
 }

@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 540c658484a30ad64b7fd4a6fe0c0af7, type: 3}
-  m_Name: SwivelCamData
+  m_Name: FollowCamZData
   m_EditorClassIdentifier: 
-  camType: 1
+  camType: 3
   fov: 42
   swivel: 1
-  followDistance: 0
-  followAxis: {x: 0, y: 0, z: 0}
+  followDistance: 5
+  followAxis: {x: 0, y: 0, z: 1}

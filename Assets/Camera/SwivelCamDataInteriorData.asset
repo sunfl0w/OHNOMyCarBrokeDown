@@ -12,5 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 540c658484a30ad64b7fd4a6fe0c0af7, type: 3}
   m_Name: SwivelCamDataInteriorData
   m_EditorClassIdentifier: 
+  camType: 1
   fov: 60
   swivel: 1
+  followDistance: 0
+  followAxis: {x: 0, y: 0, z: 0}
