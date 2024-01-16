@@ -17,6 +17,7 @@ public class SceneChanceInteractable : MonoBehaviour, IInteractable {
             audioSource.PlayOneShot(data.interactSound);
             Debug.Log("Interactable. Switch to scene: " + targetSceneName);
             SceneTransitionManager.Instance.SetNextTransformByName(targetTransformName);
+            SavestateManager.Instance.StoreSaveState();
             StartCoroutine(Transition());
         } else {
             hintText.text = "The door is locked...\n(Hint: Press [I] to toggle the inventory)";

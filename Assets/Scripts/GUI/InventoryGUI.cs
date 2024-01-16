@@ -4,7 +4,6 @@ using System;
 
 
 public class InventoryGUI : MonoBehaviour {
-
     public Camera guiCamera;
     private bool isVisible = false;
     public TextMeshProUGUI itemNameText;
@@ -73,8 +72,8 @@ public class InventoryGUI : MonoBehaviour {
         }
         
         if (Input.GetKeyDown(KeyCode.E) && isVisible && usageButton.text == "[E]quip") {
-            (ItemData item, uint count) tuple = PlayerInventory.Instance.items[currentItemIndex];
-            currentItemData = tuple.item;
+            InventorySlot slot = PlayerInventory.Instance.inventoryData.slots[currentItemIndex];
+            currentItemData = slot.itemData;
             if (usageButton.color == Color.white) {
                 PlayerInventory.Instance.EquipItem(currentItemData);
             } else if (usageButton.color == Color.green) {
@@ -83,8 +82,8 @@ public class InventoryGUI : MonoBehaviour {
             updateUI();
 
         } else if (Input.GetKeyDown(KeyCode.U) && isVisible && usageButton.text == "[U]se") {
-            (ItemData item, uint count) tuple = PlayerInventory.Instance.items[currentItemIndex];
-            currentItemData = tuple.item;
+            InventorySlot slot = PlayerInventory.Instance.inventoryData.slots[currentItemIndex];
+            currentItemData = slot.itemData;
             if (usageButton.color == Color.white) {
                 PlayerInventory.Instance.UseItem(currentItemData);
                 if (!PlayerInventory.Instance.itemExists(currentItemData)) {
@@ -114,7 +113,7 @@ public class InventoryGUI : MonoBehaviour {
     }
 
     void updateUI() {
-        if (PlayerInventory.Instance.items.Count == 0) {
+        if (PlayerInventory.Instance.inventoryData.slots.Count == 0) {
             itemNameText.text = "No item in inventory.";
             itemDescriptionText.text = "";
             leftArrow.color = Color.grey;
@@ -124,7 +123,7 @@ public class InventoryGUI : MonoBehaviour {
             DestroyInspectedItem();
 
         } else {
-            if (currentItemIndex >= 0 && (currentItemIndex + 1) < PlayerInventory.Instance.items.Count) {
+            if (currentItemIndex >= 0 && (currentItemIndex + 1) < PlayerInventory.Instance.inventoryData.slots.Count) {
                 rightArrow.color = Color.white;
             } else {
                 rightArrow.color = Color.grey;
@@ -135,9 +134,9 @@ public class InventoryGUI : MonoBehaviour {
                 leftArrow.color = Color.grey;
             }
 
-            (ItemData item, uint count) tuple = PlayerInventory.Instance.items[currentItemIndex];
-            currentItemData = tuple.item;
-            ViewCurrentItem(currentItemData);
+            InventorySlot slot = PlayerInventory.Instance.inventoryData.slots[currentItemIndex];
+            currentItemData = slot.itemData;
+            ViewCurrentItem(currentItemData, slot.amount);
             ShowItemUsage(currentItemData);
 
         }
@@ -153,9 +152,8 @@ public class InventoryGUI : MonoBehaviour {
         }
     }
 
-    private void ViewCurrentItem(ItemData currentItemData) {
-
-        itemNameText.text = currentItemData.itemName;
+    private void ViewCurrentItem(ItemData currentItemData, uint amount) {
+        itemNameText.text = currentItemData.itemName + "(" + amount + ")";
         itemDescriptionText.text = currentItemData.interactText;
 
         DestroyInspectedItem();
@@ -167,7 +165,7 @@ public class InventoryGUI : MonoBehaviour {
     }
 
     private void ShowItemUsage(ItemData currentItemData) {
-        if (PlayerInventory.Instance.equipment == currentItemData) {
+        if (PlayerInventory.Instance.inventoryData.equippedItem == currentItemData) {
             state.text = "*equipped";
             usageButton.text = "[E]quip";
             usageButton.color = Color.green;
@@ -178,7 +176,7 @@ public class InventoryGUI : MonoBehaviour {
         } else if (currentItemData.category == ItemCategory.Resource) {
             state.text = "";
             usageButton.text = "[U]se";
-            if (currentItemData.itemName == "Battery" && PlayerInventory.Instance.equipment == null) {
+            if (currentItemData.itemName == "Battery" && PlayerInventory.Instance.inventoryData.equippedItem == null) {
                 usageButton.color = Color.grey;
             } else {
                 usageButton.color = Color.white;
