@@ -32,7 +32,7 @@ public class SavestateManager : MonoBehaviour {
             PlayerInventory.Instance.SetInventoryData(saveState.inventoryData);
             Debug.Log("Read SaveState from file.");
         } else {
-            Debug.Log("SaveState file does not exist can can not be read.");
+            Debug.Log("SaveState file does not exist and can not be read.");
         }
     }
 

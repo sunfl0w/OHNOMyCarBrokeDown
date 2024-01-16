@@ -14,7 +14,9 @@ public class SceneChanceInteractable : MonoBehaviour, IInteractable {
 
     public void Interact() {
         if (PlayerInventory.Instance.itemExists(requiredItem) || requiredItem == null) {
-            audioSource.PlayOneShot(data.interactSound);
+            if (data.interactSound != null) {
+                audioSource.PlayOneShot(data.interactSound);
+            }
             Debug.Log("Interactable. Switch to scene: " + targetSceneName);
             SceneTransitionManager.Instance.SetNextTransformByName(targetTransformName);
             SavestateManager.Instance.StoreSaveState();
@@ -34,7 +36,7 @@ public class SceneChanceInteractable : MonoBehaviour, IInteractable {
     }
 
     IEnumerator Transition() {
-        yield return new WaitForSeconds(2.0f);
+        yield return new WaitForSeconds(3.0f);
         SceneManager.LoadScene(targetSceneName, LoadSceneMode.Single);
     }
 

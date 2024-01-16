@@ -37,7 +37,10 @@ public class CameraController : MonoBehaviour {
         cam.transform.position = virtualCam.transform.position;
         cam.transform.rotation = virtualCam.transform.rotation;
         if ((camData.camType == CamType.Follow || camData.camType == CamType.FollowSwivel) && lookAtTarget != null) {
-            cam.transform.position = GetCameraPositionTarget(camData); // Instantly move follow cam to target position before letting it follow
+            // Instantly move follow cam to target position before letting it follow
+            cam.transform.position = GetCameraPositionTarget(camData);
+            Vector3 camToTarget = lookAtTarget.position - cam.transform.position;
+            cam.transform.rotation = Quaternion.LookRotation(camToTarget, Vector3.up);
         }
     }
 
