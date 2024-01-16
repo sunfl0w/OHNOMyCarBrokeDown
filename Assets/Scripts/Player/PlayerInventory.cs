@@ -37,7 +37,6 @@ public class PlayerInventory : MonoBehaviour {
 
     public void SetInventoryData(InventoryData inventoryData) {
         this.inventoryData = inventoryData;
-        int i = 0;
     }
 
     // Add an item to the player inventory

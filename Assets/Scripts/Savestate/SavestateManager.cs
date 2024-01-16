@@ -30,6 +30,9 @@ public class SavestateManager : MonoBehaviour {
             string saveStateJSON = File.ReadAllText(SaveStateFile);
             SaveState saveState = JsonUtility.FromJson<SaveState>(saveStateJSON);
             PlayerInventory.Instance.SetInventoryData(saveState.inventoryData);
+            Debug.Log("Read SaveState from file.");
+        } else {
+            Debug.Log("SaveState file does not exist can can not be read.");
         }
     }
 
@@ -39,11 +42,13 @@ public class SavestateManager : MonoBehaviour {
 
         string saveStateJSON = JsonUtility.ToJson(newSaveState);
         File.WriteAllText(SaveStateFile, saveStateJSON);
+        Debug.Log("Store SaveState to file.");
     }
 
     public void ClearSaveState() {
         if (File.Exists(SaveStateFile)) {
             File.Delete(SaveStateFile);
+            Debug.Log("Deleted SaveState file.");
         }
     }
 }
