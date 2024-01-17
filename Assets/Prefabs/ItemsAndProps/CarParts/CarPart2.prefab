@@ -10,39 +10,39 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 7d09424cd185fdd609877b8660db2c52, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 0.9159
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7d09424cd185fdd609877b8660db2c52, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 1.2264
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7d09424cd185fdd609877b8660db2c52, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 1.4951
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7d09424cd185fdd609877b8660db2c52, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.68732375
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7d09424cd185fdd609877b8660db2c52, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.00000003774895
+      value: -0.68732375
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7d09424cd185fdd609877b8660db2c52, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0.16609067
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7d09424cd185fdd609877b8660db2c52, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0.16609067
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7d09424cd185fdd609877b8660db2c52, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
+      value: -90
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7d09424cd185fdd609877b8660db2c52, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: -27.17
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7d09424cd185fdd609877b8660db2c52, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -111,3 +111,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemData: {fileID: 11400000, guid: b1063567a4ef30b65a9b8ccda515a573, type: 2}
   interactableData: {fileID: 11400000, guid: 9a9cfe56115edacc49f9aca792791712, type: 2}
+  uniqueIdentifier: CarPart1

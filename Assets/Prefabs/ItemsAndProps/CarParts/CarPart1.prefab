@@ -94,6 +94,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemData: {fileID: 11400000, guid: e91e005fdd968e1e382f60331fd4faca, type: 2}
   interactableData: {fileID: 11400000, guid: 9a9cfe56115edacc49f9aca792791712, type: 2}
+  uniqueIdentifier: C
 --- !u!65 &5480500146851394700
 BoxCollider:
   m_ObjectHideFlags: 0

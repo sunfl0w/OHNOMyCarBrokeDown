@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d57fae1bfdec84ea5a34f58b901594e3, type: 3}
-  m_Name: Key
+  m_Name: WorkshopBackdoorKey
   m_EditorClassIdentifier: 
   itemName: Key
   interactText: A key to open some door.
   prefab: {fileID: 3578631231157195133, guid: fd4a6391f5cca106c94670bd58fea17a, type: 3}
-  category: 2
+  category: 1
