@@ -44,7 +44,7 @@ public class SceneTransitionManager : MonoBehaviour {
 
     private void SetPlayerTransform(Scene scene, LoadSceneMode mode) {
         if(targetTransformName == null || targetTransformName == String.Empty) {
-            if (lastActiveSceneName == "MainMenuScene") {
+            if (lastActiveSceneName == "MainMenuScene" && SavestateManager.Instance.GetCurrentSaveState().playerSaveState.initialized) {
                 // We come from the main menu so position the player at the last known position
                 GameObject player = GameObject.FindWithTag("Player");
                 player.GetComponent<CharacterController>().enabled = false; // Need to disable controller to change transform directly

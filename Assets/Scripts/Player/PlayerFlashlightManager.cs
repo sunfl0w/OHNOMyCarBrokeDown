@@ -2,7 +2,6 @@ using UnityEngine;
 using System.Collections;
 
 public class PlayerFlashlightManager : MonoBehaviour {
-    [SerializeField]
     public float batteryLife = 100f; // Initial battery life in percentage
     public float depletionRate = 1f; // Rate at which battery depletes per second
     public Light flashlight;

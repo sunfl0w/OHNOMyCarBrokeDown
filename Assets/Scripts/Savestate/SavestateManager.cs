@@ -6,9 +6,11 @@ using UnityEngine.SceneManagement;
 
 [Serializable]
 public class PlayerSaveState {
+    public bool initialized = false;
     public Vector3 position = Vector3.zero;
     public Quaternion rotation = Quaternion.identity;
     public string currentSceneName = String.Empty;
+    public int health = 0;
 }
 
 [Serializable]
@@ -56,9 +58,11 @@ public class SavestateManager : MonoBehaviour {
 
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         if (player != null) {
+            currentSaveState.playerSaveState.initialized = true;
             currentSaveState.playerSaveState.position = player.transform.position;
             currentSaveState.playerSaveState.rotation = player.transform.rotation;
             currentSaveState.playerSaveState.currentSceneName = SceneManager.GetActiveScene().name;
+            currentSaveState.playerSaveState.health = player.GetComponent<PlayerHealthManager>().GetPlayerHealth();
         }
 
         string saveStateJSON = JsonUtility.ToJson(currentSaveState);

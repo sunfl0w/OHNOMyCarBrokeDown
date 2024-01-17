@@ -1,11 +1,18 @@
 using UnityEngine;
 
 public class PlayerHealthManager : MonoBehaviour {
-    [SerializeField]
     private int health = 5;
 
     void Awake() {
         StalkingShadowEntityController.playerAttackedEvent += OnPlayerAttacked;
+    }
+
+    void Start() {
+        if (SavestateManager.Instance.GetCurrentSaveState().playerSaveState.initialized) {
+            int loadedHealth = SavestateManager.Instance.GetCurrentSaveState().playerSaveState.health;
+            Debug.Log("Loaded player health of " + loadedHealth + " from current save state");
+            health = loadedHealth;
+        }
     }
 
     void OnPlayerAttacked(int damage) {
