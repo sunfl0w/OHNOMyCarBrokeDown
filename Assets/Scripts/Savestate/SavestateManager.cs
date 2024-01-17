@@ -11,6 +11,7 @@ public class PlayerSaveState {
     public Quaternion rotation = Quaternion.identity;
     public string currentSceneName = String.Empty;
     public int health = 0;
+    public float flashlightBatteryLife = 0.0f;
 }
 
 [Serializable]
@@ -63,6 +64,7 @@ public class SavestateManager : MonoBehaviour {
             currentSaveState.playerSaveState.rotation = player.transform.rotation;
             currentSaveState.playerSaveState.currentSceneName = SceneManager.GetActiveScene().name;
             currentSaveState.playerSaveState.health = player.GetComponent<PlayerHealthManager>().GetPlayerHealth();
+            currentSaveState.playerSaveState.flashlightBatteryLife = player.GetComponent<PlayerFlashlightManager>().GetBatteryLife();
         }
 
         string saveStateJSON = JsonUtility.ToJson(currentSaveState);

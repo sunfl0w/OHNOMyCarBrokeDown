@@ -15,6 +15,12 @@ public class PlayerFlashlightManager : MonoBehaviour {
     void Start() {
         flashlightOriginalIntensity = flashlight.intensity;
         uiLightoriginalIntensity = uiLight.intensity;
+
+        if (SavestateManager.Instance.GetCurrentSaveState().playerSaveState.initialized) {
+            float loadedBatteryLife = SavestateManager.Instance.GetCurrentSaveState().playerSaveState.flashlightBatteryLife;
+            Debug.Log("Loaded flashlight battery life of " + loadedBatteryLife + " from current save state");
+            batteryLife = loadedBatteryLife;
+        }
     }
 
     void Update() {
