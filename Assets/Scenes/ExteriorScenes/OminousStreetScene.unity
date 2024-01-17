@@ -627,6 +627,33 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1129448109048040036, guid: 7c976eaf14e1db2f995fbede1bc13e96, type: 3}
   m_PrefabInstance: {fileID: 630507045}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &631307945 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7655633259851401260, guid: 9ae0feac4643faced95a330b81246cdd, type: 3}
+  m_PrefabInstance: {fileID: 2016172514}
+  m_PrefabAsset: {fileID: 0}
+--- !u!64 &631307949
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 631307945}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -2441658414131813105, guid: 9ae0feac4643faced95a330b81246cdd, type: 3}
 --- !u!1 &790956814
 GameObject:
   m_ObjectHideFlags: 0
@@ -1272,6 +1299,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1637057080451795308, guid: 2bea7eb78fe50bfc8af92e4fb3c8f219, type: 3}
+      propertyPath: stepGrassClips.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1637057080451795308, guid: 2bea7eb78fe50bfc8af92e4fb3c8f219, type: 3}
+      propertyPath: stepGrassClips.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: d0395b98ef68834efbf1f44d62eaeb3b, type: 3}
+    - target: {fileID: 1637057080451795308, guid: 2bea7eb78fe50bfc8af92e4fb3c8f219, type: 3}
+      propertyPath: stepGrassClips.Array.data[1]
+      value: 
+      objectReference: {fileID: 8300000, guid: 7ae66b699f50996b2b0418a1a52180c5, type: 3}
+    - target: {fileID: 1637057080451795308, guid: 2bea7eb78fe50bfc8af92e4fb3c8f219, type: 3}
+      propertyPath: stepGrassClips.Array.data[2]
+      value: 
+      objectReference: {fileID: 8300000, guid: a2c8ee97328f62705aca2b71bc6f43b0, type: 3}
     - target: {fileID: 3347641768980847596, guid: 2bea7eb78fe50bfc8af92e4fb3c8f219, type: 3}
       propertyPath: mainCamera
       value: 
@@ -1410,6 +1453,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: OminousStreet
       objectReference: {fileID: 0}
+    - target: {fileID: 7655633259851401260, guid: 9ae0feac4643faced95a330b81246cdd, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 9181669327626173419, guid: 9ae0feac4643faced95a330b81246cdd, type: 3}
       propertyPath: m_Layer
       value: 16
@@ -1418,6 +1465,9 @@ PrefabInstance:
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7655633259851401260, guid: 9ae0feac4643faced95a330b81246cdd, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 631307949}
     - targetCorrespondingSourceObject: {fileID: 143965948972512777, guid: 9ae0feac4643faced95a330b81246cdd, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2016172516}
@@ -1440,7 +1490,7 @@ MeshCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 4294967295
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0

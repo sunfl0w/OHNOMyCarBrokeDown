@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.13312241, g: 0.14476717, b: 0.20339662, a: 1}
+  m_IndirectSpecularColor: {r: 0.00480847, g: 0.0048058694, b: 0.004644361, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2381,6 +2381,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7655633259851401260, guid: c031eff1a7bc3ef7e83b42bc1a3a2356, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2388,6 +2392,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -2347871211228576166, guid: c031eff1a7bc3ef7e83b42bc1a3a2356, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1707519106}
+    - targetCorrespondingSourceObject: {fileID: 7655633259851401260, guid: c031eff1a7bc3ef7e83b42bc1a3a2356, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1707519108}
     - targetCorrespondingSourceObject: {fileID: 143965948972512777, guid: c031eff1a7bc3ef7e83b42bc1a3a2356, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1707519104}
@@ -2439,6 +2446,33 @@ MonoBehaviour:
   navmesh: {fileID: 9165642923759837052, guid: c031eff1a7bc3ef7e83b42bc1a3a2356, type: 3}
   navmeshScale: 100
   switchAxisYZ: 1
+--- !u!1 &1707519107 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7655633259851401260, guid: c031eff1a7bc3ef7e83b42bc1a3a2356, type: 3}
+  m_PrefabInstance: {fileID: 1707519102}
+  m_PrefabAsset: {fileID: 0}
+--- !u!64 &1707519108
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1707519107}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -2441658414131813105, guid: c031eff1a7bc3ef7e83b42bc1a3a2356, type: 3}
 --- !u!1 &1737908638
 GameObject:
   m_ObjectHideFlags: 0

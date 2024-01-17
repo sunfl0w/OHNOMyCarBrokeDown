@@ -6,7 +6,7 @@ public class TerrainChecker : MonoBehaviour {
     public Texture2D terrainTypeLookup;
 
     public TerrainType GetTerrainType() {
-        LayerMask layerMask = LayerMask.GetMask("TerrainCollider");
+        LayerMask layerMask = LayerMask.GetMask("Terrain");
         RaycastHit hit;
         if (Physics.Raycast(transform.position, Vector3.down, out hit, Mathf.Infinity, layerMask)) {
             // The lookup texture maps the texture coordinates of the terrain to the appropriate sound using the red color channel
