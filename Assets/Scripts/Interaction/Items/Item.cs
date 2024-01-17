@@ -1,4 +1,5 @@
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Item : MonoBehaviour, IInteractable {
@@ -11,7 +12,9 @@ public class Item : MonoBehaviour, IInteractable {
     public void Start() {
         saveState.name = uniqueIdentifier;
         if (saveState.interacted) {
-            this.gameObject.SetActive(false);
+            Destroy(this.gameObject);
+            //this.GetComponent<MeshRenderer>().enabled = false;
+            //this.enabled = false;
         }
     }
 

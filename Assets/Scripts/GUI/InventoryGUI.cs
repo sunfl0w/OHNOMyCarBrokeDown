@@ -101,6 +101,9 @@ public class InventoryGUI : MonoBehaviour {
         rightArrow.enabled = true;
         state.enabled = true;
         usageButton.enabled = true;
+
+        // TODO
+        InteractGUI.Instance.Hide();
     }
 
     void Hide() {
