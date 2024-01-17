@@ -19,7 +19,6 @@ public class SaveState {
     public InventoryData inventoryData = null;
     public List<InteractableSaveState> interactables = new List<InteractableSaveState>();
     public PlayerSaveState playerSaveState = new PlayerSaveState();
-
 }
 
 public class SavestateManager : MonoBehaviour {
