@@ -37,7 +37,7 @@ public class SavestateManager : MonoBehaviour {
         if (File.Exists(SaveStateFile)) {
             string saveStateJSON = File.ReadAllText(SaveStateFile);
             currentSaveState = JsonUtility.FromJson<SaveState>(saveStateJSON);
-            PlayerInventory.Instance.SetInventoryData(currentSaveState.inventoryData);
+            PlayerInventory.Instance?.SetInventoryData(currentSaveState.inventoryData);
             Debug.Log("Read SaveState from file.");
         } else {
             Debug.Log("SaveState file does not exist and can not be read.");
