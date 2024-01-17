@@ -63,6 +63,21 @@ public class PlayerInventory : MonoBehaviour {
         }
     }
 
+    // Remove an item to the player inventory
+    public void RemoveItem(ItemData itemToAdd) {
+        for (int i = 0; i < inventoryData.slots.Count; i++) {
+            InventorySlot slot = inventoryData.slots[i];
+            if (slot.itemData.itemName == itemToAdd.itemName) {
+                slot.amount -= 1;
+                if (slot.amount <= 0) {
+                    inventoryData.slots.RemoveAt(i);
+                }
+                Debug.Log("Copy of existing item " + itemToAdd.name + " removed from player inventory. New total is " + slot.amount + ".");
+                break;
+            }
+        }
+    }
+
     public void printItems() {
         if (inventoryData.slots.Count == 0) {
             Debug.Log("Inventory: empty");
@@ -114,8 +129,9 @@ public class PlayerInventory : MonoBehaviour {
                     Debug.Log("Used the last " + itemToUse.itemName + ". Removed from inventory.");
                 }
                 if (slot.itemData.itemName == "Battery") {
-                    // TODO reimplement this functionality!
-                    //FlashlightManager.Instance.ChangeBattery();
+                    PlayerFlashlightManager flashlightManager = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerFlashlightManager>();
+                    flashlightManager.batteryLife = 100.0f;
+                    RemoveItem(slot.itemData);
                 }
                 break;
             }
