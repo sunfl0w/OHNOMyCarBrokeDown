@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a3e520289c06be1b7b7e029629d2171e, type: 3}
-  m_Name: StreetInteractableOminousStreet
+  m_Name: CarTrunkInteractableData
   m_EditorClassIdentifier: 
-  interactText: Press [E] to go to the village.
-  interactSound: {fileID: 0}
+  interactText: Press [E] to take Flashlight from car trunk.
+  interactSound: {fileID: 8300000, guid: 4d39046895e09b2968735c8ee69a9ad0, type: 3}

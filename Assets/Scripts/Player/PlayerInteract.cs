@@ -11,19 +11,21 @@ public class PlayerInteract : MonoBehaviour {
     private void Update() {
         IInteractable closestInteractable = GetClosestInteractable();
 
-        if (closestInteractable != null && !unifiedGUI.IsAnyGUIVisible()) {
-            // Show interact GUI
-            if (!InteractGUI.Instance.IsVisible()) {
+        if (closestInteractable != null) {
+            IInteractable currentInteractable = InteractGUI.Instance.GetCurrentInteractable();
+            if (currentInteractable != null && currentInteractable.GetData().name != closestInteractable.GetData().name) {
+                Debug.Log("Interactable in range");
+                InteractGUI.Instance.Show(closestInteractable);
+            } else if(!unifiedGUI.IsAnyGUIVisible() && !InteractGUI.Instance.IsVisible()) {
                 Debug.Log("Interactable in range");
                 InteractGUI.Instance.Show(closestInteractable);
             }
-
-            if (Input.GetButtonDown("Interact")) {
-                closestInteractable.Interact();
-            }
         } else {
-            // Hide interact GUI
             InteractGUI.Instance.Hide();
+        }
+
+        if (InteractGUI.Instance.IsVisible() && Input.GetButtonDown("Interact")) {
+            closestInteractable.Interact();
         }
     }
 
