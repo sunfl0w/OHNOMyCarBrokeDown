@@ -32,7 +32,7 @@ public class PlayerInteract : MonoBehaviour {
     public IInteractable GetClosestInteractable() {
         List<IInteractable> interactables = new List<IInteractable>();
         float interactRange = 1f;
-        Collider[] colliderArray = Physics.OverlapSphere(transform.position, interactRange, LayerMask.GetMask("Interactable"));
+        Collider[] colliderArray = Physics.OverlapCapsule(transform.position, transform.position + Vector3.up * 2.0f, interactRange, LayerMask.GetMask("Interactable"));
         foreach (Collider collider in colliderArray) {
             if (collider.TryGetComponent(out IInteractable interactable)) {
                 if(interactable.CanInteract()) {

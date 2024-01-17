@@ -66,4 +66,8 @@ public class PlayerFlashlightManager : MonoBehaviour {
     public float GetBatteryLife() {
         return batteryLife;
     }
+
+    public bool IsFlashlightActive() {
+        return flashlightActive;
+    }
 }

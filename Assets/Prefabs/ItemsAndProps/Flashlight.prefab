@@ -111,3 +111,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemData: {fileID: 11400000, guid: b437471f431972da38ef2d988e9f3d3a, type: 2}
   interactableData: {fileID: 11400000, guid: 9a9cfe56115edacc49f9aca792791712, type: 2}
+  uniqueIdentifier: Flashlight

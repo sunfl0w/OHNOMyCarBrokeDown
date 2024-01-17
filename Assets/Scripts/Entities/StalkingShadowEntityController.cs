@@ -2,8 +2,7 @@ using System.Collections;
 using UnityEngine;
 using System;
 
-public class StalkingShadowEntityController : MonoBehaviour
-{
+public class StalkingShadowEntityController : MonoBehaviour {
     public GameObject player;
     public float aggroRange = 10.0f;
     public float attackRange = 1.0f;
@@ -20,29 +19,24 @@ public class StalkingShadowEntityController : MonoBehaviour
     private bool canAttack = true;
     private bool canMove = true;
 
-    void Awake()
-    {
+    void Awake() {
         navAgent = GetComponent<NavAgent>();
         animator = GetComponent<Animator>();
     }
 
-    void Update()
-    {
+    void Update() {
         navAgent.movementEnabled = canMove;
 
-        if (canMove)
-        {
+        if (canMove) {
             Vector3 nextWaypoint = navAgent.GetNextWaypoint();
-            if (Vector3.Distance(Vector3.positiveInfinity, nextWaypoint) > 1.0f)
-            { // Only true if a next waypoint exists
+            if (Vector3.Distance(Vector3.positiveInfinity, nextWaypoint) > 1.0f) { // Only true if a next waypoint exists
                 transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(nextWaypoint - transform.position, Vector3.up), Time.deltaTime * rotationDampening);
             }
         }
 
         // This only triggers the attack animation and cooldown coroutine
         // The test if the attack hit the player is perforemd in the Attack method called while the animation is running as a trigger
-        if (Vector3.Distance(player.transform.position, this.transform.position) < attackRange && canAttack)
-        {
+        if (Vector3.Distance(player.transform.position, this.transform.position) < attackRange && canAttack) {
             animator.SetTrigger("AttackTrigger");
             canAttack = false;
             StartCoroutine(AttackCooldown());
@@ -52,10 +46,9 @@ public class StalkingShadowEntityController : MonoBehaviour
         // Checks if the entity is hit by the player flashlight
         RaycastHit hit;
         Debug.DrawRay(player.transform.position + Vector3.up, player.transform.forward, Color.red);
-        if (canMove && canAttack && Physics.Raycast(player.transform.position + Vector3.up, player.transform.forward, out hit, 10.0f, LayerMask.GetMask("Entity")))
-        {
-            if (hit.transform.gameObject.GetInstanceID() == this.gameObject.GetInstanceID())
-            {
+        bool flashlightActive = player.GetComponent<PlayerFlashlightManager>().IsFlashlightActive();
+        if (canMove && flashlightActive && Physics.Raycast(player.transform.position + Vector3.up, player.transform.forward, out hit, 10.0f, LayerMask.GetMask("Entity"))) {
+            if (hit.transform.gameObject.GetInstanceID() == this.gameObject.GetInstanceID()) {
                 canAttack = false;
                 canMove = false;
                 StartCoroutine(FlashlightCooldown());
@@ -66,22 +59,18 @@ public class StalkingShadowEntityController : MonoBehaviour
     /// <summary>
     /// Is called by the attack animation at the time of attack
     /// </summary>
-    void Attack()
-    {
-        if (Physics.Raycast(this.transform.position + Vector3.up, this.transform.forward, attackRange + 10.0f, LayerMask.GetMask("Player")))
-        {
+    void Attack() {
+        if (Physics.Raycast(this.transform.position + Vector3.up, this.transform.forward, attackRange + 10.0f, LayerMask.GetMask("Player"))) {
             playerAttackedEvent?.Invoke(attackDamage);
         }
     }
 
-    IEnumerator AttackCooldown()
-    {
+    IEnumerator AttackCooldown() {
         yield return new WaitForSeconds(attackCooldownTime);
         canAttack = true;
     }
 
-    IEnumerator FlashlightCooldown()
-    {
+    IEnumerator FlashlightCooldown() {
         yield return new WaitForSeconds(flashlightCooldownTime);
         canAttack = true;
         canMove = true;
