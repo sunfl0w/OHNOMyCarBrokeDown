@@ -49,6 +49,7 @@ public class PauseMenuGUI : MonoBehaviour {
                 if (Input.GetKeyDown(KeyCode.Return)) {
                     PauseGUILeaveEvent?.Invoke();
                     Hide();
+                    SavestateManager.Instance.StoreSaveState();
                     SceneManager.LoadScene("MainMenuScene", LoadSceneMode.Single);
                 }
             }
