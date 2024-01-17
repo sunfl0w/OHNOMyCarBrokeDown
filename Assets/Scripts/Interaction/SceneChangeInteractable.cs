@@ -44,4 +44,8 @@ public class SceneChanceInteractable : MonoBehaviour, IInteractable {
         yield return new WaitForSeconds(1.0f);
         hintText.text = "";
     }
+
+    public bool CanInteract() {
+        return true;
+    }
 }

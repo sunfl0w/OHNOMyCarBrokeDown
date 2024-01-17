@@ -1,6 +1,4 @@
-using System.Collections;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using TMPro;
 
 public class CarTrunkInteractable : MonoBehaviour, IInteractable {
@@ -9,12 +7,15 @@ public class CarTrunkInteractable : MonoBehaviour, IInteractable {
     public ItemData flashlightData;
     public TextMeshProUGUI hintText;
 
+    private bool interacted = false;
+
     public void Interact() {
         if (data.interactSound != null) {
             audioSource.PlayOneShot(data.interactSound);
         }
         Debug.Log("Interacting with car trunk and adding flashlight to player inventory.");
         PlayerInventory.Instance.AddItem(flashlightData);
+        interacted = true;
     }
 
     public Transform GetTransform() {
@@ -23,5 +24,9 @@ public class CarTrunkInteractable : MonoBehaviour, IInteractable {
 
     public InteractableData GetData() {
         return data;
+    }
+
+    public bool CanInteract() {
+        return !interacted;
     }
 }

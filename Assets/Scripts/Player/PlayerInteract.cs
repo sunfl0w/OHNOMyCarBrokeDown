@@ -35,7 +35,9 @@ public class PlayerInteract : MonoBehaviour {
         Collider[] colliderArray = Physics.OverlapSphere(transform.position, interactRange, LayerMask.GetMask("Interactable"));
         foreach (Collider collider in colliderArray) {
             if (collider.TryGetComponent(out IInteractable interactable)) {
-                interactables.Add(interactable);
+                if(interactable.CanInteract()) {
+                    interactables.Add(interactable);
+                }
             }
         }
 

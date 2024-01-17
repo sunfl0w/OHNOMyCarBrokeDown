@@ -6,4 +6,5 @@ public interface IInteractable {
     public void Interact();
     public Transform GetTransform();
     public InteractableData GetData();
+    public bool CanInteract();
 }
