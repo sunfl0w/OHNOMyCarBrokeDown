@@ -50,7 +50,7 @@ public class PauseMenuGUI : MonoBehaviour {
                     PauseGUILeaveEvent?.Invoke();
                     Hide();
                     SavestateManager.Instance.StoreSaveState();
-                    SceneManager.LoadScene("MainMenuScene", LoadSceneMode.Single);
+                    SceneTransitionManager.Instance.LoadScene("MainMenuScene");
                 }
             }
         }

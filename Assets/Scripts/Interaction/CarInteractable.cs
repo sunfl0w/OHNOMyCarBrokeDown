@@ -26,7 +26,7 @@ public class CarInteractable : MonoBehaviour, IInteractable {
                 audioSource.PlayOneShot(data.interactSound);
             }
             Debug.Log("Load EndingScene");
-            SceneManager.LoadScene("MainMenuScene", LoadSceneMode.Single);
+            SceneTransitionManager.Instance.LoadScene("MainMenuScene");
         }
     }
 

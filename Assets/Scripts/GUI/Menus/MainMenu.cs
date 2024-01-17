@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
+using System;
 
 public class MainMenu : MonoBehaviour {
 
@@ -43,8 +44,13 @@ public class MainMenu : MonoBehaviour {
     void HandleSelection() {
         switch (selectedIndex) {
             case 0:
-                // Start Game
-                SceneManager.LoadScene("VillageScene");
+                // Start Game and load last active scene
+                string currentSceneName = SavestateManager.Instance.GetCurrentSaveState().playerSaveState.currentSceneName;
+                if (currentSceneName != String.Empty) {
+                    SceneTransitionManager.Instance.LoadScene(SavestateManager.Instance.GetCurrentSaveState().playerSaveState.currentSceneName);
+                } else {
+                    SceneTransitionManager.Instance.LoadScene("OminousStreetScene");
+                }
                 break;
             case 1:
                 // Credits

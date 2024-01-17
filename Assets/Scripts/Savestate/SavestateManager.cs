@@ -2,11 +2,21 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+
+[Serializable]
+public class PlayerSaveState {
+    public Vector3 position = Vector3.zero;
+    public Quaternion rotation = Quaternion.identity;
+    public string currentSceneName = String.Empty;
+}
 
 [Serializable]
 public class SaveState {
     public InventoryData inventoryData = null;
     public List<ItemSaveState> itemData = new List<ItemSaveState>();
+    public PlayerSaveState playerSaveState = new PlayerSaveState();
+
 }
 
 public class SavestateManager : MonoBehaviour {
@@ -28,16 +38,13 @@ public class SavestateManager : MonoBehaviour {
         UpdateSceneItems();
     }
 
-    private void Start() {
-        //LoadSaveState();
-        //UpdateSceneItems();
-    }
-
     public void LoadSaveState() {
         if (File.Exists(SaveStateFile)) {
             string saveStateJSON = File.ReadAllText(SaveStateFile);
             currentSaveState = JsonUtility.FromJson<SaveState>(saveStateJSON);
+
             PlayerInventory.Instance?.SetInventoryData(currentSaveState.inventoryData);
+
             Debug.Log("Read SaveState from file.");
         } else {
             Debug.Log("SaveState file does not exist and can not be read.");
@@ -46,6 +53,13 @@ public class SavestateManager : MonoBehaviour {
 
     public void StoreSaveState() {
         currentSaveState.inventoryData = PlayerInventory.Instance.GetInventoryData();
+
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        if (player != null) {
+            currentSaveState.playerSaveState.position = player.transform.position;
+            currentSaveState.playerSaveState.rotation = player.transform.rotation;
+            currentSaveState.playerSaveState.currentSceneName = SceneManager.GetActiveScene().name;
+        }
 
         string saveStateJSON = JsonUtility.ToJson(currentSaveState);
         File.WriteAllText(SaveStateFile, saveStateJSON);
