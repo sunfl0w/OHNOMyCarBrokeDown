@@ -8,7 +8,8 @@ using System;
 public class MainMenu : MonoBehaviour
 {
 
-    public TextMeshProUGUI startGame;
+    public TextMeshProUGUI loadGame;
+    public TextMeshProUGUI newGame;
     public TextMeshProUGUI credits;
     public TextMeshProUGUI quit;
     public GameObject buttons;
@@ -16,7 +17,21 @@ public class MainMenu : MonoBehaviour
     public GameObject creditsContainer;
 
     private int selectedIndex = 0;
+    private bool canLoad = false;
 
+    void Awake()
+    {
+        string currentSceneName = SavestateManager.Instance.GetCurrentSaveState().playerSaveState.currentSceneName;
+        if (currentSceneName != String.Empty)
+        {
+            canLoad = true;
+        }
+        else
+        {
+            canLoad = false;
+            loadGame.color = Color.grey;
+        }
+    }
     void Start()
     {
         ChangeSelection(0);
@@ -52,11 +67,16 @@ public class MainMenu : MonoBehaviour
 
     void ChangeSelection(int direction)
     {
-        selectedIndex = (selectedIndex + direction + 3) % 3;
+        selectedIndex = (selectedIndex + direction + 4) % 4;
+        if (!canLoad && selectedIndex == 0) { selectedIndex = (direction == 1) ? 1 : 3; }
 
-        startGame.color = (selectedIndex == 0) ? Color.red : Color.white;
-        credits.color = (selectedIndex == 1) ? Color.red : Color.white;
-        quit.color = (selectedIndex == 2) ? Color.red : Color.white;
+        if (canLoad)
+        {
+            loadGame.color = (selectedIndex == 0) ? Color.red : Color.white;
+        }
+        newGame.color = (selectedIndex == 1) ? Color.red : Color.white;
+        credits.color = (selectedIndex == 2) ? Color.red : Color.white;
+        quit.color = (selectedIndex == 3) ? Color.red : Color.white;
     }
 
     void HandleSelection()
@@ -66,21 +86,19 @@ public class MainMenu : MonoBehaviour
             case 0:
                 // Start Game and load last active scene
                 string currentSceneName = SavestateManager.Instance.GetCurrentSaveState().playerSaveState.currentSceneName;
-                if (currentSceneName != String.Empty)
-                {
-                    SceneTransitionManager.Instance.LoadScene(SavestateManager.Instance.GetCurrentSaveState().playerSaveState.currentSceneName);
-                }
-                else
-                {
-                    SceneTransitionManager.Instance.LoadScene("OminousStreetScene");
-                }
+                SceneTransitionManager.Instance.LoadScene(SavestateManager.Instance.GetCurrentSaveState().playerSaveState.currentSceneName);
                 break;
             case 1:
+                // Start new game 
+                SavestateManager.Instance.ClearSaveState();
+                SceneTransitionManager.Instance.LoadScene("OminousStreetScene");
+                break;
+            case 2:
                 // Credits
                 Debug.Log("Credits selected");
                 ToggleCredits();
                 break;
-            case 2:
+            case 3:
                 // Quit
                 Debug.Log("Quit selected");
                 Application.Quit(); // Note: This will only work in a built application, not in the Unity Editor
