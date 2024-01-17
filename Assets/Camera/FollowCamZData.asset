@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: FollowCamZData
   m_EditorClassIdentifier: 
   camType: 3
-  fov: 50
+  fov: 40
   swivel: 1
   followDistance: 8
   followAxis: {x: 0, y: 0, z: 1}

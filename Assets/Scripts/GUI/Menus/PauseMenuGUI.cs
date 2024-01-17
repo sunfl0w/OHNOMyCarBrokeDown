@@ -61,6 +61,9 @@ public class PauseMenuGUI : MonoBehaviour {
         foreach (Transform child in transform) {
             child.gameObject.SetActive(true);
         }
+        // TODO
+        InteractGUI.Instance.Hide();
+        
         Time.timeScale = 0.0f;
     }
 
