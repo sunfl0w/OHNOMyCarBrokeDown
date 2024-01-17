@@ -1,30 +1,24 @@
 using System;
 using UnityEngine;
 
-[Serializable]
-public class ItemSaveState {
-    public string name = String.Empty;
-    public bool collected = false;
-}
-
 public class Item : MonoBehaviour, IInteractable {
     public ItemData itemData;
     public InteractableData interactableData;
-    public String uniqueIdentifier = String.Empty;
+    public string uniqueIdentifier = String.Empty;
 
-    private ItemSaveState saveState = new ItemSaveState();
+    private InteractableSaveState saveState = new InteractableSaveState();
 
     public void Start() {
         saveState.name = uniqueIdentifier;
-        if (saveState.collected) {
+        if (saveState.interacted) {
             this.gameObject.SetActive(false);
         }
     }
 
     public void Interact() {
         // Update global save state when interacting with item
-        saveState.collected = true;
-        SavestateManager.Instance.UpdateItem(saveState);
+        saveState.interacted = true;
+        SavestateManager.Instance.UpdateInteractable(saveState);
 
         AddToPlayerInventroy(); // Add item to player inventory
         Destroy(this.gameObject); // Remove item from scene
@@ -50,7 +44,11 @@ public class Item : MonoBehaviour, IInteractable {
         return true;
     }
 
-    public void UpdateSaveState(ItemSaveState saveState) {
+    public void UpdateSaveState(InteractableSaveState saveState) {
         this.saveState = saveState;
+    }
+
+    public string GetUniqueIdentifier() {
+        return uniqueIdentifier;
     }
 }

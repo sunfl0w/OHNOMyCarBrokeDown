@@ -8,6 +8,7 @@ TagManager:
   - CameraData
   - Item
   - UnifiedGUI
+  - Interactable
   layers:
   - Default
   - TransparentFX

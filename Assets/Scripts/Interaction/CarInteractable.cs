@@ -2,6 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
+using System;
 
 public class CarInteractable : MonoBehaviour, IInteractable {
     public string targetSceneName;
@@ -39,11 +40,18 @@ public class CarInteractable : MonoBehaviour, IInteractable {
     }
 
     IEnumerator ClearHint() {
-        yield return new WaitForSeconds(1.0f);
-        hintText.text = "";
+        yield return new WaitForSeconds(2.0f);
+        InteractGUI.Instance.Hide();
     }
 
     public bool CanInteract() {
         return true;
+    }
+
+    public void UpdateSaveState(InteractableSaveState saveState) {
+    }
+
+    public string GetUniqueIdentifier() {
+        return String.Empty;
     }
 }

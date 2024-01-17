@@ -24,7 +24,7 @@ public class InteractGUI : MonoBehaviour {
     }
 
     public void Show(IInteractable interactable) {
-        Debug.Log("Show item interact GUI");
+        Debug.Log("Show interact GUI");
         hintTextGUI.text = interactable.GetData().interactText;
         isVisible = true;
         currentInteractable = interactable;

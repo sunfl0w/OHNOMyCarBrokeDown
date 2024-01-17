@@ -17,7 +17,7 @@ public class PlayerSaveState {
 [Serializable]
 public class SaveState {
     public InventoryData inventoryData = null;
-    public List<ItemSaveState> itemData = new List<ItemSaveState>();
+    public List<InteractableSaveState> interactables = new List<InteractableSaveState>();
     public PlayerSaveState playerSaveState = new PlayerSaveState();
 
 }
@@ -36,9 +36,12 @@ public class SavestateManager : MonoBehaviour {
         } else {
             instance = this;
         }
-
         LoadSaveState();
-        UpdateSceneItems();
+    }
+
+    private void Start() {
+        UpdateSceneInteractables();
+        PlayerInventory.Instance?.SetInventoryData(currentSaveState.inventoryData);
     }
 
     public void LoadSaveState() {
@@ -46,11 +49,13 @@ public class SavestateManager : MonoBehaviour {
             string saveStateJSON = File.ReadAllText(SaveStateFile);
             currentSaveState = JsonUtility.FromJson<SaveState>(saveStateJSON);
 
-            PlayerInventory.Instance?.SetInventoryData(currentSaveState.inventoryData);
-
             Debug.Log("Read SaveState from file.");
         } else {
-            Debug.Log("SaveState file does not exist and can not be read.");
+            Debug.Log("SaveState file does not exist. An new one will be created.");
+            string saveStateJSON = JsonUtility.ToJson(currentSaveState);
+            File.WriteAllText(SaveStateFile, saveStateJSON);
+            saveStateJSON = File.ReadAllText(SaveStateFile);
+            currentSaveState = JsonUtility.FromJson<SaveState>(saveStateJSON);
         }
     }
 
@@ -83,28 +88,37 @@ public class SavestateManager : MonoBehaviour {
         return currentSaveState;
     }
 
-    public void UpdateItem(ItemSaveState itemSaveState) {
+    public void UpdateInteractable(InteractableSaveState saveState) {
         int i = 0;
-        for (i = 0; i < currentSaveState.itemData.Count; i++) {
-            if (currentSaveState.itemData[i].name == itemSaveState.name) {
+        for (i = 0; i < currentSaveState.interactables.Count; i++) {
+            if (currentSaveState.interactables[i].name == saveState.name) {
                 break;
             }
         }
-        if (i < currentSaveState.itemData.Count) { // found
-            currentSaveState.itemData[i].collected = itemSaveState.collected;
+        if (i < currentSaveState.interactables.Count) { // found
+            currentSaveState.interactables[i].interacted = saveState.interacted;
         } else {
-            currentSaveState.itemData.Add(itemSaveState);
+            currentSaveState.interactables.Add(saveState);
         }
     }
 
-    private void UpdateSceneItems() {
+    private void UpdateSceneInteractables() {
         Debug.Log("Updating item save states based on save file.");
         GameObject[] itemObjects = GameObject.FindGameObjectsWithTag("Item");
         foreach(GameObject itemObject in itemObjects) {
-            Item item = itemObject.GetComponent<Item>();
-            foreach(ItemSaveState state in currentSaveState.itemData) {
-                if (item.uniqueIdentifier == state.name) {
-                    item.UpdateSaveState(state);
+            foreach(InteractableSaveState state in currentSaveState.interactables) {
+                if (itemObject.GetComponent<Item>().GetUniqueIdentifier() == state.name) {
+                    itemObject.GetComponent<Item>().UpdateSaveState(state);
+                }
+            }
+        }
+
+        Debug.Log("Updating other interactable save states based on save file.");
+        GameObject[] interactableObjects = GameObject.FindGameObjectsWithTag("Interactable");
+        foreach(GameObject interactableObject in interactableObjects) {
+            foreach(InteractableSaveState state in currentSaveState.interactables) {
+                if (interactableObject.GetComponent<IInteractable>().GetUniqueIdentifier() == state.name) {
+                    interactableObject.GetComponent<IInteractable>().UpdateSaveState(state);
                 }
             }
         }

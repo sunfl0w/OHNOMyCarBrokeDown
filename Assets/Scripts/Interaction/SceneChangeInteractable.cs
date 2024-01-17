@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using TMPro;
+using System;
 
 public class SceneChanceInteractable : MonoBehaviour, IInteractable {
     public string targetSceneName;
@@ -46,5 +46,12 @@ public class SceneChanceInteractable : MonoBehaviour, IInteractable {
 
     public bool CanInteract() {
         return true;
+    }
+
+    public void UpdateSaveState(InteractableSaveState saveState) {
+    }
+
+    public string GetUniqueIdentifier() {
+        return String.Empty;
     }
 }

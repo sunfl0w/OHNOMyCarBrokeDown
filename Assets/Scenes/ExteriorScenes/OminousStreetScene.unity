@@ -328,7 +328,7 @@ GameObject:
   - component: {fileID: 413119731}
   m_Layer: 16
   m_Name: CarTrunk
-  m_TagString: Untagged
+  m_TagString: Interactable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -481,6 +481,7 @@ MonoBehaviour:
   audioSource: {fileID: 413119731}
   flashlightData: {fileID: 11400000, guid: b437471f431972da38ef2d988e9f3d3a, type: 2}
   hintText: {fileID: 6340352912067341487}
+  uniqueIdentifier: CarTrunk
 --- !u!1 &441443004
 GameObject:
   m_ObjectHideFlags: 0
@@ -640,7 +641,7 @@ GameObject:
   - component: {fileID: 790956816}
   m_Layer: 16
   m_Name: CarInteractable
-  m_TagString: Untagged
+  m_TagString: Interactable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1097,7 +1098,7 @@ GameObject:
   - component: {fileID: 1508145713}
   m_Layer: 16
   m_Name: VillageEntry
-  m_TagString: Untagged
+  m_TagString: Interactable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

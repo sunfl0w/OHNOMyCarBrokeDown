@@ -4,18 +4,18 @@ using UnityEngine;
 
 [Serializable]
 public class InventoryData {
-    public List<InventorySlot> slots;
-    public ItemData equippedItem;
+    public List<InventorySlot> slots = new List<InventorySlot>();
+    public ItemData equippedItem = null;
 }
 
 [Serializable]
 public class InventorySlot {
-    public ItemData itemData;
-    public uint amount;
+    public ItemData itemData = null;
+    public uint amount = 0;
 }
 
 public class PlayerInventory : MonoBehaviour {
-    public InventoryData inventoryData;
+    public InventoryData inventoryData = new InventoryData();
 
     private static PlayerInventory instance;
     public static PlayerInventory Instance { get { return instance; } }
@@ -143,6 +143,6 @@ public class PlayerInventory : MonoBehaviour {
     }
 
     public bool IsFlashlightEquipped() {
-        return inventoryData.equippedItem != null && inventoryData.equippedItem.name == "Flashlight";
+        return inventoryData != null && inventoryData.equippedItem != null && inventoryData.equippedItem.name == "Flashlight";
     }
 }
