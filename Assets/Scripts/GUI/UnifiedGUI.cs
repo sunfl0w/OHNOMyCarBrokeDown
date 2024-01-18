@@ -2,7 +2,7 @@ using UnityEngine;
 using System;
 
 public class UnifiedGUI : MonoBehaviour {
-    public static event Action GUIEnterEvent;
+    public static event Action<bool, bool> GUIEnterEvent;
     public static event Action GUILeaveEvent;
 
     private bool guiVisible = false;
@@ -14,6 +14,8 @@ public class UnifiedGUI : MonoBehaviour {
         InventoryGUI.InventoryGUILeaveEvent += OnGUILeave;
         PauseMenuGUI.PauseGUIEnterEvent += OnGUIEnter;
         PauseMenuGUI.PauseGUILeaveEvent += OnGUILeave;
+        DialogueGUI.DialogueGUIEnterEvent += OnGUIEnter;
+        DialogueGUI.DialogueGUILeaveEvent += OnGUILeave;
     }
 
     void OnDestroy() {
@@ -23,15 +25,17 @@ public class UnifiedGUI : MonoBehaviour {
         InventoryGUI.InventoryGUILeaveEvent -= OnGUILeave;
         PauseMenuGUI.PauseGUIEnterEvent -= OnGUIEnter;
         PauseMenuGUI.PauseGUILeaveEvent -= OnGUILeave;
+        DialogueGUI.DialogueGUIEnterEvent -= OnGUIEnter;
+        DialogueGUI.DialogueGUILeaveEvent -= OnGUILeave;
     }
 
     public bool IsAnyGUIVisible() {
         return guiVisible;
     }
 
-    void OnGUIEnter() {
+    void OnGUIEnter(bool enableGUIBlur, bool disableMovement) {
         guiVisible = true;
-        GUIEnterEvent?.Invoke();
+        GUIEnterEvent?.Invoke(enableGUIBlur, disableMovement);
     }
 
     void OnGUILeave() {

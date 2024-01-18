@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using System;
@@ -13,7 +11,7 @@ public class ItemInspectGUI : MonoBehaviour {
     private GameObject inspectedItem = null;
     private Vector3 rotationSpeed = Vector3.zero;
 
-    public static event Action InspectionGUIEnterEvent;
+    public static event Action<bool, bool> InspectionGUIEnterEvent;
     public static event Action InspectionGUILeaveEvent;
 
     private static ItemInspectGUI instance;
@@ -49,7 +47,7 @@ public class ItemInspectGUI : MonoBehaviour {
 
     public void Show(ItemData itemData) {
         Debug.Log("Show item inspect GUI");
-        InspectionGUIEnterEvent?.Invoke();
+        InspectionGUIEnterEvent?.Invoke(true, true);
         hintTextGUI.text = itemData.interactText + "\nExit with [ESC]. Move item with [WASD].";
 
         inspectedItem = Instantiate(itemData.prefab);

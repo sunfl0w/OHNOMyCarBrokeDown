@@ -23,7 +23,7 @@ public class ThirdPersonPlayerController : MonoBehaviour {
 
     void Awake() {
         // Add callbacks to GUI events
-        UnifiedGUI.GUIEnterEvent += DisableMovement;
+        UnifiedGUI.GUIEnterEvent += OnGUIEnter;
         UnifiedGUI.GUILeaveEvent += EnableMovement;
     }
 
@@ -63,8 +63,9 @@ public class ThirdPersonPlayerController : MonoBehaviour {
         return characterController.isGrounded;
     }
 
-    public void DisableMovement() {
-        canMove = false;
+    public void OnGUIEnter(bool enableGUIBlur, bool disableMovement) {
+        canMove = !disableMovement;
+        currentSpeed = 0.0f;
     }
 
     public void EnableMovement() {

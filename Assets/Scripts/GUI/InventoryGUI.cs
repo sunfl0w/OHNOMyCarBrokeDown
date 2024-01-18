@@ -15,7 +15,7 @@ public class InventoryGUI : MonoBehaviour {
     public TextMeshProUGUI state;
     public TextMeshProUGUI usageButton;
 
-    public static event Action InventoryGUIEnterEvent;
+    public static event Action<bool, bool> InventoryGUIEnterEvent;
     public static event Action InventoryGUILeaveEvent;
 
     private UnifiedGUI unifiedGUI;
@@ -51,7 +51,7 @@ public class InventoryGUI : MonoBehaviour {
             isVisible = false;
             Hide();
         } else if (Input.GetButtonDown("Inventory") && !isVisible && !unifiedGUI.IsAnyGUIVisible()) {
-            InventoryGUIEnterEvent?.Invoke();
+            InventoryGUIEnterEvent?.Invoke(true, true);
             isVisible = true;
             currentItemIndex = 0;
             PlayerInventory.Instance.printItems();

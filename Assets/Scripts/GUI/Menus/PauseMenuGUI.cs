@@ -8,7 +8,7 @@ public class PauseMenuGUI : MonoBehaviour {
     public TextMeshProUGUI mainMenuButton;
     public Color highlightedColor = Color.red;
 
-    public static event Action PauseGUIEnterEvent;
+    public static event Action<bool, bool> PauseGUIEnterEvent;
     public static event Action PauseGUILeaveEvent;
 
     private UnifiedGUI unifiedGUI;
@@ -25,7 +25,7 @@ public class PauseMenuGUI : MonoBehaviour {
             PauseGUILeaveEvent?.Invoke();
             Hide();
         } else if (Input.GetButtonDown("Cancel") && !isVisible && !unifiedGUI.IsAnyGUIVisible()) {
-            PauseGUIEnterEvent?.Invoke();
+            PauseGUIEnterEvent?.Invoke(true, true);
             Show();
         }
 

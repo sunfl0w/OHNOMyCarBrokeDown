@@ -1,9 +1,19 @@
-using System.Collections;
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using TMPro;
 
 public class DialogueTrigger : MonoBehaviour {
     public DialogueData data;
-    [SerializeField] bool firstInteraction = true;
+    bool firstTrigger = true;
+    private UnifiedGUI unifiedGUI;
+
+    private void Start() {
+        unifiedGUI = GameObject.FindGameObjectWithTag("UnifiedGUI").GetComponent<UnifiedGUI>();
+    }
+
+    private void OnTriggerEnter(Collider other) {
+        if(firstTrigger && !unifiedGUI.IsAnyGUIVisible()) {
+            Debug.Log("Opening dialogue gui");
+            DialogueGUI.Instance.Show(data);
+            firstTrigger = false;
+        }
+    }
 }

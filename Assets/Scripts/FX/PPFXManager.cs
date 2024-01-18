@@ -21,8 +21,10 @@ public class PPFXManager : MonoBehaviour {
         UnifiedGUI.GUILeaveEvent += SetBaseProfile;
     }
 
-    void SetBlurProfile() {
-        SetProfile("BlurVP");
+    void SetBlurProfile(bool enableGUIBlur, bool disableMovemen) {
+        if (enableGUIBlur) {
+            SetProfile("BlurVP");
+        }
     }
 
     void SetBaseProfile() {
