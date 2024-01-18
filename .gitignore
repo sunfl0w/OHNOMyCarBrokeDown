@@ -74,3 +74,10 @@ crashlytics-build.properties
 
 # SaveData
 SaveState.json
+
+# Build
+Burst*
+game*
+log.txt
+UnityPlayer.so
+

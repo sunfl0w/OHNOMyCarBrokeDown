@@ -28,6 +28,25 @@ public class CameraController : MonoBehaviour {
                 }
             }
         }
+
+        /*var windowAspect = (float)Screen.width / Screen.height;
+        var d = windowAspect / (4.0f / 3.0f);
+
+        if (d > 1.0f) {
+            Rect rect = cam.rect;
+            rect.width = 1.0f / d;
+            rect.height = 1.0f;
+            rect.x = (1.0f - rect.width) / 2.0f;
+            rect.y = 0;
+            cam.rect = rect;
+        } else {
+            Rect rect = cam.rect;
+            rect.height = 1.0f / d;
+            rect.width = 1.0f;
+            rect.y = (1.0f - rect.height) / 2.0f;
+            rect.x = 0;
+            cam.rect = rect;
+        }*/
     }
 
     public void SetVirtualCamera(GameObject virtualCam) {

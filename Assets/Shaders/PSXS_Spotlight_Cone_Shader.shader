@@ -7,7 +7,7 @@ Shader "Custom/PSXS_Spotlight_Shader"
     }
     SubShader
     {
-        Tags { "RenderType"="Transparent" "Queue"="Transparent" "RenderPipeline" = "UniversalRenderPipeline" }
+        Tags { "RenderType"="Transparent" "Queue"="Transparent" }
         LOD 100
 
         Pass

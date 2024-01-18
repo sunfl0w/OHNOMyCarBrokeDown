@@ -1,13 +1,18 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using System.Collections.Generic;
 
 public class MusicDirector : MonoBehaviour {
-    public AudioSource audioSource;
-    public AudioClip currentMusicClip;
+    public List<AudioClip> tracks = new List<AudioClip>();
+
+    private AudioSource audioSource;
 
     void Start() {
-        audioSource.clip = currentMusicClip;
-        audioSource.Play();
+        audioSource = GetComponent<AudioSource>();
+    }
+
+    void Update() {
+        if(!audioSource.isPlaying && tracks.Count > 0) {
+            audioSource.PlayOneShot(tracks[Random.Range(0, tracks.Count)]);
+        }
     }
 }

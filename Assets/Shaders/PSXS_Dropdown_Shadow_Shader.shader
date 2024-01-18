@@ -6,7 +6,7 @@ Shader "Custom/PSXS_Dropdown_Shadow_Shader"
     }
     SubShader
     {
-        Tags { "RenderType"="Transparent" "Queue"="Transparent" "RenderPipeline" = "UniversalRenderPipeline" }
+        Tags { "RenderType"="Opaque" "Queue"="Transparent" }
 
         Pass
         {   

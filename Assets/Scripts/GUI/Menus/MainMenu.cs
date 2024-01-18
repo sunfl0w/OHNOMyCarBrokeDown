@@ -5,8 +5,7 @@ using UnityEngine.SceneManagement;
 using TMPro;
 using System;
 
-public class MainMenu : MonoBehaviour
-{
+public class MainMenu : MonoBehaviour {
 
     public TextMeshProUGUI loadGame;
     public TextMeshProUGUI newGame;
@@ -19,59 +18,41 @@ public class MainMenu : MonoBehaviour
     private int selectedIndex = 0;
     private bool canLoad = false;
 
-    void Awake()
-    {
+    void Start() {
         string currentSceneName = SavestateManager.Instance.GetCurrentSaveState().playerSaveState.currentSceneName;
-        if (currentSceneName != String.Empty)
-        {
+        if (currentSceneName != String.Empty) {
             canLoad = true;
-        }
-        else
-        {
+        } else {
             canLoad = false;
             loadGame.color = Color.grey;
         }
-    }
-    void Start()
-    {
         ChangeSelection(0);
     }
 
-    void Update()
-    {
-        if (buttons.activeSelf)
-        {
-            if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W))
-            {
+    void Update() {
+        if (buttons.activeSelf) {
+            if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W)) {
                 ChangeSelection(-1);
-            }
-            else if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S))
-            {
+            } else if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S)) {
                 ChangeSelection(1);
             }
 
-            if (Input.GetKeyDown(KeyCode.Return))
-            {
+            if (Input.GetKeyDown(KeyCode.Return)) {
                 HandleSelection();
             }
-        }
-        else
-        {
-            if (Input.GetKeyDown(KeyCode.Return))
-            {
+        } else {
+            if (Input.GetKeyDown(KeyCode.Return)) {
                 ToggleCredits();
             }
         }
 
     }
 
-    void ChangeSelection(int direction)
-    {
+    void ChangeSelection(int direction) {
         selectedIndex = (selectedIndex + direction + 4) % 4;
         if (!canLoad && selectedIndex == 0) { selectedIndex = (direction == 1) ? 1 : 3; }
 
-        if (canLoad)
-        {
+        if (canLoad) {
             loadGame.color = (selectedIndex == 0) ? Color.red : Color.white;
         }
         newGame.color = (selectedIndex == 1) ? Color.red : Color.white;
@@ -79,10 +60,8 @@ public class MainMenu : MonoBehaviour
         quit.color = (selectedIndex == 3) ? Color.red : Color.white;
     }
 
-    void HandleSelection()
-    {
-        switch (selectedIndex)
-        {
+    void HandleSelection() {
+        switch (selectedIndex) {
             case 0:
                 // Start Game and load last active scene
                 string currentSceneName = SavestateManager.Instance.GetCurrentSaveState().playerSaveState.currentSceneName;
@@ -106,15 +85,11 @@ public class MainMenu : MonoBehaviour
         }
     }
 
-    void ToggleCredits()
-    {
-        if (creditsContainer.activeSelf)
-        {
+    void ToggleCredits() {
+        if (creditsContainer.activeSelf) {
             creditsContainer.SetActive(false);
             buttons.SetActive(true);
-        }
-        else
-        {
+        } else {
             creditsContainer.SetActive(true);
             buttons.SetActive(false);
         }

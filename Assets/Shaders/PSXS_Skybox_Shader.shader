@@ -12,7 +12,7 @@ Shader "Custom/PSXS_Skybox_Shader" {
     }
 
     SubShader {
-        Tags { "Queue"="Background" "RenderType"="Background" "PreviewType"="Skybox" "RenderPipeline" = "UniversalRenderPipeline" }
+        Tags { "Queue"="Background" "RenderType"="Background" "PreviewType"="Skybox" }
         Cull Off ZWrite Off
 
         HLSLINCLUDE
