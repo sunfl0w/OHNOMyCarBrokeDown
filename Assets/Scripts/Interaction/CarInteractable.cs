@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Playables;
 using TMPro;
 using System;
 
@@ -13,6 +14,26 @@ public class CarInteractable : MonoBehaviour, IInteractable {
     public ItemData requiredItem2;
 
     public TextMeshProUGUI hintText;
+    public PlayableDirector playableDirector;
+
+    private void Start()
+    {
+        // Subscribe to the played event
+        playableDirector.stopped += OnTimelineFinished;
+    }
+
+    // Event handler for the timeline completion
+    private void OnTimelineFinished(PlayableDirector aDirector)
+    {
+        if (aDirector == playableDirector)
+        {
+            // Unsubscribe to prevent multiple calls
+            playableDirector.stopped -= OnTimelineFinished;
+
+            // Load the next scene after the timeline has finished playing
+            SceneTransitionManager.Instance.LoadScene("MainMenuScene");
+        }
+    }
 
 
     public void Interact() {
@@ -27,7 +48,9 @@ public class CarInteractable : MonoBehaviour, IInteractable {
                 audioSource.PlayOneShot(data.interactSound);
             }
             Debug.Log("Load EndingScene");
-            SceneTransitionManager.Instance.LoadScene("MainMenuScene");
+            hintText.text = "";
+            playableDirector.Play();
+            //SceneTransitionManager.Instance.LoadScene("MainMenuScene");
         }
     }
 
