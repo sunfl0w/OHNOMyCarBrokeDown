@@ -10,15 +10,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 7d09424cd185fdd609877b8660db2c52, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.9159
+      value: 7.068552
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7d09424cd185fdd609877b8660db2c52, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.2264
+      value: -0.05605316
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7d09424cd185fdd609877b8660db2c52, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1.4951
+      value: -13.840605
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7d09424cd185fdd609877b8660db2c52, type: 3}
       propertyPath: m_LocalRotation.w
@@ -111,4 +111,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemData: {fileID: 11400000, guid: b1063567a4ef30b65a9b8ccda515a573, type: 2}
   interactableData: {fileID: 11400000, guid: 9a9cfe56115edacc49f9aca792791712, type: 2}
-  uniqueIdentifier: CarPart1
+  uniqueIdentifier: CarPart2

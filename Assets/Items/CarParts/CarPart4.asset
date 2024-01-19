@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d57fae1bfdec84ea5a34f58b901594e3, type: 3}
-  m_Name: CarPart1
+  m_Name: CarPart4
   m_EditorClassIdentifier: 
-  itemName: SubBlue
-  interactText: SubBlue. Some liquid used in diesel engines.
-  prefab: {fileID: 6094386395120628436, guid: 8da3f6170d0999d899ab75f49182ad76, type: 3}
+  itemName: CD
+  interactText: A CD containing the greatest hits.
+  prefab: {fileID: 919132149155446097, guid: 33b57650558e346fb8b050ce3916a1e4, type: 3}
   category: 2

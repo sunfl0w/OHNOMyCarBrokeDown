@@ -10,15 +10,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 529c5898c88bc6b2b91a1b820177883c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 6.652
+      value: 6.5720797
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 529c5898c88bc6b2b91a1b820177883c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.119
+      value: -0.06931925
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 529c5898c88bc6b2b91a1b820177883c, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -21.676
+      value: -14.992213
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 529c5898c88bc6b2b91a1b820177883c, type: 3}
       propertyPath: m_LocalRotation.w
@@ -38,7 +38,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 529c5898c88bc6b2b91a1b820177883c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 529c5898c88bc6b2b91a1b820177883c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
@@ -94,7 +94,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemData: {fileID: 11400000, guid: e91e005fdd968e1e382f60331fd4faca, type: 2}
   interactableData: {fileID: 11400000, guid: 9a9cfe56115edacc49f9aca792791712, type: 2}
-  uniqueIdentifier: C
+  uniqueIdentifier: CarPart1
 --- !u!65 &5480500146851394700
 BoxCollider:
   m_ObjectHideFlags: 0
