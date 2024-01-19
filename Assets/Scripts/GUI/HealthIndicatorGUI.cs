@@ -4,7 +4,8 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 
-public class HealthIndicatorGUI : MonoBehaviour {
+public class HealthIndicatorGUI : MonoBehaviour
+{
     private Image indicatorImage;
     private bool isVisible = false;
     private bool flashlightActive = true;
@@ -22,24 +23,36 @@ public class HealthIndicatorGUI : MonoBehaviour {
 
     public static HealthIndicatorGUI Instance { get { return instance; } }
 
-    void Awake() {
-        if (instance != null && instance != this) {
+    void Awake()
+    {
+        if (instance != null && instance != this)
+        {
             Destroy(this.gameObject);
-        } else {
+        }
+        else
+        {
             instance = this;
         }
     }
 
-    void Start() {
+    void Start()
+    {
         healthImages = GetComponentsInChildren<Image>();
         playerHealthManager = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealthManager>();
     }
 
-    void Update() {
+    void Update()
+    {
         int playerHealth = playerHealthManager.GetPlayerHealth();
-        for (int i = 0; i < healthImages.Length; i++) {
+        for (int i = 0; i < healthImages.Length; i++)
+        {
             healthImages[i].enabled = playerHealth > i;
         }
+    }
+
+    public void Hide()
+    {
+        gameObject.SetActive(false);
     }
 
     /*void Update() {
