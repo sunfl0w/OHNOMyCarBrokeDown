@@ -16,3 +16,4 @@ MonoBehaviour:
   interactText: A canister filled with fuel.
   prefab: {fileID: 919132149155446097, guid: fb0ceb9d52ea6d7b899e585b8da8140a, type: 3}
   category: 2
+  inspectMaterial: {fileID: 2100000, guid: 994c1e8f25ce971e0849f72ff403c5b0, type: 2}

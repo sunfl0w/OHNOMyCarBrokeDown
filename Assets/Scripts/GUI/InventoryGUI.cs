@@ -50,7 +50,7 @@ public class InventoryGUI : MonoBehaviour {
             rotationSpeed = Vector3.zero;
             isVisible = false;
             Hide();
-        } else if (Input.GetButtonDown("Inventory") && !isVisible && !unifiedGUI.IsAnyGUIVisible()) {
+        } else if ((Input.GetButtonDown("Inventory") || Input.GetButtonDown("Cancel")) && !isVisible && !unifiedGUI.IsAnyGUIVisible()) {
             InventoryGUIEnterEvent?.Invoke(true, true);
             isVisible = true;
             currentItemIndex = 0;
@@ -162,6 +162,7 @@ public class InventoryGUI : MonoBehaviour {
         DestroyInspectedItem();
 
         inspectedItem = Instantiate(currentItemData.prefab);
+        inspectedItem.GetComponent<MeshRenderer>().material = currentItemData.inspectMaterial;
         inspectedItem.layer = LayerMask.NameToLayer("UI");
         inspectedItem.transform.position = guiCamera.transform.position + guiCamera.transform.forward * 1.0f;
         inspectedItem.transform.rotation = guiCamera.transform.rotation;

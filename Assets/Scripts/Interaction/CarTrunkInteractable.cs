@@ -6,6 +6,7 @@ public class CarTrunkInteractable : MonoBehaviour, IInteractable {
     public InteractableData data;
     public AudioSource audioSource;
     public ItemData flashlightData;
+    public ItemData batteryData;
     public TextMeshProUGUI hintText;
     public string uniqueIdentifier = String.Empty;
 
@@ -24,6 +25,7 @@ public class CarTrunkInteractable : MonoBehaviour, IInteractable {
         }
         Debug.Log("Interacting with car trunk and adding flashlight to player inventory.");
         PlayerInventory.Instance.AddItem(flashlightData);
+        PlayerInventory.Instance.AddItem(batteryData);
         saveState.interacted = true;
         SavestateManager.Instance.UpdateInteractable(saveState);
     }

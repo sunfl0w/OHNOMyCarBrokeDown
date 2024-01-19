@@ -51,6 +51,7 @@ public class ItemInspectGUI : MonoBehaviour {
         hintTextGUI.text = itemData.interactText + "\nExit with [ESC]. Move item with [WASD].";
 
         inspectedItem = Instantiate(itemData.prefab);
+        inspectedItem.GetComponent<MeshRenderer>().material = itemData.inspectMaterial;
         inspectedItem.layer = LayerMask.NameToLayer("UI");
         inspectedItem.transform.position = guiCamera.transform.position + guiCamera.transform.forward * 1.0f;
         inspectedItem.transform.rotation = Quaternion.LookRotation(inspectedItem.transform.position - guiCamera.transform.position, Vector3.up) * Quaternion.Euler(90, 0, 0);

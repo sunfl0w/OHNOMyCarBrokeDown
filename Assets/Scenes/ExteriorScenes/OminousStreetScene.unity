@@ -506,6 +506,7 @@ MonoBehaviour:
   data: {fileID: 11400000, guid: 1f16e0c4d51de64808ae9a741e85b711, type: 2}
   audioSource: {fileID: 413119731}
   flashlightData: {fileID: 11400000, guid: b437471f431972da38ef2d988e9f3d3a, type: 2}
+  batteryData: {fileID: 11400000, guid: 7a061ab52f997ef13a0ffeb7a852463f, type: 2}
   hintText: {fileID: 6340352912067341487}
   uniqueIdentifier: CarTrunk
 --- !u!1 &441443004

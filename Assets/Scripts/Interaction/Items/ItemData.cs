@@ -14,11 +14,13 @@ public class ItemData : ScriptableObject {
     public string interactText;
     public GameObject prefab;
     public ItemCategory category;
+    public Material inspectMaterial;
 
-    public ItemData(string itemName, string interactText, GameObject prefab, ItemCategory category) {
+    public ItemData(string itemName, string interactText, GameObject prefab, ItemCategory category, Material inspectMaterial) {
         this.itemName = itemName;
         this.interactText = interactText;
         this.prefab = prefab;
         this.category = category;
+        this.inspectMaterial = inspectMaterial;
     }
 }

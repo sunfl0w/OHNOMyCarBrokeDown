@@ -28,7 +28,7 @@ public class DialogueGUI : MonoBehaviour {
     }
 
     public void Update() {
-        if (Input.GetButtonDown("Cancel")) {
+        if (isVisible && Input.GetButtonDown("Cancel")) {
             Hide();
         }
     }
