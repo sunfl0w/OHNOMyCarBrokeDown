@@ -16,4 +16,4 @@ MonoBehaviour:
   interactText: A trusty flashlight for lighting dark areas.
   prefab: {fileID: 5453192158540312254, guid: f9ff496794ea67463833ed61790601da, type: 3}
   category: 0
-  inspectMaterial: {fileID: 2100000, guid: d36ab4fe6e2fa5a9f8549880e6d8b58f, type: 2}
+  inspectMaterial: {fileID: 2100000, guid: 01e27cebe4f623f1591968efc41f74f7, type: 2}

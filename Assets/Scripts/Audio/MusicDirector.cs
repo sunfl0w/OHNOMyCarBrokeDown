@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 using System.Collections.Generic;
 
 public class MusicDirector : MonoBehaviour {
@@ -8,10 +9,14 @@ public class MusicDirector : MonoBehaviour {
 
     void Start() {
         audioSource = GetComponent<AudioSource>();
+        if (tracks.Count > 0) {
+            StartCoroutine(PlayTrack());
+        }
     }
 
-    void Update() {
-        if(!audioSource.isPlaying && tracks.Count > 0) {
+    private IEnumerator PlayTrack() {
+        while (true) {
+            yield return new WaitForSeconds(Random.Range(10.0f, 60.0f));
             audioSource.PlayOneShot(tracks[Random.Range(0, tracks.Count)]);
         }
     }

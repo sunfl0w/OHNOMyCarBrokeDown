@@ -52,16 +52,19 @@ public class CameraController : MonoBehaviour {
     }
 
     public void SetVirtualCamera(GameObject virtualCam) {
-        this.virtualCam = virtualCam;
-        CameraData camData = virtualCam?.GetComponent<CameraDataHolder>().camData;
-        cam.fieldOfView = camData.fov;
-        cam.transform.position = virtualCam.transform.position;
-        cam.transform.rotation = virtualCam.transform.rotation;
-        if ((camData.camType == CamType.Follow || camData.camType == CamType.FollowSwivel) && lookAtTarget != null) {
-            // Instantly move follow cam to target position before letting it follow
-            cam.transform.position = GetCameraPositionTarget(camData);
-            Vector3 camToTarget = lookAtTarget.position - cam.transform.position;
-            cam.transform.rotation = Quaternion.LookRotation(camToTarget, Vector3.up);
+        if (virtualCam != this.virtualCam) {
+            this.virtualCam = virtualCam;
+            CameraData camData = virtualCam?.GetComponent<CameraDataHolder>().camData;
+            cam.fieldOfView = camData.fov;
+            cam.transform.position = virtualCam.transform.position;
+            cam.transform.rotation = virtualCam.transform.rotation;
+
+            if ((camData.camType == CamType.Follow || camData.camType == CamType.FollowSwivel) && lookAtTarget != null) {
+                // Instantly move follow cam to target position before letting it follow
+                cam.transform.position = GetCameraPositionTarget(camData);
+                Vector3 camToTarget = lookAtTarget.position - cam.transform.position;
+                cam.transform.rotation = Quaternion.LookRotation(camToTarget, Vector3.up);
+            }
         }
     }
 

@@ -3,24 +3,22 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class AmbientSFXDirector : MonoBehaviour {
-    public AudioSource audioSource;
     public List<AudioClip> ambientClips;
-    public float rollCooldown = 10.0f;
-    public float sfxRollChance = 0.3f;
 
-    private bool roll = true;
+    private AudioSource audioSource;
 
-    void Update() {
-        if(roll) {
-            roll = false;
-            if (Random.Range(0.0f, 1.0f) <= sfxRollChance) { // Play some ambient sound
-                audioSource.PlayOneShot(ambientClips[Random.Range(0, ambientClips.Count)]); // Chose ambient sound randomly from list of sounds
-            }
+    void Start() {
+        audioSource = GetComponent<AudioSource>();
+        if (ambientClips.Count > 0) {
+            StartCoroutine(PlayClip());
         }
     }
 
-    IEnumerator RollCooldown() {
-        yield return new WaitForSeconds(rollCooldown);
-        roll = true;
+    private IEnumerator PlayClip() {
+        while (true) {
+            yield return new WaitForSeconds(Random.Range(10.0f, 30.0f));
+            audioSource.pitch = Random.Range(0.93f, 1.07f);
+            audioSource.PlayOneShot(ambientClips[Random.Range(0, ambientClips.Count)]);
+        }
     }
 }
