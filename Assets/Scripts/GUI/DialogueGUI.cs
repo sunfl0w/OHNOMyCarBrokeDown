@@ -8,6 +8,8 @@ public class DialogueGUI : MonoBehaviour {
     private DialogueData dialogueData = null;
     private bool isVisible = false;
 
+    private UnifiedGUI unifiedGUI;
+
     public static event Action<bool, bool> DialogueGUIEnterEvent;
     public static event Action DialogueGUILeaveEvent;
 
@@ -23,6 +25,7 @@ public class DialogueGUI : MonoBehaviour {
     }
 
     public void Start() {
+        unifiedGUI = GameObject.FindGameObjectWithTag("UnifiedGUI").GetComponent<UnifiedGUI>();
         textGUI = GetComponent<TextMeshProUGUI>();
         Hide();
     }
@@ -34,13 +37,17 @@ public class DialogueGUI : MonoBehaviour {
     }
 
     public void Show(DialogueData dialogueData) {
-        Debug.Log("Show interact GUI");
-        isVisible = true;
-        this.dialogueData = dialogueData;
-        if (dialogueData != null) {
-            StartCoroutine(DisplayDialogue());
+        if (!unifiedGUI.IsAnyGUIVisible() || (isVisible && this.dialogueData.text != dialogueData.text)) {
+            Debug.Log("Show dialogue GUI");
+            StopAllCoroutines();
+            textGUI.text = String.Empty;
+            isVisible = true;
+            this.dialogueData = dialogueData;
+            if (dialogueData != null) {
+                StartCoroutine(DisplayDialogue());
+            }
+            DialogueGUIEnterEvent?.Invoke(false, false);
         }
-        DialogueGUIEnterEvent?.Invoke(false, false);
     }
 
     public void Hide() {
@@ -55,7 +62,7 @@ public class DialogueGUI : MonoBehaviour {
     }
 
     private IEnumerator DisplayDialogue() {
-        for(int i = 0; i < dialogueData.text.Length; i++) {
+        for (int i = 0; i < dialogueData.text.Length; i++) {
             if (dialogueData != null) {
                 textGUI.text += dialogueData.text[i];
             }

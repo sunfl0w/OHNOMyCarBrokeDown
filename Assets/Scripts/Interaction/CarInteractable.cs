@@ -4,14 +4,14 @@ using UnityEngine.SceneManagement;
 using UnityEngine.Playables;
 using TMPro;
 using System;
+using System.Collections.Generic;
 
 public class CarInteractable : MonoBehaviour, IInteractable {
     public string targetSceneName;
     public string targetTransformName;
     public InteractableData data;
     public AudioSource audioSource;
-    public ItemData requiredItem1;
-    public ItemData requiredItem2;
+    public List<ItemData> requiredItems;
 
     public TextMeshProUGUI hintText;
     public PlayableDirector playableDirector;
@@ -37,12 +37,21 @@ public class CarInteractable : MonoBehaviour, IInteractable {
 
 
     public void Interact() {
-        if (!PlayerInventory.Instance.itemExists(requiredItem1)) {
-            hintText.text = "I think my car ran out of gas...";
-            StartCoroutine(ClearHint());
-        } else if (!PlayerInventory.Instance.itemExists(requiredItem2)) {
-            hintText.text = "Ew, why does my car smell like garbage?";
-            StartCoroutine(ClearHint());
+        if (!PlayerInventory.Instance.itemExists(requiredItems[2])) {
+            InteractGUI.Instance.Hide();
+            DialogueGUI.Instance.Show(new DialogueData("I think my car ran out of gas..."));
+        } else if (!PlayerInventory.Instance.itemExists(requiredItems[0])) {
+            InteractGUI.Instance.Hide();
+            DialogueGUI.Instance.Show(new DialogueData("The car wont start but at least it is fueled now. I think my car ran out of SubBlue..."));
+        } else if (!PlayerInventory.Instance.itemExists(requiredItems[4])) {
+            InteractGUI.Instance.Hide();
+            DialogueGUI.Instance.Show(new DialogueData("Still not working. I need some tools to repair the car..."));
+        } else if (!PlayerInventory.Instance.itemExists(requiredItems[1])) {
+            InteractGUI.Instance.Hide();
+            DialogueGUI.Instance.Show(new DialogueData("Ew, why does my car smell like garbage? I need some air refreshener..."));
+        } else if (!PlayerInventory.Instance.itemExists(requiredItems[3])) {
+            InteractGUI.Instance.Hide();
+            DialogueGUI.Instance.Show(new DialogueData("I need some good music to start driving again..."));
         } else {
             if (data.interactSound != null) {
                 audioSource.PlayOneShot(data.interactSound);

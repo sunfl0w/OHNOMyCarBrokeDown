@@ -40,7 +40,7 @@ public class ThirdPersonPlayerController : MonoBehaviour {
 
         // "Tank-Control" player movement
         targetMoveDirection = ((transform.forward * Mathf.Max(Input.GetAxisRaw("Vertical"), 0.0f)) + (transform.right * Input.GetAxisRaw("Horizontal"))).normalized;
-        float targetSpeed = targetMoveDirection.magnitude > 0.0f ? (isRunning && GetIsGrounded() ? runSpeed : walkSpeed) : 0;
+        float targetSpeed = canMove && targetMoveDirection.magnitude > 0.0f ? (isRunning && GetIsGrounded() ? runSpeed : walkSpeed) : 0;
         currentSpeed = Mathf.Lerp(currentSpeed, targetSpeed, Time.deltaTime * translationDampening);
         if (targetMoveDirection.magnitude > 0.0f && canMove) { // Only rotate if the player inputs a movement direction
             transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(targetMoveDirection, Vector3.up), Time.deltaTime * rotationDampening);
@@ -67,8 +67,10 @@ public class ThirdPersonPlayerController : MonoBehaviour {
     }
 
     public void OnGUIEnter(bool enableGUIBlur, bool disableMovement) {
-        canMove = !disableMovement;
-        currentSpeed = 0.0f;
+        if (disableMovement) {
+            canMove = false;
+            currentSpeed = 0.0f;
+        }
     }
 
     public void EnableMovement() {

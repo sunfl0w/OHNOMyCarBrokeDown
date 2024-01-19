@@ -10,7 +10,7 @@ public class DialogueTrigger : MonoBehaviour {
     }
 
     private void OnTriggerEnter(Collider other) {
-        if(firstTrigger && !unifiedGUI.IsAnyGUIVisible()) {
+        if(firstTrigger) {
             Debug.Log("Opening dialogue gui");
             DialogueGUI.Instance.Show(data);
             firstTrigger = false;

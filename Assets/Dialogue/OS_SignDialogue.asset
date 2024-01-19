@@ -9,8 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a3e520289c06be1b7b7e029629d2171e, type: 3}
-  m_Name: DoorInteractableData
+  m_Script: {fileID: 11500000, guid: 21cc175ccf38608af9e624f85d7fc0db, type: 3}
+  m_Name: OS_SignDialogue
   m_EditorClassIdentifier: 
-  interactText: Press [E] to use door
-  interactSound: {fileID: 8300000, guid: 4d39046895e09b2968735c8ee69a9ad0, type: 3}
+  text: There must be a village nearby.

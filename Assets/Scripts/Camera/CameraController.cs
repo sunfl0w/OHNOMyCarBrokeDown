@@ -7,16 +7,18 @@ public class CameraController : MonoBehaviour {
     public float camTranslationSmoothTime = 0.1f;
     public float camRotationDampeningCoefficient = 3.0f;
 
+    private UnifiedGUI unifiedGUI;
     private GameObject virtualCam;
     private Vector3 camVelocity = Vector3.zero;
 
     void Start() {
+        unifiedGUI = GameObject.FindGameObjectWithTag("UnifiedGUI").GetComponent<UnifiedGUI>();
         cam = GetComponent<Camera>();
     }
 
     void Update() {
         CameraData camData = virtualCam?.GetComponent<CameraDataHolder>().camData;
-        if (virtualCam != null) {
+        if (virtualCam != null && (DialogueGUI.Instance.IsVisible() || !unifiedGUI.IsAnyGUIVisible())) {
             if (camData.camType == CamType.FixedSwivel && lookAtTarget != null) {
                 cam.transform.LookAt(lookAtTarget.position + Vector3.up * targetYOffset);
             } else if ((camData.camType == CamType.Follow || camData.camType == CamType.FollowSwivel) && lookAtTarget != null) {
