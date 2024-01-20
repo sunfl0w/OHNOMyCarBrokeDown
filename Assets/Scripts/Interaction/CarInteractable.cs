@@ -32,6 +32,7 @@ public class CarInteractable : MonoBehaviour, IInteractable
             playableDirector.stopped -= OnTimelineFinished;
 
             // Load the next scene after the timeline has finished playing
+            SavestateManager.Instance.ClearSaveState();
             SceneTransitionManager.Instance.LoadScene("MainMenuScene");
         }
     }

@@ -52,6 +52,7 @@ public class Gameover : MonoBehaviour
     {
         yield return new WaitForSeconds(3f);
         GameoverLeaveEvent?.Invoke();
+        SavestateManager.Instance.ClearSaveState();
         SceneTransitionManager.Instance.LoadScene("MainMenuScene");
     }
 
