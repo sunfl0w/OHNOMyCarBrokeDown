@@ -825,6 +825,46 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -2441658414131813105, guid: 9ae0feac4643faced95a330b81246cdd, type: 3}
+--- !u!1 &668030759
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 668030761}
+  - component: {fileID: 668030760}
+  m_Layer: 0
+  m_Name: AudioListener
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!81 &668030760
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 668030759}
+  m_Enabled: 1
+--- !u!4 &668030761
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 668030759}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 2.8717763, y: 3.9700015, z: -22.058784}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &790956814
 GameObject:
   m_ObjectHideFlags: 0
@@ -1443,6 +1483,10 @@ PlayableDirector:
     value: {fileID: 319804081}
   - key: {fileID: 5276197136279341167, guid: b1f7846818cc14d81ba8ac7966ccc9bf, type: 2}
     value: {fileID: 630507052}
+  - key: {fileID: 4517366177336446395, guid: b1f7846818cc14d81ba8ac7966ccc9bf, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: 7359002376411152485, guid: b1f7846818cc14d81ba8ac7966ccc9bf, type: 2}
+    value: {fileID: 668030759}
   m_ExposedReferences:
     m_References: []
 --- !u!4 &1509414501
@@ -1601,7 +1645,7 @@ PrefabInstance:
       objectReference: {fileID: 6340352912067341489}
     - target: {fileID: 5984268569681685550, guid: 2bea7eb78fe50bfc8af92e4fb3c8f219, type: 3}
       propertyPath: m_Pitch
-      value: 0.94391584
+      value: 1.0110366
       objectReference: {fileID: 0}
     - target: {fileID: 6959117380186747406, guid: 2bea7eb78fe50bfc8af92e4fb3c8f219, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2547,3 +2591,4 @@ SceneRoots:
   - {fileID: 1158516420716609215}
   - {fileID: 1755049719722986883}
   - {fileID: 4943045392541769125}
+  - {fileID: 668030761}
