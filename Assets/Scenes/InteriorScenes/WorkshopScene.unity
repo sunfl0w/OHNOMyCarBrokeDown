@@ -524,7 +524,7 @@ GameObject:
   - component: {fileID: 426312186}
   - component: {fileID: 426312188}
   - component: {fileID: 426312187}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: CameraTriggerWorkshopEntranceStorage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -675,7 +675,7 @@ GameObject:
   - component: {fileID: 682656605}
   - component: {fileID: 682656607}
   - component: {fileID: 682656606}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: CameraTriggerWorkshopStorageCorner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -799,7 +799,7 @@ GameObject:
   - component: {fileID: 759096894}
   - component: {fileID: 759096896}
   - component: {fileID: 759096895}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: CameraTriggerWorkshopStorageDoor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -980,7 +980,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 858693588}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: CameraTriggers
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1232,7 +1232,7 @@ GameObject:
   - component: {fileID: 1276814208}
   - component: {fileID: 1276814210}
   - component: {fileID: 1276814209}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: CameraTriggerWorkshopDoors
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1612,7 +1612,7 @@ GameObject:
   - component: {fileID: 1577365623}
   - component: {fileID: 1577365625}
   - component: {fileID: 1577365624}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: CameraTriggerWorkshopShelves
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1680,7 +1680,7 @@ GameObject:
   - component: {fileID: 1611998757}
   - component: {fileID: 1611998759}
   - component: {fileID: 1611998758}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: CameraTriggerWorkshopEntrance
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2278,7 +2278,7 @@ GameObject:
   - component: {fileID: 1912170498}
   - component: {fileID: 1912170500}
   - component: {fileID: 1912170499}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: CameraTriggerWorkshopCorner
   m_TagString: Untagged
   m_Icon: {fileID: 0}

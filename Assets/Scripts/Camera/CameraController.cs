@@ -17,6 +17,24 @@ public class CameraController : MonoBehaviour {
     }
 
     void Update() {
+        if (virtualCam == null && lookAtTarget != null) { // Prevent the case in which no virtual camera is set
+            Debug.Log("No virtual camera set. Trying to find closest trigger and its repsective virtual camera");
+            Collider[] colliderArray = Physics.OverlapSphere(lookAtTarget.position, 40.0f, LayerMask.GetMask("CamTrigger"));
+            GameObject closestTrigger = null;
+            float closestDistance = 999.0f;
+            foreach (Collider collider in colliderArray) {
+                float dst = Vector3.Distance(collider.transform.position, lookAtTarget.position);
+                if (dst < closestDistance) {
+                    closestDistance = dst;
+                    closestTrigger = collider.gameObject;
+                }
+            }
+
+            if (closestTrigger != null) {
+                SetVirtualCamera(closestTrigger.GetComponent<CameraDirectorTrigger>().virtualCamera);
+            }
+        }
+
         CameraData camData = virtualCam?.GetComponent<CameraDataHolder>().camData;
         if (virtualCam != null && (DialogueGUI.Instance.IsVisible() || !unifiedGUI.IsAnyGUIVisible())) {
             if (camData.camType == CamType.FixedSwivel && lookAtTarget != null) {
