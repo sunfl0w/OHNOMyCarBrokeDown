@@ -574,7 +574,6 @@ MonoBehaviour:
   audioSource: {fileID: 413119731}
   flashlightData: {fileID: 11400000, guid: b437471f431972da38ef2d988e9f3d3a, type: 2}
   batteryData: {fileID: 11400000, guid: 7a061ab52f997ef13a0ffeb7a852463f, type: 2}
-  hintText: {fileID: 6340352912067341487}
   uniqueIdentifier: CarTrunk
 --- !u!1 &441443004
 GameObject:
@@ -2286,6 +2285,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: AudioDirectors
       objectReference: {fileID: 0}
+    - target: {fileID: 4842893151468968211, guid: 22bda3a64e7f38d0296099f02393e986, type: 3}
+      propertyPath: tracks.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4842893151468968211, guid: 22bda3a64e7f38d0296099f02393e986, type: 3}
+      propertyPath: tracks.Array.data[4]
+      value: 
+      objectReference: {fileID: 8300000, guid: 8e3a1c0cf57ac46d98ca467899f676cd, type: 3}
+    - target: {fileID: 5459341542430048094, guid: 22bda3a64e7f38d0296099f02393e986, type: 3}
+      propertyPath: ambientClips.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5459341542430048094, guid: 22bda3a64e7f38d0296099f02393e986, type: 3}
+      propertyPath: ambientClips.Array.data[1]
+      value: 
+      objectReference: {fileID: 8300000, guid: cf3f16284be49eda2b507aa5909416fe, type: 3}
+    - target: {fileID: 5459341542430048094, guid: 22bda3a64e7f38d0296099f02393e986, type: 3}
+      propertyPath: ambientClips.Array.data[2]
+      value: 
+      objectReference: {fileID: 8300000, guid: 1d8947e0b9dd771edbba37f917bc48f0, type: 3}
     - target: {fileID: 5891769537292550853, guid: 22bda3a64e7f38d0296099f02393e986, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
