@@ -1,5 +1,6 @@
 using UnityEngine;
 using System;
+using System.Collections;
 
 public class UnifiedGUI : MonoBehaviour {
     public static event Action<bool, bool> GUIEnterEvent;
@@ -39,6 +40,11 @@ public class UnifiedGUI : MonoBehaviour {
     }
 
     void OnGUILeave() {
+        StartCoroutine(GUILeave()); // Delay leave so that exiting and entering a GUI can not happen in the same frame
+    }
+
+    private IEnumerator GUILeave() {
+        yield return new WaitForSeconds(0.1f);
         guiVisible = false;
         GUILeaveEvent?.Invoke();
     }
