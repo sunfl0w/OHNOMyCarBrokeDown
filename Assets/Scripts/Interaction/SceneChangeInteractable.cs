@@ -22,8 +22,8 @@ public class SceneChanceInteractable : MonoBehaviour, IInteractable
                 audioSource.PlayOneShot(data.interactSound);
             }
             Debug.Log("Interactable. Switch to scene: " + targetSceneName);
+
             GameObject.FindGameObjectWithTag("Player").GetComponent<ThirdPersonPlayerController>().StartTransition();
-            SavestateManager.Instance.StoreSaveState();
             StartCoroutine(Transition());
         }
         else
@@ -55,6 +55,7 @@ public class SceneChanceInteractable : MonoBehaviour, IInteractable
     IEnumerator Transition()
     {
         yield return new WaitForSeconds(1.0f);
+        SavestateManager.Instance.StoreSaveState();
         SceneTransitionManager.Instance.LoadSceneWithNextPlayerTransform(targetSceneName, targetTransformName);
     }
 
