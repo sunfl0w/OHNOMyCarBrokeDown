@@ -94,6 +94,7 @@ public class ThirdPersonPlayerController : MonoBehaviour
     public void StartTransition()
     {
         inTransition = true;
+        canMove = false;
     }
 
     public bool IsInTransition()
