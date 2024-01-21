@@ -666,9 +666,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca71c3f81f1014d928e5b115771876f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventoryData:
-    slots: []
-    equippedItem: {fileID: 0}
+  allItems:
+  - {fileID: 11400000, guid: e91e005fdd968e1e382f60331fd4faca, type: 2}
+  - {fileID: 11400000, guid: b1063567a4ef30b65a9b8ccda515a573, type: 2}
+  - {fileID: 11400000, guid: 7cf625098aaaa5408a9a44a2cdf4571f, type: 2}
+  - {fileID: 11400000, guid: 5e7b1d8510967611196b07a56057f612, type: 2}
+  - {fileID: 11400000, guid: acdcf4744e089edcb893fa1826b29dab, type: 2}
+  - {fileID: 11400000, guid: 7a061ab52f997ef13a0ffeb7a852463f, type: 2}
+  - {fileID: 11400000, guid: b437471f431972da38ef2d988e9f3d3a, type: 2}
+  - {fileID: 11400000, guid: fcd6da58ce4889b678f9eddbce53b222, type: 2}
+  - {fileID: 11400000, guid: 4afabff86ebc199e7ac4b2bcbe8aab6d, type: 2}
 --- !u!114 &1215050439610509494
 MonoBehaviour:
   m_ObjectHideFlags: 0

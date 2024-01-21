@@ -1683,46 +1683,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 9441562912263995, guid: 2bea7eb78fe50bfc8af92e4fb3c8f219, type: 3}
-      propertyPath: allItems.Array.size
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 9441562912263995, guid: 2bea7eb78fe50bfc8af92e4fb3c8f219, type: 3}
-      propertyPath: allItems.Array.data[0]
-      value: 
-      objectReference: {fileID: 11400000, guid: e91e005fdd968e1e382f60331fd4faca, type: 2}
-    - target: {fileID: 9441562912263995, guid: 2bea7eb78fe50bfc8af92e4fb3c8f219, type: 3}
-      propertyPath: allItems.Array.data[1]
-      value: 
-      objectReference: {fileID: 11400000, guid: b1063567a4ef30b65a9b8ccda515a573, type: 2}
-    - target: {fileID: 9441562912263995, guid: 2bea7eb78fe50bfc8af92e4fb3c8f219, type: 3}
-      propertyPath: allItems.Array.data[2]
-      value: 
-      objectReference: {fileID: 11400000, guid: 7cf625098aaaa5408a9a44a2cdf4571f, type: 2}
-    - target: {fileID: 9441562912263995, guid: 2bea7eb78fe50bfc8af92e4fb3c8f219, type: 3}
-      propertyPath: allItems.Array.data[3]
-      value: 
-      objectReference: {fileID: 11400000, guid: 5e7b1d8510967611196b07a56057f612, type: 2}
-    - target: {fileID: 9441562912263995, guid: 2bea7eb78fe50bfc8af92e4fb3c8f219, type: 3}
-      propertyPath: allItems.Array.data[4]
-      value: 
-      objectReference: {fileID: 11400000, guid: acdcf4744e089edcb893fa1826b29dab, type: 2}
-    - target: {fileID: 9441562912263995, guid: 2bea7eb78fe50bfc8af92e4fb3c8f219, type: 3}
-      propertyPath: allItems.Array.data[5]
-      value: 
-      objectReference: {fileID: 11400000, guid: 7a061ab52f997ef13a0ffeb7a852463f, type: 2}
-    - target: {fileID: 9441562912263995, guid: 2bea7eb78fe50bfc8af92e4fb3c8f219, type: 3}
-      propertyPath: allItems.Array.data[6]
-      value: 
-      objectReference: {fileID: 11400000, guid: b437471f431972da38ef2d988e9f3d3a, type: 2}
-    - target: {fileID: 9441562912263995, guid: 2bea7eb78fe50bfc8af92e4fb3c8f219, type: 3}
-      propertyPath: allItems.Array.data[7]
-      value: 
-      objectReference: {fileID: 11400000, guid: fcd6da58ce4889b678f9eddbce53b222, type: 2}
-    - target: {fileID: 9441562912263995, guid: 2bea7eb78fe50bfc8af92e4fb3c8f219, type: 3}
-      propertyPath: allItems.Array.data[8]
-      value: 
-      objectReference: {fileID: 11400000, guid: 4afabff86ebc199e7ac4b2bcbe8aab6d, type: 2}
     - target: {fileID: 3347641768980847596, guid: 2bea7eb78fe50bfc8af92e4fb3c8f219, type: 3}
       propertyPath: mainCamera
       value: 
