@@ -48,6 +48,10 @@ public class HealthIndicatorGUI : MonoBehaviour
         {
             healthImages[i].enabled = playerHealth > i;
         }
+        if (playerHealth <= 0)
+        {
+            Gameover.Instance.Show();
+        }
     }
 
     public void Hide()

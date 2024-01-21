@@ -24,13 +24,11 @@ public class PlayerHealthManager : MonoBehaviour
     {
         Debug.Log("Player lost " + damage + " health due to an attack.");
         health -= damage;
-        if (health <= 0)
-        {
-            Gameover.Instance.Show();
-        }
+
     }
 
-    public void AddHealth(int health) {
+    public void AddHealth(int health)
+    {
         this.health = Math.Clamp(this.health + health, 0, 5);
     }
 
