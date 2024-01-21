@@ -3,7 +3,8 @@ using TMPro;
 using System;
 using System.Collections;
 
-public class DialogueGUI : MonoBehaviour {
+public class DialogueGUI : MonoBehaviour
+{
     private TextMeshProUGUI textGUI = null;
     private DialogueData dialogueData = null;
     private bool isVisible = false;
@@ -16,54 +17,71 @@ public class DialogueGUI : MonoBehaviour {
     private static DialogueGUI instance;
     public static DialogueGUI Instance { get { return instance; } }
 
-    private void Awake() {
-        if (instance != null && instance != this) {
+    private void Awake()
+    {
+        if (instance != null && instance != this)
+        {
             Destroy(this.gameObject);
-        } else {
+        }
+        else
+        {
             instance = this;
         }
     }
 
-    public void Start() {
+    public void Start()
+    {
         unifiedGUI = GameObject.FindGameObjectWithTag("UnifiedGUI").GetComponent<UnifiedGUI>();
         textGUI = GetComponent<TextMeshProUGUI>();
         Hide();
     }
 
-    public void Update() {
-        if (isVisible && Input.GetButtonDown("Cancel")) {
+    public void Update()
+    {
+        if (isVisible && Input.GetButtonDown("Cancel"))
+        {
             Hide();
         }
     }
 
-    public void Show(DialogueData dialogueData) {
-        if (!unifiedGUI.IsAnyGUIVisible() || (isVisible && this.dialogueData.text != dialogueData.text)) {
+    public void Show(DialogueData dialogueData)
+    {
+        if (!unifiedGUI.IsAnyGUIVisible() || (isVisible && this.dialogueData.text != dialogueData.text))
+        {
             Debug.Log("Show dialogue GUI");
             StopAllCoroutines();
+            // TODO
+            InteractGUI.Instance.Hide();
             textGUI.text = String.Empty;
             isVisible = true;
             this.dialogueData = dialogueData;
-            if (dialogueData != null) {
+            if (dialogueData != null)
+            {
                 StartCoroutine(DisplayDialogue());
             }
             DialogueGUIEnterEvent?.Invoke(false, false);
         }
     }
 
-    public void Hide() {
+    public void Hide()
+    {
         textGUI.text = String.Empty;
         isVisible = false;
         StopAllCoroutines();
         DialogueGUILeaveEvent?.Invoke();
     }
 
-    public bool IsVisible() {
+    public bool IsVisible()
+    {
         return isVisible;
     }
 
-    private IEnumerator DisplayDialogue() {
-        for (int i = 0; i < dialogueData.text.Length; i++) {
-            if (dialogueData != null) {
+    private IEnumerator DisplayDialogue()
+    {
+        for (int i = 0; i < dialogueData.text.Length; i++)
+        {
+            if (dialogueData != null)
+            {
                 textGUI.text += dialogueData.text[i];
             }
             yield return new WaitForSeconds(0.05f);

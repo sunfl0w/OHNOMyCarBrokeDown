@@ -10,6 +10,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 21cc175ccf38608af9e624f85d7fc0db, type: 3}
-  m_Name: WS_EntranceDialogue
+  m_Name: VS_WorkshopMainDoorDialogue
   m_EditorClassIdentifier: 
-  text: Here is a car repair shop... but it's unfortunately closed.
+  text: 'This seems to be the back door to the car repair shop. '

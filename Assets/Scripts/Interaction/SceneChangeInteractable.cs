@@ -27,8 +27,17 @@ public class SceneChanceInteractable : MonoBehaviour, IInteractable
         }
         else
         {
-            hintText.text = "The door is locked...";
-            StartCoroutine(ClearHint());
+            if (requiredItem.itemName == "Key")
+            {
+                DialogueGUI.Instance.Show(new DialogueData("Of couese it's locked. How I wish that I had the key..."));
+            }
+            else
+            {
+                hintText.text = "The door is locked...";
+                StartCoroutine(ClearHint());
+            }
+
+
         }
     }
 
