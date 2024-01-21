@@ -63,6 +63,7 @@ public class ItemInspectGUI : MonoBehaviour
 
         inspectedItem = Instantiate(itemData.prefab);
         MeshRenderer meshRenderer = inspectedItem.GetComponent<MeshRenderer>();
+        meshRenderer.material = itemData.inspectMaterial;
         for (int i = 0; i < meshRenderer.materials.Length; i++)
         {
             meshRenderer.materials[i] = itemData.inspectMaterial;

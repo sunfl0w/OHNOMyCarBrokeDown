@@ -201,6 +201,7 @@ public class InventoryGUI : MonoBehaviour
 
         inspectedItem = Instantiate(currentItemData.prefab);
         MeshRenderer meshRenderer = inspectedItem.GetComponent<MeshRenderer>();
+        meshRenderer.material = currentItemData.inspectMaterial;
         for (int i = 0; i < meshRenderer.materials.Length; i++) {
             meshRenderer.materials[i] = currentItemData.inspectMaterial;
         }

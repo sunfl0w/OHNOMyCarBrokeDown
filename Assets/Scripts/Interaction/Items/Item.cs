@@ -11,11 +11,6 @@ public class Item : MonoBehaviour, IInteractable {
 
     public void Start() {
         saveState.name = uniqueIdentifier;
-        if (saveState.interacted) {
-            Destroy(this.gameObject);
-            //this.GetComponent<MeshRenderer>().enabled = false;
-            //this.enabled = false;
-        }
     }
 
     public void Interact() {
@@ -28,6 +23,14 @@ public class Item : MonoBehaviour, IInteractable {
 
         // Show item inspection GUI
         ItemInspectGUI.Instance.Show(itemData);
+    }
+
+    public void Update() {
+        if (saveState.interacted) {
+            Destroy(this.gameObject);
+            //this.GetComponent<MeshRenderer>().enabled = false;
+            //this.enabled = false;
+        }
     }
 
     public Transform GetTransform() {
