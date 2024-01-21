@@ -3,63 +3,50 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
-public class InventoryData
-{
+public class InventoryData {
     public List<InventorySlot> slots = new List<InventorySlot>();
     public ItemData equippedItem = null;
 }
 
 [Serializable]
-public class InventorySlot
-{
+public class InventorySlot {
     public ItemData itemData = null;
     public uint amount = 0;
 }
 
-public class PlayerInventory : MonoBehaviour
-{
+public class PlayerInventory : MonoBehaviour {
     public InventoryData inventoryData = new InventoryData();
 
     private static PlayerInventory instance;
     public static PlayerInventory Instance { get { return instance; } }
 
-    private void Awake()
-    {
-        if (instance != null && instance != this)
-        {
+    private void Awake() {
+        if (instance != null && instance != this) {
             Destroy(this.gameObject);
-        }
-        else
-        {
+        } else {
             instance = this;
         }
     }
 
-    void Start()
-    {
+    void Start() {
     }
 
-    public InventoryData GetInventoryData()
-    {
+    public InventoryData GetInventoryData() {
         return inventoryData;
     }
 
-    public void SetInventoryData(InventoryData inventoryData)
-    {
+    public void SetInventoryData(InventoryData inventoryData) {
         this.inventoryData = inventoryData;
     }
 
     // Add an item to the player inventory
-    public void AddItem(ItemData itemToAdd)
-    {
+    public void AddItem(ItemData itemToAdd) {
         int itemExistsIndex = -1;
 
         // Check if a item with the same name is already in the inventory and increase item amount if it already is
-        for (int i = 0; i < inventoryData.slots.Count; i++)
-        {
+        for (int i = 0; i < inventoryData.slots.Count; i++) {
             InventorySlot slot = inventoryData.slots[i];
-            if (slot.itemData.itemName == itemToAdd.itemName)
-            {
+            if (slot.itemData.itemName == itemToAdd.itemName) {
                 itemExistsIndex = i;
                 slot.amount += 1;
                 Debug.Log("Copy of existing item " + itemToAdd.name + " added to player inventory. New total is " + slot.amount + ".");
@@ -67,8 +54,7 @@ public class PlayerInventory : MonoBehaviour
             }
         }
         // Add item if it is not already in the inventory
-        if (itemExistsIndex < 0)
-        {
+        if (itemExistsIndex < 0) {
             InventorySlot newItem = new InventorySlot();
             newItem.itemData = itemToAdd;
             newItem.amount = 1;
@@ -78,16 +64,12 @@ public class PlayerInventory : MonoBehaviour
     }
 
     // Remove an item to the player inventory
-    public void RemoveItem(ItemData itemToAdd)
-    {
-        for (int i = 0; i < inventoryData.slots.Count; i++)
-        {
+    public void RemoveItem(ItemData itemToAdd) {
+        for (int i = 0; i < inventoryData.slots.Count; i++) {
             InventorySlot slot = inventoryData.slots[i];
-            if (slot.itemData.itemName == itemToAdd.itemName)
-            {
+            if (slot.itemData.itemName == itemToAdd.itemName) {
                 slot.amount -= 1;
-                if (slot.amount <= 0)
-                {
+                if (slot.amount <= 0) {
                     inventoryData.slots.RemoveAt(i);
                 }
                 Debug.Log("Copy of existing item " + itemToAdd.name + " removed from player inventory. New total is " + slot.amount + ".");
@@ -96,34 +78,25 @@ public class PlayerInventory : MonoBehaviour
         }
     }
 
-    public void printItems()
-    {
-        if (inventoryData.slots.Count == 0)
-        {
+    public void printItems() {
+        if (inventoryData.slots.Count == 0) {
             Debug.Log("Inventory: empty");
-        }
-        else
-        {
+        } else {
             Debug.Log("Inventory:");
 
-            foreach (InventorySlot slot in inventoryData.slots)
-            {
+            foreach (InventorySlot slot in inventoryData.slots) {
                 Debug.Log(slot.itemData.itemName + " - Count: " + slot.amount);
             }
         }
     }
 
-    public bool itemExists(ItemData item)
-    {
-        if (item == null)
-        {
+    public bool itemExists(ItemData item) {
+        if (item == null) {
             return false;
         }
-        for (int i = 0; i < inventoryData.slots.Count; i++)
-        {
+        for (int i = 0; i < inventoryData.slots.Count; i++) {
             InventorySlot slot = inventoryData.slots[i];
-            if (slot.itemData.itemName == item.itemName)
-            {
+            if (slot.itemData.itemName == item.itemName) {
                 return true;
             }
         }
@@ -131,44 +104,39 @@ public class PlayerInventory : MonoBehaviour
         return false;
     }
 
-    public void EquipItem(ItemData item)
-    {
-        if (itemExists(item))
-        {
+    public void EquipItem(ItemData item) {
+        if (itemExists(item)) {
             inventoryData.equippedItem = item;
         }
     }
 
-    public void UnequipItem()
-    {
+    public void UnequipItem() {
         inventoryData.equippedItem = null;
     }
 
-    public void UseItem(ItemData itemToUse)
-    {
+    public void UseItem(ItemData itemToUse) {
         int itemIndex = -1;
 
-        for (int i = 0; i < inventoryData.slots.Count; i++)
-        {
+        for (int i = 0; i < inventoryData.slots.Count; i++) {
             InventorySlot slot = inventoryData.slots[i];
-            if (slot.itemData == itemToUse)
-            {
+            if (slot.itemData == itemToUse) {
                 itemIndex = i;
-                if (slot.amount > 1)
-                {
+                if (slot.amount > 1) {
                     slot.amount--;
                     Debug.Log("Used one " + itemToUse.itemName + ". Remaining count: " + slot.amount);
-                }
-                else
-                {
+                } else {
                     inventoryData.slots.RemoveAt(itemIndex);
                     Debug.Log("Used the last " + itemToUse.itemName + ". Removed from inventory.");
                     RemoveItem(slot.itemData);
                 }
-                if (slot.itemData.itemName == "Battery")
-                {
+                if (slot.itemData.itemName == "Battery") {
                     PlayerFlashlightManager flashlightManager = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerFlashlightManager>();
                     flashlightManager.batteryLife = 100.0f;
+
+                }
+                if (slot.itemData.itemName == "Soda") {
+                    PlayerHealthManager playerHealthManager = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealthManager>();
+                    playerHealthManager.AddHealth(2);
 
                 }
                 break;
@@ -176,13 +144,11 @@ public class PlayerInventory : MonoBehaviour
         }
     }
 
-    public ItemData GetEquippedItem()
-    {
+    public ItemData GetEquippedItem() {
         return inventoryData.equippedItem;
     }
 
-    public bool IsFlashlightEquipped()
-    {
+    public bool IsFlashlightEquipped() {
         return inventoryData != null && inventoryData.equippedItem != null && inventoryData.equippedItem.name == "Flashlight";
     }
 }

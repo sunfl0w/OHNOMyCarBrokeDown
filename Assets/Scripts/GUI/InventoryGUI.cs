@@ -200,10 +200,13 @@ public class InventoryGUI : MonoBehaviour
         DestroyInspectedItem();
 
         inspectedItem = Instantiate(currentItemData.prefab);
-        inspectedItem.GetComponent<MeshRenderer>().material = currentItemData.inspectMaterial;
+        MeshRenderer meshRenderer = inspectedItem.GetComponent<MeshRenderer>();
+        for (int i = 0; i < meshRenderer.materials.Length; i++) {
+            meshRenderer.materials[i] = currentItemData.inspectMaterial;
+        }
         inspectedItem.layer = LayerMask.NameToLayer("UI");
         inspectedItem.transform.position = guiCamera.transform.position + guiCamera.transform.forward * 1.0f;
-        inspectedItem.transform.rotation = guiCamera.transform.rotation;
+        inspectedItem.transform.rotation = Quaternion.LookRotation(inspectedItem.transform.position - guiCamera.transform.position, Vector3.up) * Quaternion.Euler(90, 0, 0);
     }
 
     private void ShowItemUsage(ItemData currentItemData)

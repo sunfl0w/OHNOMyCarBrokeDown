@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class PlayerHealthManager : MonoBehaviour
@@ -27,6 +28,10 @@ public class PlayerHealthManager : MonoBehaviour
         {
             Gameover.Instance.Show();
         }
+    }
+
+    public void AddHealth(int health) {
+        this.health = Math.Clamp(this.health + health, 0, 5);
     }
 
     public int GetPlayerHealth()
