@@ -7,6 +7,7 @@ public class PlayerAudioclipPlayer : MonoBehaviour {
 
     public AudioClip[] stepGrassClips;
     public AudioClip[] stepConcreteClips;
+    public AudioClip[] stepGravelClips;
 
     public void Awake() {
         playerTerrainChecker = GetComponent<TerrainChecker>();
@@ -22,7 +23,11 @@ public class PlayerAudioclipPlayer : MonoBehaviour {
                 break;
             case TerrainType.GRASS:
                 playerAudioSource.pitch = Random.Range(0.9f, 1.1f);
-                playerAudioSource.PlayOneShot(stepGrassClips[Random.Range(0, stepGrassClips.Length)]);
+                playerAudioSource.PlayOneShot(stepGrassClips[Random.Range(0, stepGrassClips.Length)], maxVolume * 1.5f);
+                break;
+            case TerrainType.GRAVEL:
+                playerAudioSource.pitch = Random.Range(0.9f, 1.1f);
+                playerAudioSource.PlayOneShot(stepGravelClips[Random.Range(0, stepGravelClips.Length)], maxVolume);
                 break;
             default:
                 break;

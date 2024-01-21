@@ -26,13 +26,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6639576266330329023}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.10452846, y: 0, z: 0, w: 0.9945219}
+  m_LocalRotation: {x: 0.06975647, y: 0, z: 0, w: 0.9975641}
   m_LocalPosition: {x: 0.169, y: 0.839, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6959117380186747406}
-  m_LocalEulerAnglesHint: {x: 12, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 8, y: 0, z: 0}
 --- !u!108 &8546399963908605479
 Light:
   m_ObjectHideFlags: 0
@@ -46,7 +46,7 @@ Light:
   m_Shape: 0
   m_Color: {r: 1, g: 0.9585924, b: 0.5801887, a: 1}
   m_Intensity: 50
-  m_Range: 18
+  m_Range: 12
   m_SpotAngle: 35
   m_InnerSpotAngle: 35
   m_CookieSize: 10
@@ -559,7 +559,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 0.5
-  m_Pitch: 1
+  m_Pitch: 1.0110366
   Loop: 1
   Mute: 0
   Spatialize: 0
@@ -666,7 +666,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca71c3f81f1014d928e5b115771876f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  equipment: {fileID: 0}
+  inventoryData:
+    slots: []
+    equippedItem: {fileID: 0}
 --- !u!114 &1215050439610509494
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -692,16 +694,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06cfc0661ff323233bc52b507220c227, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxVolume: 1
+  maxVolume: 0.3
   playerTerrainChecker: {fileID: 1215050439610509494}
   playerAudioSource: {fileID: 5984268569681685550}
   stepGrassClips:
-  - {fileID: 8300000, guid: 516795b900990b3698e7a6faf460f150, type: 3}
+  - {fileID: 8300000, guid: d0395b98ef68834efbf1f44d62eaeb3b, type: 3}
+  - {fileID: 8300000, guid: 7ae66b699f50996b2b0418a1a52180c5, type: 3}
+  - {fileID: 8300000, guid: a2c8ee97328f62705aca2b71bc6f43b0, type: 3}
   stepConcreteClips:
   - {fileID: 8300000, guid: 516795b900990b3698e7a6faf460f150, type: 3}
   - {fileID: 8300000, guid: 72136a55a0ad932b2b46b5e480e3b83b, type: 3}
   - {fileID: 8300000, guid: 75e00c7df27755ba38aecbe32e8ed24d, type: 3}
   - {fileID: 8300000, guid: 686f8430fc514a30a89039ad24082416, type: 3}
+  stepGravelClips:
+  - {fileID: 8300000, guid: 2c4e907579ab6b959897e18df862954b, type: 3}
+  - {fileID: 8300000, guid: ef45ac736d17ff5788648d7371650e3e, type: 3}
+  - {fileID: 8300000, guid: fc6590137e6ccfb5294b208f55e7fa88, type: 3}
+  - {fileID: 8300000, guid: 82f8916b385e458eb8a6b1c88761cc6f, type: 3}
 --- !u!114 &2324526256875508536
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -714,7 +723,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d19a3f0bf1e84083ab2b34a4ac43f133, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 5
 --- !u!81 &3932678032419610857
 AudioListener:
   m_ObjectHideFlags: 0

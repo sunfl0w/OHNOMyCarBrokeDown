@@ -7817,18 +7817,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2324526256875508536, guid: 2bea7eb78fe50bfc8af92e4fb3c8f219, type: 3}
-      propertyPath: gui
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 2324526256875508536, guid: 2bea7eb78fe50bfc8af92e4fb3c8f219, type: 3}
-      propertyPath: playerHP
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 2324526256875508536, guid: 2bea7eb78fe50bfc8af92e4fb3c8f219, type: 3}
-      propertyPath: gameOverCanvas
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 3347641768980847596, guid: 2bea7eb78fe50bfc8af92e4fb3c8f219, type: 3}
       propertyPath: mainCamera
       value: 
@@ -7837,18 +7825,6 @@ PrefabInstance:
       propertyPath: uiLight
       value: 
       objectReference: {fileID: 725530613}
-    - target: {fileID: 5723347861972532275, guid: 2bea7eb78fe50bfc8af92e4fb3c8f219, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.9975641
-      objectReference: {fileID: 0}
-    - target: {fileID: 5723347861972532275, guid: 2bea7eb78fe50bfc8af92e4fb3c8f219, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0.06975647
-      objectReference: {fileID: 0}
-    - target: {fileID: 5723347861972532275, guid: 2bea7eb78fe50bfc8af92e4fb3c8f219, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 8
-      objectReference: {fileID: 0}
     - target: {fileID: 6959117380186747406, guid: 2bea7eb78fe50bfc8af92e4fb3c8f219, type: 3}
       propertyPath: m_LocalPosition.x
       value: 2.5
@@ -7892,18 +7868,6 @@ PrefabInstance:
     - target: {fileID: 7770979636107241652, guid: 2bea7eb78fe50bfc8af92e4fb3c8f219, type: 3}
       propertyPath: m_Name
       value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 8546399963908605479, guid: 2bea7eb78fe50bfc8af92e4fb3c8f219, type: 3}
-      propertyPath: m_Range
-      value: 12
-      objectReference: {fileID: 0}
-    - target: {fileID: 8546399963908605479, guid: 2bea7eb78fe50bfc8af92e4fb3c8f219, type: 3}
-      propertyPath: m_SpotAngle
-      value: 35
-      objectReference: {fileID: 0}
-    - target: {fileID: 8546399963908605479, guid: 2bea7eb78fe50bfc8af92e4fb3c8f219, type: 3}
-      propertyPath: m_InnerSpotAngle
-      value: 35
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
