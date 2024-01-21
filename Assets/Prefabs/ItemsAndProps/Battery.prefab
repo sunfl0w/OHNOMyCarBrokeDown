@@ -22,11 +22,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 94e00c0c8c5bd6d1e96e1699c41ad953, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.7071068
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 94e00c0c8c5bd6d1e96e1699c41ad953, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.7071068
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 94e00c0c8c5bd6d1e96e1699c41ad953, type: 3}
       propertyPath: m_LocalRotation.y
@@ -34,7 +34,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 94e00c0c8c5bd6d1e96e1699c41ad953, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 94e00c0c8c5bd6d1e96e1699c41ad953, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -111,3 +111,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemData: {fileID: 11400000, guid: 7a061ab52f997ef13a0ffeb7a852463f, type: 2}
   interactableData: {fileID: 11400000, guid: 9a9cfe56115edacc49f9aca792791712, type: 2}
+  uniqueIdentifier: 
