@@ -15,6 +15,7 @@ public class StalkingShadowEntityController : MonoBehaviour {
 
     private NavAgent navAgent;
     private Animator animator;
+    private AudioSource audioSource;
 
     private bool canAttack = true;
     private bool canMove = true;
@@ -22,6 +23,7 @@ public class StalkingShadowEntityController : MonoBehaviour {
     void Awake() {
         navAgent = GetComponent<NavAgent>();
         animator = GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     void Update() {
@@ -63,6 +65,10 @@ public class StalkingShadowEntityController : MonoBehaviour {
         if (Physics.Raycast(this.transform.position + Vector3.up, this.transform.forward, attackRange + 10.0f, LayerMask.GetMask("Player"))) {
             playerAttackedEvent?.Invoke(attackDamage);
         }
+    }
+
+    void AttackSound() {
+        audioSource.Play();
     }
 
     IEnumerator AttackCooldown() {

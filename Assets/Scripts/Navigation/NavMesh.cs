@@ -56,10 +56,6 @@ public class NavMesh : MonoBehaviour {
 
     private List<NavNode> navgraph;
 
-    void Start() {
-        navgraph = ParseNavmesh();
-    }
-
     /// <summary>
     /// Parses the supplied mesh to generate a node graph.
     /// </summary>
@@ -139,10 +135,10 @@ public class NavMesh : MonoBehaviour {
     }
 
     private void NavgraphReset() {
-        foreach(NavNode node in navgraph) {
-            node.parent = null;
-            node.g = float.PositiveInfinity;
-            node.f = float.PositiveInfinity;
+        for(int i = 0; i < navgraph.Count; i++) {
+            navgraph[i].parent = null;
+            navgraph[i].g = float.PositiveInfinity;
+            navgraph[i].f = float.PositiveInfinity;
         }
     }
 
@@ -150,8 +146,12 @@ public class NavMesh : MonoBehaviour {
     /// A* pathfinding using the supplied navmesh.
     /// </summary>
     public List<Vector3> GetPath(Vector3 startPos, Vector3 targetPos) {
-        //List<NavNode> navgraph = ParseNavmesh();
-        NavgraphReset();
+        //navgraph = ParseNavmesh();
+        if (navgraph == null) {
+            navgraph = ParseNavmesh();
+        } else {
+            NavgraphReset();
+        }
 
         NavNode startNode = PosToCorrespondingNavNode(startPos, navgraph);
         if (startNode == null) {
