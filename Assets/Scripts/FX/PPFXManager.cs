@@ -1,11 +1,10 @@
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 
 public class PPFXManager : MonoBehaviour {
     public Volume volume;
-    public List<VolumeProfile> vplist = new List<VolumeProfile>();
+    public float baseExposure = 0.0f;
 
     private static PPFXManager instance;
     public static PPFXManager Instance { get { return instance; } }
@@ -21,23 +20,43 @@ public class PPFXManager : MonoBehaviour {
         UnifiedGUI.GUILeaveEvent += SetBaseProfile;
     }
 
+    void Start() {
+        DepthOfField df;
+        volume.profile.TryGet<DepthOfField>(out df);
+        df.mode.Override(DepthOfFieldMode.Off);
+        UpdateBrightness();
+    }
+
     void SetBlurProfile(bool enableGUIBlur, bool disableMovemen) {
         if (enableGUIBlur) {
-            SetProfile("BlurVP");
+            DepthOfField df;
+            volume.profile.TryGet<DepthOfField>(out df);
+            df.mode.Override(DepthOfFieldMode.Gaussian);
+
+            ColorAdjustments ca;
+            volume.profile.TryGet<ColorAdjustments>(out ca);
+            ca.postExposure.Override(baseExposure + (PlayerPrefs.GetFloat("Brightness") - 0.5f) * 4.0f - 1.5f);
         }
     }
 
     void SetBaseProfile() {
-        SetProfile("BaseVP");
+        DepthOfField df;
+        volume.profile.TryGet<DepthOfField>(out df);
+        df.mode.Override(DepthOfFieldMode.Off);
+        ColorAdjustments ca;
+        volume.profile.TryGet<ColorAdjustments>(out ca);
+        ca.postExposure.Override(baseExposure + (PlayerPrefs.GetFloat("Brightness") - 0.5f) * 4.0f);
     }
 
-    void SetProfile(string vpName) {
-        VolumeProfile vp = vplist.FirstOrDefault(vp => vp.name == vpName);
-        if (vplist.Count > 0 && vp != null) {
-            Debug.Log("New current volume profile is: " + vpName);
-            volume.profile = vp;
-        } else {
-            Debug.Log("Missing " + vpName + " volume profile");
-        }
+    public void UpdateBrightness() {
+        ColorAdjustments ca;
+        volume.profile.TryGet<ColorAdjustments>(out ca);
+        ca.postExposure.Override(baseExposure + (PlayerPrefs.GetFloat("Brightness") - 0.5f) * 4.0f);
+    }
+
+    public void UpdateBrightnessDirect(float brightness) {
+        ColorAdjustments ca;
+        volume.profile.TryGet<ColorAdjustments>(out ca);
+        ca.postExposure.Override(baseExposure + (brightness - 0.5f) * 4.0f);
     }
 }

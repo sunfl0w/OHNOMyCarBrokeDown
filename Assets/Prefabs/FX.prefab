@@ -63,6 +63,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   volume: {fileID: 4001081940440489994}
-  vplist:
-  - {fileID: 11400000, guid: 006cc6465fedc715a861f7fae14080bf, type: 2}
-  - {fileID: 11400000, guid: 9cd4e8b064da48452ab2e156e2ff671e, type: 2}
+  baseExposure: 0
