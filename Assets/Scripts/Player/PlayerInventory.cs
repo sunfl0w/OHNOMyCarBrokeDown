@@ -2,20 +2,31 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-[Serializable]
 public class InventoryData {
     public List<InventorySlot> slots = new List<InventorySlot>();
     public ItemData equippedItem = null;
 }
 
-[Serializable]
 public class InventorySlot {
     public ItemData itemData = null;
     public uint amount = 0;
 }
 
+[Serializable]
+public class InventorySaveState {
+    public List<InventorySaveStateSlot> slots = new List<InventorySaveStateSlot>();
+    public string equippedItem;
+}
+
+[Serializable]
+public class InventorySaveStateSlot {
+    public string itemName;
+    public uint amount;
+}
+
 public class PlayerInventory : MonoBehaviour {
     public InventoryData inventoryData = new InventoryData();
+    public List<ItemData> allItems = new List<ItemData>();
 
     private static PlayerInventory instance;
     public static PlayerInventory Instance { get { return instance; } }
@@ -31,12 +42,44 @@ public class PlayerInventory : MonoBehaviour {
     void Start() {
     }
 
-    public InventoryData GetInventoryData() {
-        return inventoryData;
+    public InventorySaveState GetInventorySaveState() {
+        InventorySaveState saveState = new InventorySaveState();
+        foreach (InventorySlot slot in inventoryData.slots) {
+            InventorySaveStateSlot saveStateSlot = new InventorySaveStateSlot();
+            saveStateSlot.amount = slot.amount;
+            saveStateSlot.itemName = slot.itemData.itemName;
+            saveState.slots.Add(saveStateSlot);
+        }
+        
+        if (inventoryData.equippedItem != null) {
+            saveState.equippedItem = inventoryData.equippedItem.itemName;
+        } else {
+            saveState.equippedItem = "NULL";
+        }
+        return saveState;
     }
 
-    public void SetInventoryData(InventoryData inventoryData) {
-        this.inventoryData = inventoryData;
+    public void SetInventorySaveState(InventorySaveState saveState) {
+        foreach (InventorySaveStateSlot slot in saveState.slots) {
+            InventorySlot invSlot = new InventorySlot();
+            invSlot.amount = slot.amount;
+            invSlot.itemData = GetitemDataByName(slot.itemName);
+            if (invSlot.itemData != null) {
+                inventoryData.slots.Add(invSlot);
+            }
+        }
+        if (saveState.equippedItem != "" && saveState.equippedItem != "NULL") {
+            inventoryData.equippedItem = GetitemDataByName(saveState.equippedItem);
+        }
+    }
+
+    private ItemData GetitemDataByName(string name) {
+        foreach (ItemData data in allItems) {
+            if (data.itemName == name) {
+                return data;
+            }
+        }
+        return null;
     }
 
     // Add an item to the player inventory

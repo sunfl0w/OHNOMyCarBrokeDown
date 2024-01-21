@@ -16,7 +16,7 @@ public class PlayerSaveState {
 
 [Serializable]
 public class SaveState {
-    public InventoryData inventoryData = null;
+    public InventorySaveState inventorySaveState = null;
     public List<InteractableSaveState> interactables = new List<InteractableSaveState>();
     public PlayerSaveState playerSaveState = new PlayerSaveState();
 }
@@ -40,7 +40,7 @@ public class SavestateManager : MonoBehaviour {
 
     private void Start() {
         UpdateSceneInteractables();
-        PlayerInventory.Instance?.SetInventoryData(currentSaveState.inventoryData);
+        PlayerInventory.Instance?.SetInventorySaveState(currentSaveState.inventorySaveState);
     }
 
     public void LoadSaveState() {
@@ -59,7 +59,7 @@ public class SavestateManager : MonoBehaviour {
     }
 
     public void StoreSaveState() {
-        currentSaveState.inventoryData = PlayerInventory.Instance.GetInventoryData();
+        currentSaveState.inventorySaveState = PlayerInventory.Instance.GetInventorySaveState();
 
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         if (player != null) {
