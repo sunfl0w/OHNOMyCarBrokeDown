@@ -225,4 +225,4 @@ MonoBehaviour:
   rotationDampening: 3
   attackCooldownTime: 8
   flashlightCooldownTime: 10
-  attackDamage: 5
+  attackDamage: 1

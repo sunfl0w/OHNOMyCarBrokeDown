@@ -7,13 +7,68 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: Book_Brown_3
+    second: {fileID: 2100000, guid: 9228d105360a1027dbdb727d204bc434, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Book_Red_1
+    second: {fileID: 2100000, guid: a161272044a217dc9adf9219cdce1ba7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Drink_Can_Soda_2
+    second: {fileID: 2100000, guid: 709f0aeef616c372088bb48641ce22fb, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: FabricMaterial
+    second: {fileID: 2100000, guid: 4cf556df8f67e874f8bea2eb34f38c4a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Food_Canned_Soup_2
+    second: {fileID: 2100000, guid: 127d55cd7595bf53b98d9a2b44098531, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Food_Canned_Soup_6
+    second: {fileID: 2100000, guid: 5aa9bb79757ca6d948c2109ee51512a4, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Food_Cereal_4
+    second: {fileID: 2100000, guid: d2ae8f63ba6a47e3ebeb2cc48409174e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Food_Cereal_5
+    second: {fileID: 2100000, guid: 6d62043b918ae6ef4bd4481e273aa5bb, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: PlasticMaterial
+    second: {fileID: 2100000, guid: a1f35a0354072913aab26f42fbdfc954, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: PropMaterial
+    second: {fileID: 2100000, guid: d36ab4fe6e2fa5a9f8549880e6d8b58f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: PropMaterial.001
     second: {fileID: 2100000, guid: d36ab4fe6e2fa5a9f8549880e6d8b58f, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: TerrainMaterial
     second: {fileID: 2100000, guid: 7468f8230e3a8fda097abbe460f1da2f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: food_snack_chips_1
+    second: {fileID: 2100000, guid: b040736ada5952926a540ab6611dff25, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

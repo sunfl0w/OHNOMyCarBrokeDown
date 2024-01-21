@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.13312241, g: 0.14476717, b: 0.20339662, a: 1}
+  m_IndirectSpecularColor: {r: 0.00480847, g: 0.0048058694, b: 0.004644361, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2772,10 +2772,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: StalkingShadow
       objectReference: {fileID: 0}
-    - target: {fileID: 1677426019395274032, guid: efbb051ea5c933d9d9d27520e78b5177, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 2021195663856754570, guid: efbb051ea5c933d9d9d27520e78b5177, type: 3}
       propertyPath: m_LocalPosition.x
       value: 8.819
@@ -2828,10 +2824,6 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 1994147993}
-    - target: {fileID: 7129296078381360694, guid: efbb051ea5c933d9d9d27520e78b5177, type: 3}
-      propertyPath: attackDamage
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

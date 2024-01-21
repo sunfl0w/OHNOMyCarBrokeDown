@@ -42,7 +42,6 @@ public class StalkingShadowEntityController : MonoBehaviour {
             StartCoroutine(AttackCooldown());
         }
 
-        // Move this check to a player component
         // Checks if the entity is hit by the player flashlight
         RaycastHit hit;
         Debug.DrawRay(player.transform.position + Vector3.up, player.transform.forward, Color.red);
@@ -51,6 +50,7 @@ public class StalkingShadowEntityController : MonoBehaviour {
             if (hit.transform.gameObject.GetInstanceID() == this.gameObject.GetInstanceID()) {
                 canAttack = false;
                 canMove = false;
+                GetComponent<CharacterController>().excludeLayers |= (1 << LayerMask.NameToLayer("Player"));
                 StartCoroutine(FlashlightCooldown());
             }
         }
@@ -74,5 +74,6 @@ public class StalkingShadowEntityController : MonoBehaviour {
         yield return new WaitForSeconds(flashlightCooldownTime);
         canAttack = true;
         canMove = true;
+        GetComponent<CharacterController>().excludeLayers &= ~(1 << LayerMask.NameToLayer("Player"));
     }
 }
