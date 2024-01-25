@@ -1,0 +1,16 @@
+MyCarBrokeDown (c) by Luca Anthony Schwarz
+
+
+MyCarBrokeDown (the software) is licensed under a BSD 3-Clause License.
+
+You should have received a copy of the license along with this
+work. If not, see <https://opensource.org/license/bsd-3-clause/>.
+
+All assets that are not declared as third party assets contained in MyCarBrokeDown
+are licensed under a Creative Commons Attribution 4.0 International License.
+
+You should have received a copy of the license along with this
+work. If not, see <https://creativecommons.org/licenses/by/4.0/>.
+
+An exhaustive list of third party assets may be found in the third_party_sources.csv file
+distributed along with this work.

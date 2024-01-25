@@ -9,19 +9,19 @@ EditorBuildSettings:
     path: Assets/Scenes/StartupScene.unity
     guid: cf9e0e75143cf341f9d5654f8cdea891
   - enabled: 1
-    path: Assets/Scenes/MainMenuScene.unity
+    path: Assets/Level/Scenes/Menus/MainMenuScene.unity
     guid: ce24ddf8adc3c4f4db7efa078e5fa7f5
   - enabled: 1
-    path: Assets/Scenes/ExteriorScenes/VillageScene.unity
+    path: Assets/Level/Scenes/ExteriorScenes/VillageScene.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
   - enabled: 1
-    path: Assets/Scenes/InteriorScenes/WorkshopScene.unity
+    path: Assets/Level/Scenes/InteriorScenes/WorkshopScene.unity
     guid: 0c27a23c09cba48fc948bcaeb78d5d20
   - enabled: 1
-    path: Assets/Scenes/InteriorScenes/SupermarketScene.unity
+    path: Assets/Level/Scenes/InteriorScenes/SupermarketScene.unity
     guid: 0a8d51f4e5c83d44b98a3be5cbb7087a
   - enabled: 1
-    path: Assets/Scenes/ExteriorScenes/OminousStreetScene.unity
+    path: Assets/Level/Scenes/ExteriorScenes/OminousStreetScene.unity
     guid: c324d1bd158feb57c912897ce02765a6
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 0dfa290efa2590af6a028d716fa2f2f5, type: 2}
