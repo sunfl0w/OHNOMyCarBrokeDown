@@ -12,5 +12,5 @@ are licensed under a Creative Commons Attribution 4.0 International License.
 You should have received a copy of the license along with this
 work. If not, see <https://creativecommons.org/licenses/by/4.0/>.
 
-An exhaustive list of third party assets may be found in the third_party_sources.csv file
-distributed along with this work.
+Third party assets are denoted as such in csv files in parent directories.
+An exhaustive list of third party asset creators (see third_party_sources.txt) is distributed alongside this notice.

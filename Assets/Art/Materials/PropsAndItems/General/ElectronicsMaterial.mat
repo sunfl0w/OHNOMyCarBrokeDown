@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: PSXFOElectronicsMaterial
+  m_Name: ElectronicsMaterial
   m_Shader: {fileID: 4800000, guid: 42c2d0dd4cf2cb04c99689716296195b, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -61,7 +61,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: b4bb8dc47d37fafe2891e0e9555af09b, type: 3}
+        m_Texture: {fileID: 2800000, guid: 721c71cf970a824c7a16dcb9b6c6aa65, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
