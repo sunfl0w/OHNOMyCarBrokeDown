@@ -1,15 +1,48 @@
 using UnityEngine;
 using System.Collections;
 
+/// <summary>
+/// The player flashlight manager manages flashlight battery life and depletion.
+/// </summary>
 public class PlayerFlashlightManager : MonoBehaviour {
-    public float batteryLife = 100f; // Initial battery life in percentage
-    public float depletionRate = 1f; // Rate at which battery depletes per second
+    /// <summary>
+    /// Initial battery life in percent.
+    /// </summary>
+    public float batteryLife = 100f;
+
+    /// <summary>
+    /// Rate at which battery depletes per second.
+    /// </summary>
+    public float depletionRate = 1f;
+
+    /// <summary>
+    /// Reference to flashlight light.
+    /// </summary>
     public Light flashlight;
+
+    /// <summary>
+    /// Reference to light used by gui.
+    /// </summary>
     public Light uiLight;
 
+    /// <summary>
+    /// Flag specifying, whether the flashlight is currently active.
+    /// </summary>
     private bool flashlightActive = false;
+
+    /// <summary>
+    /// Specifies, whether the flashlight is flickering currently.
+    /// </summary>
     private bool isFlickering = false;
+
+    /// <summary>
+    /// Original intensity of the flashlight light.
+    /// </summary>
     private float flashlightOriginalIntensity = 0.0f;
+
+    /// <summary>
+    /// Original intensity of the gui light.
+    /// </summary>
     private float uiLightoriginalIntensity = 0.0f;
 
     void Start() {
@@ -24,26 +57,26 @@ public class PlayerFlashlightManager : MonoBehaviour {
     }
 
     void Update() {
-        if(flashlightActive && PlayerInventory.Instance.IsFlashlightEquipped()) {
-            batteryLife -= Mathf.Max(depletionRate * Time.deltaTime, 0.0f);
+        if (flashlightActive && PlayerInventory.Instance.IsFlashlightEquipped()) {
+            batteryLife -= Mathf.Max(depletionRate * Time.deltaTime, 0.0f); // Deplete battery
 
-            if(Input.GetButtonDown("Use")) {
+            if (Input.GetButtonDown("Use")) {
                 flashlightActive = false;
             }
-        } else if(!flashlightActive && PlayerInventory.Instance.IsFlashlightEquipped()) {
-            if(Input.GetButtonDown("Use")) {
+        } else if (!flashlightActive && PlayerInventory.Instance.IsFlashlightEquipped()) {
+            if (Input.GetButtonDown("Use")) {
                 flashlightActive = true;
             }
         }
 
-        if(flashlightActive && PlayerInventory.Instance.IsFlashlightEquipped() && batteryLife > 20.0f) {
+        if (flashlightActive && PlayerInventory.Instance.IsFlashlightEquipped() && batteryLife > 20.0f) { // Normal flashlight behaviour
             isFlickering = false;
             StopAllCoroutines();
             flashlight.intensity = flashlightOriginalIntensity;
             uiLight.intensity = uiLightoriginalIntensity;
-        } else if(flashlightActive && PlayerInventory.Instance.IsFlashlightEquipped() && batteryLife <= 0.0f) {
+        } else if (flashlightActive && PlayerInventory.Instance.IsFlashlightEquipped() && batteryLife <= 0.0f) { // Flashlight off behaviour
             flashlightActive = false;
-        } else if(flashlightActive && PlayerInventory.Instance.IsFlashlightEquipped() && batteryLife <= 20.0f) {
+        } else if (flashlightActive && PlayerInventory.Instance.IsFlashlightEquipped() && batteryLife <= 20.0f) { // Flashlight flickering behaviour
             if (!isFlickering) {
                 isFlickering = true;
                 StartCoroutine(Flicker());
@@ -54,8 +87,11 @@ public class PlayerFlashlightManager : MonoBehaviour {
         uiLight.enabled = flashlightActive;
     }
 
+    /// <summary>
+    /// Coroutine used to make the flashlight flicker randomly when it is close to being empty.
+    /// </summary>
     private IEnumerator Flicker() {
-        while(true) {
+        while (true) {
             float rand = Random.Range(0.0f, 0.8f);
             flashlight.intensity = rand * flashlightOriginalIntensity;
             uiLight.intensity = rand * uiLightoriginalIntensity; // Also flicker ui light in inventory and inspection GUIs as a nice effect
@@ -63,10 +99,16 @@ public class PlayerFlashlightManager : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// Returns the current battery life percentage.
+    /// </summary>
     public float GetBatteryLife() {
         return batteryLife;
     }
 
+    /// <summary>
+    /// Returns true if the flashlight is currently active.
+    /// </summary>
     public bool IsFlashlightActive() {
         return flashlightActive;
     }

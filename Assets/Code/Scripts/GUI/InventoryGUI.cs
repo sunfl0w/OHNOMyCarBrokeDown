@@ -108,7 +108,7 @@ public class InventoryGUI : MonoBehaviour
             if (usageButton.color == Color.white)
             {
                 PlayerInventory.Instance.UseItem(currentItemData);
-                if (!PlayerInventory.Instance.itemExists(currentItemData))
+                if (!PlayerInventory.Instance.CheckItemExists(currentItemData))
                 {
                     currentItemIndex = 0;
                 }

@@ -15,7 +15,7 @@ public class SceneChanceInteractable : MonoBehaviour, IInteractable
 
     public void Interact()
     {
-        if (PlayerInventory.Instance.itemExists(requiredItem) || requiredItem == null)
+        if (PlayerInventory.Instance.CheckItemExists(requiredItem) || requiredItem == null)
         {
             if (data.interactSound != null)
             {

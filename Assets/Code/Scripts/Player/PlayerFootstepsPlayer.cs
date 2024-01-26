@@ -1,12 +1,37 @@
 using UnityEngine;
 
-public class PlayerAudioclipPlayer : MonoBehaviour {
+/// <summary>
+/// The player footsteps clip player plays footstep sound clips when moving.
+/// </summary>
+public class PlayerFootstepsPlayer : MonoBehaviour {
+    /// <summary>
+    /// Max volume of audio clips.
+    /// </summary>
     public float maxVolume = 0.5f;
+
+    /// <summary>
+    /// Reference to the terrain checker.
+    /// </summary>
     public TerrainChecker playerTerrainChecker;
+
+    /// <summary>
+    /// Reference to the player character audio source.
+    /// </summary>
     public AudioSource playerAudioSource;
 
+    /// <summary>
+    /// Array of grass footstep clips.
+    /// </summary>
     public AudioClip[] stepGrassClips;
+
+    /// <summary>
+    /// Array of concrete footstep clips.
+    /// </summary>
     public AudioClip[] stepConcreteClips;
+
+    /// <summary>
+    /// Array of gravel footstep clips.
+    /// </summary>
     public AudioClip[] stepGravelClips;
 
     public void Awake() {
@@ -14,6 +39,9 @@ public class PlayerAudioclipPlayer : MonoBehaviour {
         playerAudioSource = GetComponent<AudioSource>();
     }
 
+    /// <summary>
+    /// Called by the player animator when the player character's foot is put on the ground while walking.
+    /// </summary>
     public void Footstep() {
         TerrainType terrainType = playerTerrainChecker.GetTerrainType();
         switch (terrainType) {

@@ -40,27 +40,27 @@ public class CarInteractable : MonoBehaviour, IInteractable
 
     public void Interact()
     {
-        if (!PlayerInventory.Instance.itemExists(requiredItems[2]))
+        if (!PlayerInventory.Instance.CheckItemExists(requiredItems[2]))
         {
             InteractGUI.Instance.Hide();
             DialogueGUI.Instance.Show(new DialogueData("I think my car ran out of gas..."));
         }
-        else if (!PlayerInventory.Instance.itemExists(requiredItems[0]))
+        else if (!PlayerInventory.Instance.CheckItemExists(requiredItems[0]))
         {
             InteractGUI.Instance.Hide();
             DialogueGUI.Instance.Show(new DialogueData("The car wont start but at least it is fueled now. I think my car ran out of SubBlue..."));
         }
-        else if (!PlayerInventory.Instance.itemExists(requiredItems[4]))
+        else if (!PlayerInventory.Instance.CheckItemExists(requiredItems[4]))
         {
             InteractGUI.Instance.Hide();
             DialogueGUI.Instance.Show(new DialogueData("Still not working. I need some tools to repair the car..."));
         }
-        else if (!PlayerInventory.Instance.itemExists(requiredItems[1]))
+        else if (!PlayerInventory.Instance.CheckItemExists(requiredItems[1]))
         {
             InteractGUI.Instance.Hide();
             DialogueGUI.Instance.Show(new DialogueData("Ew, why does my car smell like garbage? I need some air refreshener..."));
         }
-        else if (!PlayerInventory.Instance.itemExists(requiredItems[3]))
+        else if (!PlayerInventory.Instance.CheckItemExists(requiredItems[3]))
         {
             InteractGUI.Instance.Hide();
             DialogueGUI.Instance.Show(new DialogueData("I need some good music to start driving again..."));
