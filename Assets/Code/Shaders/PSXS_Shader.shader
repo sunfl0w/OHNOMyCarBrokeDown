@@ -1,15 +1,11 @@
-Shader "Custom/PSXS_Shader"
-{
-    Properties
-    {
+Shader "Custom/PSXS_Shader" {
+    Properties {
         _MainTex ("Texture", 2D) = "white" {}
         _Diffuse_Strength ("Diffuse Strength", Float) = 1.0
         _Specular_Strength ("Specular Strength", Float) = 1.0
     }
-    SubShader
-    {
-        Pass
-        {
+    SubShader {
+        Pass {
             Tags { "RenderType"="Opaque" "RenderPipeline" = "UniversalRenderPipeline" }
             LOD 100
             Cull Off // Very important for some textures used

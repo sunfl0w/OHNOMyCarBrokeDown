@@ -1,17 +1,13 @@
-Shader "Custom/PSXS_Spotlight_Shader"
-{
-    Properties
-    {
+Shader "Custom/PSXS_Spotlight_Shader" {
+    Properties {
         _MainTex ("Texture", 2D) = "white" {}
         _Light_Color ("Light Color", Color) = (1, 1, 1, 1)
     }
-    SubShader
-    {
+    SubShader {
         Tags { "RenderType"="Transparent" "Queue"="Transparent" }
         LOD 100
 
-        Pass
-        {   
+        Pass {   
             Cull Off
             Blend SrcAlpha OneMinusSrcAlpha
             ZWrite Off

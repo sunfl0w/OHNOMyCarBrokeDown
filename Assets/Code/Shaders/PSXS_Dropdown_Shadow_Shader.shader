@@ -1,15 +1,11 @@
-Shader "Custom/PSXS_Dropdown_Shadow_Shader"
-{
-    Properties
-    {
+Shader "Custom/PSXS_Dropdown_Shadow_Shader" {
+    Properties {
         _MainTex ("Texture", 2D) = "white" {}
     }
-    SubShader
-    {
+    SubShader {
         Tags { "RenderType"="Opaque" "Queue"="Transparent" }
 
-        Pass
-        {   
+        Pass {   
             Cull Off
             Blend SrcAlpha OneMinusSrcAlpha
             ZWrite Off

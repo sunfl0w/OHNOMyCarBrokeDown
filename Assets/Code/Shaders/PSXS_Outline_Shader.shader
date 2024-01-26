@@ -1,17 +1,13 @@
-Shader "Custom/PSXS_Outline_Shader"
-{
-    Properties
-    {
+Shader "Custom/PSXS_Outline_Shader" {
+    Properties {
         _MainTex ("Texture", 2D) = "white" {}
         _Diffuse_Strength ("Diffuse Strength", Float) = 1.0
         _Specular_Strength ("Specular Strength", Float) = 1.0
         _Outline_Width ("Outline Width", Float) = 1.0
         _Outline_Color ("Outline Color", Color) = (1, 1, 1, 1)
     }
-    SubShader
-    {
-        Pass
-        {
+    SubShader {
+        Pass {
             Tags { "RenderType"="Opaque" "RenderPipeline" = "UniversalRenderPipeline" "LightMode" = "UniversalForward" }
             LOD 100
             Cull Off // Very important for some textures used
