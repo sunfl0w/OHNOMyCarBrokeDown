@@ -1,14 +1,27 @@
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// The flashlight indicator gui is used to diplay the current battery life of an equipped flashlight.
+/// The flashlight indicator gui is a singleton.
+/// </summary>
 public class FlashlightIndicatorGUI : MonoBehaviour {
+    /// <summary>
+    /// Sprites used to indicate battery life.
+    /// </summary>
     public Sprite[] indicatorSprites;
 
+    /// <summary>
+    /// Gui image used to display current flashlight battery life.
+    /// </summary>
     private Image indicatorImage;
+
+    /// <summary>
+    /// Reference to the player flashlight manager.
+    /// </summary>
     private PlayerFlashlightManager playerFlashlightManager;
 
     private static FlashlightIndicatorGUI instance;
-
     public static FlashlightIndicatorGUI Instance { get { return instance; } }
 
     void Awake() {

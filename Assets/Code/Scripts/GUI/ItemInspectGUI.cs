@@ -2,8 +2,11 @@ using UnityEngine;
 using TMPro;
 using System;
 
-public class ItemInspectGUI : MonoBehaviour
-{
+/// <summary>
+/// The item inspect gui displays an interacted item in front of the camera.
+/// The item can be rotated using WASD.
+/// </summary>
+public class ItemInspectGUI : MonoBehaviour {
     public Camera guiCamera;
     //public GameObject containerGameObject;
     private TextMeshProUGUI hintTextGUI;
@@ -18,36 +21,27 @@ public class ItemInspectGUI : MonoBehaviour
     private static ItemInspectGUI instance;
     public static ItemInspectGUI Instance { get { return instance; } }
 
-    private void Awake()
-    {
-        if (instance != null && instance != this)
-        {
+    private void Awake() {
+        if (instance != null && instance != this) {
             Destroy(this.gameObject);
-        }
-        else
-        {
+        } else {
             instance = this;
         }
     }
 
-    private void Start()
-    {
+    private void Start() {
         hintTextGUI = GetComponent<TextMeshProUGUI>();
         Hide();
     }
 
-    public void Update()
-    {
-        if (inspectedItem != null && Input.GetButtonDown("Cancel"))
-        {
+    public void Update() {
+        if (inspectedItem != null && Input.GetButtonDown("Cancel")) {
             Hide();
         }
     }
 
-    public void FixedUpdate()
-    {
-        if (inspectedItem != null)
-        {
+    public void FixedUpdate() {
+        if (inspectedItem != null) {
             rotationSpeed.y += Input.GetAxisRaw("Horizontal") * 3.5f * Time.deltaTime - Mathf.Sign(rotationSpeed.y) * rotationSpeed.magnitude * 2.0f * Time.deltaTime;
             rotationSpeed.x += Input.GetAxisRaw("Vertical") * 3.5f * Time.deltaTime - Mathf.Sign(rotationSpeed.x) * rotationSpeed.magnitude * 2.0f * Time.deltaTime;
             inspectedItem.transform.RotateAround(inspectedItem.transform.position, guiCamera.transform.up, rotationSpeed.y);
@@ -55,8 +49,10 @@ public class ItemInspectGUI : MonoBehaviour
         }
     }
 
-    public void Show(ItemData itemData)
-    {
+    /// <summary>
+    /// Show item inspect gui
+    /// </summary>
+    public void Show(ItemData itemData) {
         Debug.Log("Show item inspect GUI");
         InspectionGUIEnterEvent?.Invoke(true, true);
         hintTextGUI.text = itemData.interactText + "\nExit with [ESC]. Move item with [WASD].";
@@ -64,8 +60,7 @@ public class ItemInspectGUI : MonoBehaviour
         inspectedItem = Instantiate(itemData.prefab);
         MeshRenderer meshRenderer = inspectedItem.GetComponent<MeshRenderer>();
         meshRenderer.material = itemData.inspectMaterial;
-        for (int i = 0; i < meshRenderer.materials.Length; i++)
-        {
+        for (int i = 0; i < meshRenderer.materials.Length; i++) {
             meshRenderer.materials[i] = itemData.inspectMaterial;
         }
         inspectedItem.layer = LayerMask.NameToLayer("UI");
@@ -77,22 +72,25 @@ public class ItemInspectGUI : MonoBehaviour
         InteractGUI.Instance.Hide();
     }
 
-    public void Hide()
-    {
+    /// <summary>
+    /// Hide item inspect gui
+    /// </summary>
+    public void Hide() {
         Debug.Log("Hide item inspect GUI");
         InspectionGUILeaveEvent?.Invoke();
         hintTextGUI.text = String.Empty;
         rotationSpeed = Vector3.zero;
-        if (inspectedItem != null)
-        {
+        if (inspectedItem != null) {
             Destroy(inspectedItem);
         }
         inspectedItem = null;
         isVisible = false;
     }
 
-    public bool IsVisible()
-    {
+    /// <summary>
+    /// Returns true if the item inspect gui is visible.
+    /// </summary>
+    public bool IsVisible() {
         return isVisible;
     }
 }

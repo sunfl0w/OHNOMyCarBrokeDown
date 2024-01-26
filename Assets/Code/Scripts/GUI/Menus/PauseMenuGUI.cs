@@ -1,18 +1,49 @@
 using System;
 using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
+/// <summary>
+/// Pause menu gui.
+/// </summary>
 public class PauseMenuGUI : MonoBehaviour {
+    /// <summary>
+    /// Continue button reference.
+    /// </summary>
     public TextMeshProUGUI continueButton;
+
+    /// <summary>
+    /// Main menu button reference.
+    /// </summary>
     public TextMeshProUGUI mainMenuButton;
+
+    /// <summary>
+    /// Menu item highlight color.
+    /// </summary>
     public Color highlightedColor = Color.red;
 
+    /// <summary>
+    /// Pause gui enter event.
+    /// </summary>
     public static event Action<bool, bool> PauseGUIEnterEvent;
+
+    /// <summary>
+    /// Pause gui leave event.
+    /// </summary>
     public static event Action PauseGUILeaveEvent;
 
+    /// <summary>
+    /// Reference to the unified gui.
+    /// </summary>
     private UnifiedGUI unifiedGUI;
+
+    /// <summary>
+    /// Specifies, whether the pause gui is currently visible.
+    /// </summary>
     private bool isVisible = false;
+
+    /// <summary>
+    /// Currently selected button index.
+    /// </summary>
     private int selectedButtonIndex = 0;
 
     void Start() {
@@ -56,6 +87,9 @@ public class PauseMenuGUI : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// Show pause menu gui.
+    /// </summary>
     void Show() {
         isVisible = true;
         foreach (Transform child in transform) {
@@ -63,10 +97,13 @@ public class PauseMenuGUI : MonoBehaviour {
         }
         // TODO
         InteractGUI.Instance.Hide();
-        
+
         Time.timeScale = 0.0f;
     }
 
+    /// <summary>
+    /// Hide pause menu gui.
+    /// </summary>
     void Hide() {
         isVisible = false;
         foreach (Transform child in transform) {

@@ -4,24 +4,93 @@ using System;
 using UnityEngine.UI;
 using UnityEngine.Audio;
 
+/// <summary>
+/// Main menu.
+/// </summary>
 public class MainMenu : MonoBehaviour {
+    /// <summary>
+    /// Reference to the load game button.
+    /// </summary>
     public TextMeshProUGUI loadGame;
+
+    /// <summary>
+    /// Reference to the new game button.
+    /// </summary>
     public TextMeshProUGUI newGame;
+
+    /// <summary>
+    /// Reference to the settings button.
+    /// </summary>
     public TextMeshProUGUI settings;
+
+    /// <summary>
+    /// Reference to the credits button.
+    /// </summary>
     public TextMeshProUGUI credits;
+
+    /// <summary>
+    /// Reference to the quit game button.
+    /// </summary>
     public TextMeshProUGUI quit;
+
+    /// <summary>
+    /// Reference to the volume setting text.
+    /// </summary>
     public TextMeshProUGUI volume;
+
+    /// <summary>
+    /// Reference to the volume slider.
+    /// </summary>
     public Slider volumeSlider;
+
+    /// <summary>
+    /// Reference to the brightness setting text.
+    /// </summary>
     public TextMeshProUGUI brightness;
+
+    /// <summary>
+    /// Reference to the brightness slider.
+    /// </summary>
     public Slider brightnessSlider;
+
+    /// <summary>
+    /// Reference to the setting confirm button.
+    /// </summary>
     public TextMeshProUGUI confirm;
+
+    /// <summary>
+    /// Reference to the game object holding all main menu related objects (except credits and settings).
+    /// </summary>
     public GameObject buttons;
+
+    /// <summary>
+    /// Reference to the game object holding all settings related objects.
+    /// </summary>
     public GameObject settingsContainer;
+
+    /// <summary>
+    /// Reference to the game object holding all credits related objects.
+    /// </summary>
     public GameObject creditsContainer;
+
+    /// <summary>
+    /// Reference to the global audio mixer.
+    /// </summary>
     public AudioMixer mixer;
 
+    /// <summary>
+    /// Selected menu index to identify the currently selected main menu button.
+    /// </summary>
     private int selectedIndexMenu = 0;
+
+    /// <summary>
+    /// Selected setting index to identify the currently selected setting menu button.
+    /// </summary>
     private int selectedIndexSettings = 0;
+
+    /// <summary>
+    /// Flag specifying, whether a save state can be loaded from disk.
+    /// </summary>
     private bool canLoad = false;
 
     void Start() {
@@ -37,7 +106,7 @@ public class MainMenu : MonoBehaviour {
         ChangeSelectionSettings(0);
         volumeSlider.value = Mathf.Clamp(PlayerPrefs.GetFloat("Volume", 0.6f), 0.0f, 1.0f);
         brightnessSlider.value = Mathf.Clamp(PlayerPrefs.GetFloat("Brightness", 0.5f), 0.0f, 1.0f);
-        mixer.SetFloat("MasterVolume", (volumeSlider.value - 0.8f) * 80.0f);     
+        mixer.SetFloat("MasterVolume", (volumeSlider.value - 0.8f) * 80.0f);
     }
 
     void Update() {
@@ -75,6 +144,9 @@ public class MainMenu : MonoBehaviour {
 
     }
 
+    /// <summary>
+    /// Change selection in main menu.
+    /// </summary>
     void ChangeSelectionMenu(int direction) {
         selectedIndexMenu = (selectedIndexMenu + direction + 5) % 5;
         if (!canLoad && selectedIndexMenu == 0) { selectedIndexMenu = (direction == 1) ? 1 : 4; }
@@ -88,6 +160,9 @@ public class MainMenu : MonoBehaviour {
         quit.color = (selectedIndexMenu == 4) ? Color.red : Color.white;
     }
 
+    /// <summary>
+    /// Change selection in settings menu.
+    /// </summary>
     void ChangeSelectionSettings(int direction) {
         selectedIndexSettings = (selectedIndexSettings + direction + 3) % 3;
 
@@ -96,6 +171,9 @@ public class MainMenu : MonoBehaviour {
         confirm.color = (selectedIndexSettings == 2) ? Color.red : Color.white;
     }
 
+    /// <summary>
+    /// Handle selection in main menu.
+    /// </summary>
     void HandleSelectionMenu() {
         switch (selectedIndexMenu) {
             case 0:
@@ -125,6 +203,9 @@ public class MainMenu : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// Handle selection in settings menu.
+    /// </summary>
     void HandleSelectionSettings() {
         switch (selectedIndexSettings) {
             case 2:
@@ -140,16 +221,22 @@ public class MainMenu : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// Handle sliders settings in settings menu.
+    /// </summary>
     void HandleSlidersSettings(int direction) {
         if (selectedIndexSettings == 0) {
             volumeSlider.value = Mathf.Clamp(volumeSlider.value + direction * 0.05f, 0.0f, 1.0f);
             mixer.SetFloat("MasterVolume", (volumeSlider.value - 0.8f) * 80.0f);
-        } else if(selectedIndexSettings == 1) {
+        } else if (selectedIndexSettings == 1) {
             brightnessSlider.value = Mathf.Clamp(brightnessSlider.value + direction * 0.05f, 0.0f, 1.0f);
             PPFXManager.Instance.UpdateBrightnessDirect(brightnessSlider.value);
         }
     }
 
+    /// <summary>
+    /// Toggles credits.
+    /// </summary>
     void ToggleCredits() {
         if (creditsContainer.activeSelf) {
             creditsContainer.SetActive(false);
