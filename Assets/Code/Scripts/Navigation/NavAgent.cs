@@ -5,7 +5,6 @@ using UnityEngine;
 /// <summary>
 /// Sadly Unity does not support custom navmeshes so I programmed a workable replacement.
 /// The NavAgent component is used in conjunction with a CharacterController component to move the attached GameObject.
-/// 
 /// </summary>
 public class NavAgent : MonoBehaviour {
     /// <summary>

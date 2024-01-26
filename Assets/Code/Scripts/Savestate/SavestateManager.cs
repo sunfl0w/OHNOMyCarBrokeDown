@@ -4,6 +4,9 @@ using System.IO;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+/// <summary>
+/// Serializable player save state data used to store and load player related information.
+/// </summary>
 [Serializable]
 public class PlayerSaveState {
     public bool initialized = false;
@@ -14,6 +17,9 @@ public class PlayerSaveState {
     public float flashlightBatteryLife = 0.0f;
 }
 
+/// <summary>
+/// Serializable save state containing player data, inventory data and interactable data.
+/// </summary>
 [Serializable]
 public class SaveState {
     public InventorySaveState inventorySaveState = null;
@@ -21,13 +27,24 @@ public class SaveState {
     public PlayerSaveState playerSaveState = new PlayerSaveState();
 }
 
+/// <summary>
+/// The save state manager provides save and store functionality to the game.
+/// It is used to make game progress persistent between scenes and applications starts by saving data in a file on disk.
+/// Note that the save state manager is a singleton.
+/// </summary>
 public class SavestateManager : MonoBehaviour {
     private static SavestateManager instance;
     public static SavestateManager Instance { get { return instance; } }
 
+    /// <summary>
+    /// The current save state.
+    /// </summary>
     private SaveState currentSaveState = new SaveState();
 
-    private const string SaveStateFile = "SaveState.json";
+    /// <summary>
+    /// File name of the save state on disk.
+    /// </summary>
+    private const string SAVE_STATE_FILE = "SaveState.json";
 
     private void Awake() {
         if (instance != null && instance != this) {
@@ -35,7 +52,7 @@ public class SavestateManager : MonoBehaviour {
         } else {
             instance = this;
         }
-        LoadSaveState();
+        LoadSaveState(); // Load save state from disk on awake
     }
 
     private void Start() {
@@ -43,21 +60,27 @@ public class SavestateManager : MonoBehaviour {
         PlayerInventory.Instance?.SetInventorySaveState(currentSaveState.inventorySaveState);
     }
 
+    /// <summary>
+    /// Load the save state from disk.
+    /// </summary>
     public void LoadSaveState() {
-        if (File.Exists(SaveStateFile)) {
-            string saveStateJSON = File.ReadAllText(SaveStateFile);
+        if (File.Exists(SAVE_STATE_FILE)) {
+            string saveStateJSON = File.ReadAllText(SAVE_STATE_FILE);
             currentSaveState = JsonUtility.FromJson<SaveState>(saveStateJSON);
 
             Debug.Log("Read SaveState from file.");
         } else {
             Debug.Log("SaveState file does not exist. An new one will be created.");
             string saveStateJSON = JsonUtility.ToJson(currentSaveState);
-            File.WriteAllText(SaveStateFile, saveStateJSON);
-            saveStateJSON = File.ReadAllText(SaveStateFile);
+            File.WriteAllText(SAVE_STATE_FILE, saveStateJSON);
+            saveStateJSON = File.ReadAllText(SAVE_STATE_FILE);
             currentSaveState = JsonUtility.FromJson<SaveState>(saveStateJSON);
         }
     }
 
+    /// <summary>
+    /// Store save state to disk.
+    /// </summary>
     public void StoreSaveState() {
         currentSaveState.inventorySaveState = PlayerInventory.Instance.GetInventorySaveState();
 
@@ -72,21 +95,28 @@ public class SavestateManager : MonoBehaviour {
         }
 
         string saveStateJSON = JsonUtility.ToJson(currentSaveState);
-        File.WriteAllText(SaveStateFile, saveStateJSON);
+        File.WriteAllText(SAVE_STATE_FILE, saveStateJSON);
         Debug.Log("Store SaveState to file.");
     }
 
+    /// <summary>
+    /// Clear save state on disk.
+    /// </summary>
     public void ClearSaveState() {
-        if (File.Exists(SaveStateFile)) {
-            File.Delete(SaveStateFile);
+        if (File.Exists(SAVE_STATE_FILE)) {
+            File.Delete(SAVE_STATE_FILE);
             Debug.Log("Deleted SaveState file.");
         }
     }
 
+    /// <summary>
+    /// Returns the current save state.
+    /// </summary>
     public SaveState GetCurrentSaveState() {
         return currentSaveState;
     }
 
+    // TODO
     public void UpdateInteractable(InteractableSaveState saveState) {
         int i = 0;
         for (i = 0; i < currentSaveState.interactables.Count; i++) {
@@ -101,6 +131,9 @@ public class SavestateManager : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// Update all interactables in the currently loaded scene base on save state data.
+    /// </summary>
     private void UpdateSceneInteractables() {
         Debug.Log("Updating item save states based on save file.");
         GameObject[] itemObjects = GameObject.FindGameObjectsWithTag("Item");

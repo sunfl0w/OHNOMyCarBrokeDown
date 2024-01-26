@@ -2,6 +2,9 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
+/// <summary>
+/// The music director plays random music clips from a list of tracks.
+/// </summary>
 public class MusicDirector : MonoBehaviour {
     public List<AudioClip> tracks = new List<AudioClip>();
 

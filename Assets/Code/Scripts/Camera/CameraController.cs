@@ -1,14 +1,48 @@
 using UnityEngine;
 
+/// <summary>
+/// The camera controller moves and rotates the current camera based on player position.
+/// A new camera position is set when the player enters a camera director trigger, which in turn notifies the camera controller.
+/// </summary>
 public class CameraController : MonoBehaviour {
-    Camera cam;
+    /// <summary>
+    /// The current target the camera should look at.
+    /// </summary>
     public Transform lookAtTarget;
-    public float targetYOffset = 1.0f;
-    public float camTranslationSmoothTime = 0.1f;
-    public float camRotationDampeningCoefficient = 3.0f;
 
+    /// <summary>
+    /// The camera target's y offset. This is used to account for the targets position relative to the terrain.
+    /// </summary>
+    public float targetYOffset = 1.0f;
+
+    /// <summary>
+    /// Camera smooth time used to smooth camera translation.
+    /// </summary>
+    private static float CAM_TRANSLATION_SMOOTH_TIME = 0.1f;
+
+    /// <summary>
+    /// Camera dampening coefficient used to smooth camera rotation.
+    /// </summary>
+    private static float CAM_ROTATION_DAMPENING_COEFFICIENT = 3.0f;
+
+    /// <summary>
+    /// The current camera.
+    /// </summary>
+    private Camera cam;
+
+    /// <summary>
+    /// Reference to the unified gui.
+    /// </summary>
     private UnifiedGUI unifiedGUI;
+
+    /// <summary>
+    /// Reference to the current virtual camera game object. The currently used camera data is attached to this object.
+    /// </summary>
     private GameObject virtualCam;
+
+    /// <summary>
+    /// Current camera velocity.
+    /// </summary>
     private Vector3 camVelocity = Vector3.zero;
 
     void Start() {
@@ -36,41 +70,28 @@ public class CameraController : MonoBehaviour {
         }
 
         CameraData camData = virtualCam?.GetComponent<CameraDataHolder>().camData;
-        if (virtualCam != null && (DialogueGUI.Instance.IsVisible() || !unifiedGUI.IsAnyGUIVisible())) {
-            if (camData.camType == CamType.FixedSwivel && lookAtTarget != null) {
+        if (virtualCam != null && (DialogueGUI.Instance.IsVisible() || !unifiedGUI.IsAnyGUIVisible())) { // Prevent camera movement when any gui is visible
+            if (camData.camType == CamType.FixedSwivel && lookAtTarget != null) { // Fixed swivel cam
                 cam.transform.LookAt(lookAtTarget.position + Vector3.up * targetYOffset);
-            } else if ((camData.camType == CamType.Follow || camData.camType == CamType.FollowSwivel) && lookAtTarget != null) {
+            } else if ((camData.camType == CamType.Follow || camData.camType == CamType.FollowSwivel) && lookAtTarget != null) { // Follow cam
+                // Camera follows look at target based on position and desired distance between the two.
+                // Movement is damped to be less irritating.
                 Vector3 camPosTarget = GetCameraPositionTarget(camData);
                 Vector3 camToTarget = lookAtTarget.position - cam.transform.position;
-                cam.transform.position = Vector3.SmoothDamp(cam.transform.position, camPosTarget, ref camVelocity, camTranslationSmoothTime);
+                cam.transform.position = Vector3.SmoothDamp(cam.transform.position, camPosTarget, ref camVelocity, CAM_TRANSLATION_SMOOTH_TIME);
                 if (camData.camType == CamType.FollowSwivel) {
-                    cam.transform.rotation = Quaternion.Slerp(cam.transform.rotation, Quaternion.LookRotation(camToTarget, Vector3.up), Time.deltaTime * camRotationDampeningCoefficient);
+                    cam.transform.rotation = Quaternion.Slerp(cam.transform.rotation, Quaternion.LookRotation(camToTarget, Vector3.up), Time.deltaTime * CAM_ROTATION_DAMPENING_COEFFICIENT);
                 }
             }
         }
-
-        /*var windowAspect = (float)Screen.width / Screen.height;
-        var d = windowAspect / (4.0f / 3.0f);
-
-        if (d > 1.0f) {
-            Rect rect = cam.rect;
-            rect.width = 1.0f / d;
-            rect.height = 1.0f;
-            rect.x = (1.0f - rect.width) / 2.0f;
-            rect.y = 0;
-            cam.rect = rect;
-        } else {
-            Rect rect = cam.rect;
-            rect.height = 1.0f / d;
-            rect.width = 1.0f;
-            rect.y = (1.0f - rect.height) / 2.0f;
-            rect.x = 0;
-            cam.rect = rect;
-        }*/
     }
 
+    /// <summary>
+    /// Sets the current virtual camera.
+    /// This is used by camer director triggers.
+    /// </summary>
     public void SetVirtualCamera(GameObject virtualCam) {
-        if (virtualCam != this.virtualCam) {
+        if (virtualCam != this.virtualCam) { // Only set a new virtual camera when it is different compared to the old virtual camera.
             this.virtualCam = virtualCam;
             CameraData camData = virtualCam?.GetComponent<CameraDataHolder>().camData;
             cam.fieldOfView = camData.fov;
@@ -86,10 +107,17 @@ public class CameraController : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// Returns the current virtual camera.
+    /// </summary>
     public GameObject GetCurrentVirtualCamera() {
         return virtualCam;
     }
 
+    /// <summary>
+    /// Computes the camera target position for follow camera types.
+    /// It tries to follow the target while moving along a specified axis, while keeping a fixed distance to the target.
+    /// </summary>
     Vector3 GetCameraPositionTarget(CameraData camData) {
         Vector3 camToTarget = lookAtTarget.position - cam.transform.position;
         Vector3 projectedFollowAxis = Vector3.Project(camToTarget - camData.followAxis.normalized * camData.followDistance, camData.followAxis);

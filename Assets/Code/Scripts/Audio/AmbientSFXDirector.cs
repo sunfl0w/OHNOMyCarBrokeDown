@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// The ambient SFX director plays random sound clips from a list of sounds.
+/// </summary>
 public class AmbientSFXDirector : MonoBehaviour {
     public List<AudioClip> ambientClips;
 
