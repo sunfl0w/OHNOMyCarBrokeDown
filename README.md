@@ -7,6 +7,7 @@ Will you manage to survive this dark autumn night?
 # Why
 
 OH NO My car broke down is a game/demo originally developed as part of a university game programming course.
+The game is developed in Unity as this was one of the requirements (I actually hate Unity quite passionately).
 It was meant to be a horror game in the style of Silent Hill or Resident Evil, but it is not that scary actually.
 Nevertheless, the game was quite well received, and some students were wondering how we managed to create the playstation like visuals.
 To help new game developers on their journey, this is now an open source project.
