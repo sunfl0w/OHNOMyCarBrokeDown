@@ -1,10 +1,10 @@
-
-
 using UnityEngine;
-using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 
-public class PixelizeFeature : ScriptableRendererFeature {
+/// <summary>
+/// Custom render feature to generate a low resolution output image
+/// </summary>
+public class LowResFeature : ScriptableRendererFeature {
     [System.Serializable]
     public class CustomPassSettings {
         public RenderPassEvent renderPassEvent = RenderPassEvent.BeforeRenderingPostProcessing;
@@ -12,10 +12,10 @@ public class PixelizeFeature : ScriptableRendererFeature {
     }
 
     [SerializeField] private CustomPassSettings settings;
-    private PixelizePass customPass;
+    private LowResPass customPass;
 
     public override void Create() {
-        customPass = new PixelizePass(settings);
+        customPass = new LowResPass(settings);
     }
     public override void AddRenderPasses(ScriptableRenderer renderer, ref RenderingData renderingData) {
 

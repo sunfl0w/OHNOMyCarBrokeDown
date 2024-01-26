@@ -3,8 +3,14 @@ using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 
-public class PixelizePass : ScriptableRenderPass {
-    private PixelizeFeature.CustomPassSettings settings;
+/// <summary>
+/// Custom render pass to generate a low resolution output image.
+/// Ignore the warnings. Unity changes the backend code all the time and deprecates functions from time to time.
+/// If the pass does produce a black image, try another graphics API.
+/// It seems like OpenGL and custom passes don't like each other.
+/// </summary>
+public class LowResPass : ScriptableRenderPass {
+    private LowResFeature.CustomPassSettings settings;
 
     private RenderTargetIdentifier colorBuffer, pixelBuffer;
     private int pixelBufferID = Shader.PropertyToID("_PixelBuffer");
@@ -12,10 +18,12 @@ public class PixelizePass : ScriptableRenderPass {
     private Material material;
     private int pixelScreenHeight, pixelScreenWidth;
 
-    public PixelizePass(PixelizeFeature.CustomPassSettings settings) {
+    public LowResPass(LowResFeature.CustomPassSettings settings) {
         this.settings = settings;
         this.renderPassEvent = settings.renderPassEvent;
-        if (material == null) material = CoreUtils.CreateEngineMaterial("Custom/Pixelize");
+        if (material == null) {
+            material = CoreUtils.CreateEngineMaterial("Custom/Pixelize");
+        }
     }
 
     public override void OnCameraSetup(CommandBuffer cmd, ref RenderingData renderingData) {
@@ -24,7 +32,6 @@ public class PixelizePass : ScriptableRenderPass {
 
         pixelScreenHeight = settings.screenHeight;
         pixelScreenWidth = (int)Mathf.Ceil(pixelScreenHeight * renderingData.cameraData.camera.aspect);
-
         descriptor.height = pixelScreenHeight;
         descriptor.width = pixelScreenWidth;
 
@@ -41,7 +48,9 @@ public class PixelizePass : ScriptableRenderPass {
     }
 
     public override void OnCameraCleanup(CommandBuffer cmd) {
-        if (cmd == null) throw new System.ArgumentNullException("cmd");
+        if (cmd == null) {
+            throw new System.ArgumentNullException("cmd");
+        }
         cmd.ReleaseTemporaryRT(pixelBufferID);
     }
 }

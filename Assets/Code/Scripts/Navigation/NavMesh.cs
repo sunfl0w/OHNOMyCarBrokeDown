@@ -8,6 +8,9 @@ using System;
 /// Note that each call of GetPath() will parse the supplied navmesh again.
 /// </summary>
 public class NavMesh : MonoBehaviour {
+    /// <summary>
+    /// A simple node in a navmesh. Contains all necessary info for performing A* path finding.
+    /// </summary>
     class NavNode {
         public Vector3 pos { get; set; }
         public NavNode parent { get; set; }
@@ -26,6 +29,9 @@ public class NavMesh : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// A portal is a line defined by two points. It is used in optimizing the path result of the A* algorithm using SSFA.
+    /// </summary>
     struct Portal {
         public Vector3 left { get; set; }
         public Vector3 right { get; set; }
@@ -54,6 +60,9 @@ public class NavMesh : MonoBehaviour {
     /// </summary>
     public bool switchAxisYZ = true;
 
+    /// <summary>
+    /// Current navgraph used for pathfinding.
+    /// </summary>
     private List<NavNode> navgraph;
 
     /// <summary>
@@ -71,7 +80,7 @@ public class NavMesh : MonoBehaviour {
             float z = (navmesh.vertices[navmesh.triangles[i]].z +
                        navmesh.vertices[navmesh.triangles[i + 1]].z +
                        navmesh.vertices[navmesh.triangles[i + 2]].z) / 3.0f * navmeshScale;
-            if(switchAxisYZ) {
+            if (switchAxisYZ) {
                 float tmp = y;
                 y = z;
                 z = tmp;
@@ -93,7 +102,7 @@ public class NavMesh : MonoBehaviour {
         int c = navmesh.triangles[triangleStartIndex + 2];
 
         for (int i = 0; i < navmesh.triangles.Length; i += 3) {
-            if(i == triangleStartIndex) {
+            if (i == triangleStartIndex) {
                 continue;
             }
 
@@ -102,7 +111,7 @@ public class NavMesh : MonoBehaviour {
             int z = navmesh.triangles[i + 2];
 
             // A shame that in C# a bool can not be implicitly converted to int :C
-            int numMatches = Convert.ToInt32(a == x) + 
+            int numMatches = Convert.ToInt32(a == x) +
                              Convert.ToInt32(a == y) +
                              Convert.ToInt32(a == z) +
                              Convert.ToInt32(b == x) +
@@ -126,7 +135,7 @@ public class NavMesh : MonoBehaviour {
         int minIndex = 0;
         float minScore = openList[minIndex].f;
         for (int i = 1; i < openList.Count; i++) {
-            if(openList[i].f < minScore) {
+            if (openList[i].f < minScore) {
                 minScore = openList[i].f;
                 minIndex = i;
             }
@@ -134,8 +143,11 @@ public class NavMesh : MonoBehaviour {
         return openList[minIndex];
     }
 
+    /// <summary>
+    /// Resets the current navgraph as generating a new one is unnecesaary and costly.
+    /// </summary>
     private void NavgraphReset() {
-        for(int i = 0; i < navgraph.Count; i++) {
+        for (int i = 0; i < navgraph.Count; i++) {
             navgraph[i].parent = null;
             navgraph[i].g = float.PositiveInfinity;
             navgraph[i].f = float.PositiveInfinity;
@@ -174,9 +186,9 @@ public class NavMesh : MonoBehaviour {
         List<NavNode> openList = new List<NavNode>();
         openList.Add(startNode);
 
-        while(openList.Count > 0) {
+        while (openList.Count > 0) {
             NavNode current = GetNextCandidateFromOpenList(openList);
-            if(current.triangleStartIndex == endNode.triangleStartIndex) { // Path found
+            if (current.triangleStartIndex == endNode.triangleStartIndex) { // Path found
                 break;
             }
             openList.Remove(current);
@@ -189,7 +201,7 @@ public class NavMesh : MonoBehaviour {
                     neighbour.g = score;
                     neighbour.f = score + Vector3.Distance(neighbour.pos, endNode.pos);
 
-                    if(!openList.Contains(neighbour)) {
+                    if (!openList.Contains(neighbour)) {
                         openList.Add(neighbour);
                     }
                 }
@@ -203,7 +215,7 @@ public class NavMesh : MonoBehaviour {
         path.Add(targetPos); // As end node pos is close but not exactly target pos
         path.Add(node.pos);
         rawIndexPath.Add(node.triangleStartIndex);
-        while(node.parent != null) {
+        while (node.parent != null) {
             path.Add(node.parent.pos);
             rawIndexPath.Add(node.parent.triangleStartIndex);
             node = node.parent;
@@ -220,7 +232,7 @@ public class NavMesh : MonoBehaviour {
     }
 
     /// <summary>
-    /// Based on the code described here: https://digestingduck.blogspot.com/2010/03/simple-stupid-funnel-algorithm.html .
+    /// Based on the code (SSFA) described here: https://digestingduck.blogspot.com/2010/03/simple-stupid-funnel-algorithm.html .
     /// The algorithm is really interesing and the arcticle is a fun read ;D
     /// </summary>
     private List<Vector3> SimplifyPath(List<Vector3> rawPath, List<int> rawIndexPath) {
@@ -261,7 +273,7 @@ public class NavMesh : MonoBehaviour {
 
             // Extend left
             if (TriangleArea(pApex, pLeft, left) >= 0.0f) {
-                if(Vector3.Distance(pApex, pLeft) <= 0.001f || TriangleArea(pApex, pRight, left) < 0.0f) {
+                if (Vector3.Distance(pApex, pLeft) <= 0.001f || TriangleArea(pApex, pRight, left) < 0.0f) {
                     pLeft = left;
                 } else {
                     simplifiedPath.Add(pRight);
@@ -302,7 +314,7 @@ public class NavMesh : MonoBehaviour {
         }
 
         // Order indices such that the first corresponds to the "left" vertex as seen from triA
-        if(commonIndices[0] >= 0 && commonIndices[1] == -1) { // Order is wrong. Reorder indices of edge
+        if (commonIndices[0] >= 0 && commonIndices[1] == -1) { // Order is wrong. Reorder indices of edge
             commonIndices.Remove(-1);
             (commonIndices[0], commonIndices[1]) = (commonIndices[1], commonIndices[0]);
         } else {
@@ -311,7 +323,7 @@ public class NavMesh : MonoBehaviour {
 
         Vector3 a = navmesh.vertices[commonIndices[0]] * navmeshScale;
         Vector3 b = navmesh.vertices[commonIndices[1]] * navmeshScale;
-        if(switchAxisYZ) {
+        if (switchAxisYZ) {
             (a.y, a.z) = (a.z, a.y);
             (b.y, b.z) = (b.z, b.y);
         }
@@ -333,8 +345,8 @@ public class NavMesh : MonoBehaviour {
     /// Computes the node of the given navgraph that represents the triangle with triangleStartIndex as the first index in the index vector of the navmesh.
     /// </summary>
     private NavNode TriangleStartIndexToNavNode(int triangleStartIndex, List<NavNode> navgraph) {
-        for(int i = 0; i < navgraph.Count; i++) {
-            if(triangleStartIndex == navgraph[i].triangleStartIndex) {
+        for (int i = 0; i < navgraph.Count; i++) {
+            if (triangleStartIndex == navgraph[i].triangleStartIndex) {
                 return navgraph[i];
             }
         }
@@ -346,19 +358,22 @@ public class NavMesh : MonoBehaviour {
     /// </summary>
     private NavNode PosToCorrespondingNavNode(Vector3 pos, List<NavNode> navgraph) {
         for (int i = 0; i < navgraph.Count; i++) {
-            if(PosInsideTriangle(pos, navgraph[i].triangleStartIndex)) {
+            if (PosInsideTriangle(pos, navgraph[i].triangleStartIndex)) {
                 return navgraph[i];
             }
         }
         return null;
     }
 
+    /// <summary>
+    /// Given a point in 3D space find the closest node to that point in a given navgraph.
+    /// </summary>
     private NavNode PosToClosestNavNode(Vector3 pos, List<NavNode> navgraph) {
         int minIndex = 0;
         float minDistance = Vector3.Distance(pos, navgraph[minIndex].pos);
         for (int i = 1; i < navgraph.Count; i++) {
             float testDistance = Vector3.Distance(pos, navgraph[i].pos);
-            if(testDistance < minDistance) {
+            if (testDistance < minDistance) {
                 minDistance = testDistance;
                 minIndex = i;
             }
@@ -374,7 +389,7 @@ public class NavMesh : MonoBehaviour {
         Vector3 v1Pos = navmesh.vertices[navmesh.triangles[triangleStartIndex]] * navmeshScale;
         Vector3 v2Pos = navmesh.vertices[navmesh.triangles[triangleStartIndex + 1]] * navmeshScale;
         Vector3 v3Pos = navmesh.vertices[navmesh.triangles[triangleStartIndex + 2]] * navmeshScale;
-        if(switchAxisYZ) {
+        if (switchAxisYZ) {
             (v1Pos.y, v1Pos.z) = (v1Pos.z, v1Pos.y);
             (v2Pos.y, v2Pos.z) = (v2Pos.z, v2Pos.y);
             (v3Pos.y, v3Pos.z) = (v3Pos.z, v3Pos.y);
