@@ -80,7 +80,7 @@ public class StalkingShadowEntityController : MonoBehaviour {
 
     void Update() {
         navAgent.movementEnabled = canMove;
-        if (player.GetComponent<ThirdPersonPlayerController>().IsInTransition()) {
+        if (player.GetComponent<PlayerMovement>().IsInTransition()) {
             canAttack = false;
             canMove = false;
         }

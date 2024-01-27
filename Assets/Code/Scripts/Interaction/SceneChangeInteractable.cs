@@ -23,7 +23,7 @@ public class SceneChanceInteractable : MonoBehaviour, IInteractable
             }
             Debug.Log("Interactable. Switch to scene: " + targetSceneName);
 
-            GameObject.FindGameObjectWithTag("Player").GetComponent<ThirdPersonPlayerController>().StartTransition();
+            GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>().StartTransition();
             StartCoroutine(Transition());
         }
         else
