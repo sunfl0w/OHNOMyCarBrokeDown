@@ -13,7 +13,7 @@ Nevertheless, the game was quite well received, and some students were wondering
 To help new game developers on their journey, this is now an open source project.
 
 Do not expect me to fix all the bugs and issues, but I will try my best.
-Also note that the code and the overall game design is quite messy.
+Also note that the code and the overall software infrastructure is quite messy.
 
 # LICENSE
 
