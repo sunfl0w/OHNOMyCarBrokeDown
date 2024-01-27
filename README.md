@@ -15,6 +15,7 @@ To help new game developers on their journey, this is now an open source project
 Do not expect me to fix all the bugs and issues, but I will try my best.
 Also note that the code and the overall software infrastructure is quite messy.
 
+
 # LICENSE
 
 Please refer to the file named "LICENSE_AND_COPYRIGHT_NOTICE.txt" and the respective license files called "BSD3C.txt" and "CCBY4.txt".
