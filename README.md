@@ -4,6 +4,7 @@ Your car broke down in the middle of nowhere.
 You will have to find the necessary tools and equipment to get it running again.
 Will you manage to survive this dark autumn night?
 
+
 # Why
 
 OH NO My car broke down is a game/demo originally developed as part of a university game programming course.
@@ -20,6 +21,41 @@ Also note that the code and the overall software infrastructure is quite messy.
 
 Please refer to the file named "LICENSE_AND_COPYRIGHT_NOTICE.txt" and the respective license files called "BSD3C.txt" and "CCBY4.txt".
 A list of third party asset creators is provided in the "third_party_sources.txt" file.
+
+
+# Third Party Asset-Sources
+
+​Thanks to assets created by the following talented people, this project was possible. All used third party assets are available under the following licenses: CC0, CC-BY, Pixabay content license.
+
+### ​Models and Textures
+- craigsnedeker (itch.io)
+- Elbolilloduro (itch.io)
+- Elegant Crow (itch.io)
+- GGBotNet (itch.io)​
+
+### Fonts
+
+- Pablo Impallari (impallari.com)
+- Rodrigo Fuenzalida (rfuenzalida.com)​
+
+### Music
+
+- ​N91music (itch.io)​
+- Nadioa4Sound (freesound.org)​
+
+### Sounds
+
+- ​blimp66 (freesound.org)
+- clesquir (freesound.org)​
+- farbe_m (freesound.org)​
+- HaraldDeLuca (freesound.org)​
+- Nox_Sound (freesound.org)​
+- ​pagancow (freesound.org)
+- Pixabay (pixabay.com)
+- ​rsellick (freesound.org)
+- Tonmeister88 (freesound.org)
+- waveplaySFX (freesound.org)
+- ​xkeril (freesound.org)​
 
 # Some nice screenshots
 
