@@ -10,10 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d57fae1bfdec84ea5a34f58b901594e3, type: 3}
-  m_Name: CarPart4
+  m_Name: CarPart3
   m_EditorClassIdentifier: 
-  itemName: CD
-  interactText: A CD containing the greatest hits.
-  prefab: {fileID: 919132149155446097, guid: 33b57650558e346fb8b050ce3916a1e4, type: 3}
-  category: 2
-  inspectMaterial: {fileID: 2100000, guid: 994c1e8f25ce971e0849f72ff403c5b0, type: 2}
+  itemName: Fuel canister
+  interactText: A canister filled with fuel.
+  category: 4
+  prefab: {fileID: 919132149155446097, guid: fb0ceb9d52ea6d7b899e585b8da8140a, type: 3}

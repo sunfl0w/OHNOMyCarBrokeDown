@@ -22,7 +22,7 @@ public class PlayerSaveState {
 /// </summary>
 [Serializable]
 public class SaveState {
-    public InventorySaveState inventorySaveState = null;
+    public Inventory inventory = null;
     public List<InteractableSaveState> interactables = new List<InteractableSaveState>();
     public PlayerSaveState playerSaveState = new PlayerSaveState();
 }
@@ -57,7 +57,10 @@ public class SavestateManager : MonoBehaviour {
 
     private void Start() {
         UpdateSceneInteractables();
-        PlayerInventory.Instance?.SetInventorySaveState(currentSaveState.inventorySaveState);
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        if (player != null) {
+            player.GetComponent<PlayerInventory>().SetInventory(currentSaveState.inventory);
+        }
     }
 
     /// <summary>
@@ -82,7 +85,7 @@ public class SavestateManager : MonoBehaviour {
     /// Store save state to disk.
     /// </summary>
     public void StoreSaveState() {
-        currentSaveState.inventorySaveState = PlayerInventory.Instance.GetInventorySaveState();
+        currentSaveState.inventory = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerInventory>().GetInventory();
 
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         if (player != null) {
@@ -139,8 +142,8 @@ public class SavestateManager : MonoBehaviour {
         GameObject[] itemObjects = GameObject.FindGameObjectsWithTag("Item");
         foreach(GameObject itemObject in itemObjects) {
             foreach(InteractableSaveState state in currentSaveState.interactables) {
-                if (itemObject.GetComponent<Item>().GetUniqueIdentifier() == state.name) {
-                    itemObject.GetComponent<Item>().UpdateSaveState(state);
+                if (itemObject.GetComponent<ItemInteractable>().GetUniqueIdentifier() == state.name) {
+                    itemObject.GetComponent<ItemInteractable>().UpdateSaveState(state);
                 }
             }
         }
