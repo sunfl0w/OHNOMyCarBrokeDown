@@ -1,7 +1,11 @@
 using System;
 using UnityEngine;
 
-// Simple item data representation as a scriptable object]
+/// <summary>
+/// Simple item data used to store data for items used in game.
+/// This allows for a very simple item class that can be easily serialized and this scriptable
+/// object to hold all relevant data not required for serialization.
+/// </summary>
 [CreateAssetMenu(fileName = "ItemData", menuName = "ScriptableObjects/ItemData", order = 1)]
 public class ItemData : ScriptableObject {
     [SerializeField] private string itemName = String.Empty;
