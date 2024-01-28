@@ -52,17 +52,18 @@ public class ItemInspectGUI : MonoBehaviour {
     /// <summary>
     /// Show item inspect gui
     /// </summary>
-    public void Show(ItemData itemData) {
+    public void Show(Item item) {
         Debug.Log("Show item inspect GUI");
         InspectionGUIEnterEvent?.Invoke(true, true);
-        hintTextGUI.text = itemData.interactText + "\nExit with [ESC]. Move item with [WASD].";
+        hintTextGUI.text = item.GetInteractText() + "\nExit with [ESC]. Move item with [WASD].";
 
-        inspectedItem = Instantiate(itemData.prefab);
+        inspectedItem = Instantiate(item.GetPrefab());
         MeshRenderer meshRenderer = inspectedItem.GetComponent<MeshRenderer>();
-        meshRenderer.material = itemData.inspectMaterial;
+        // TODO
+        /*meshRenderer.material = item.inspectMaterial;
         for (int i = 0; i < meshRenderer.materials.Length; i++) {
-            meshRenderer.materials[i] = itemData.inspectMaterial;
-        }
+            meshRenderer.materials[i] = item.inspectMaterial;
+        }*/
         inspectedItem.layer = LayerMask.NameToLayer("UI");
         inspectedItem.transform.position = guiCamera.transform.position + guiCamera.transform.forward * 1.0f;
         inspectedItem.transform.rotation = Quaternion.LookRotation(inspectedItem.transform.position - guiCamera.transform.position, Vector3.up) * Quaternion.Euler(90, 0, 0);

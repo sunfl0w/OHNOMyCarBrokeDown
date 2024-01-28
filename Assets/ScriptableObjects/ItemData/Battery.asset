@@ -14,6 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: Battery
   interactText: A battery to power small electrical tools.
+  category: 3
   prefab: {fileID: 629789630054557206, guid: 69ef0950d9133dde099dc75f1c08f6b2, type: 3}
-  category: 1
-  inspectMaterial: {fileID: 2100000, guid: d36ab4fe6e2fa5a9f8549880e6d8b58f, type: 2}

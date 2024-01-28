@@ -1,15 +1,17 @@
 using System;
 using UnityEngine;
 
-public class Item : MonoBehaviour, IInteractable {
-    public ItemData itemData;
+public class ItemInteractable : MonoBehaviour, IInteractable {
+    public Item item;
     public InteractableData interactableData;
     public string uniqueIdentifier = String.Empty;
 
     private InteractableSaveState saveState = new InteractableSaveState();
+    private PlayerInventory playerInventory = null;
 
     public void Start() {
         saveState.name = uniqueIdentifier;
+        playerInventory = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerInventory>();
     }
 
     public void Interact() {
@@ -21,7 +23,7 @@ public class Item : MonoBehaviour, IInteractable {
         Destroy(this.gameObject); // Remove item from scene
 
         // Show item inspection GUI
-        ItemInspectGUI.Instance.Show(itemData);
+        ItemInspectGUI.Instance.Show(item);
     }
 
     public void Update() {
@@ -37,8 +39,8 @@ public class Item : MonoBehaviour, IInteractable {
     }
 
     public void AddToPlayerInventroy() {
-        Debug.Log("Player picked up a new item.");
-        PlayerInventory.Instance.AddItem(itemData);
+        Debug.Log("Player picked up a new item");
+        playerInventory.GetInventory().AddItem(item);
     }
 
     public InteractableData GetData() {

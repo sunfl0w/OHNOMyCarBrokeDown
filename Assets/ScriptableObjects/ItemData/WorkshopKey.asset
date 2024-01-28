@@ -14,6 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: Key
   interactText: A key to open some door.
+  category: 2
   prefab: {fileID: 3578631231157195133, guid: fd4a6391f5cca106c94670bd58fea17a, type: 3}
-  category: 3
-  inspectMaterial: {fileID: 2100000, guid: d36ab4fe6e2fa5a9f8549880e6d8b58f, type: 2}

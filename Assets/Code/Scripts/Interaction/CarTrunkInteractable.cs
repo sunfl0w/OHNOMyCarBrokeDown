@@ -1,12 +1,9 @@
 using UnityEngine;
-using TMPro;
 using System;
 
 public class CarTrunkInteractable : MonoBehaviour, IInteractable {
     public InteractableData data;
     public AudioSource audioSource;
-    public ItemData flashlightData;
-    public ItemData batteryData;
     public string uniqueIdentifier = String.Empty;
 
     private InteractableSaveState saveState = new InteractableSaveState();
@@ -23,8 +20,9 @@ public class CarTrunkInteractable : MonoBehaviour, IInteractable {
             audioSource.PlayOneShot(data.interactSound);
         }
         Debug.Log("Interacting with car trunk and adding flashlight to player inventory.");
-        PlayerInventory.Instance.AddItem(flashlightData);
-        PlayerInventory.Instance.AddItem(batteryData);
+        PlayerInventory playerInventory = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerInventory>();
+        playerInventory.GetInventory().AddItem(new Item("Flashlight"));
+        playerInventory.GetInventory().AddItem(new Item("Battery"));
         saveState.interacted = true;
         SavestateManager.Instance.UpdateInteractable(saveState);
     }

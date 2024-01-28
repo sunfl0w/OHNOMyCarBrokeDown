@@ -7,80 +7,24 @@ using System;
 /// The inventory gui is a singleton.
 /// </summary>
 public class InventoryGUI : MonoBehaviour {
-    /// <summary>
-    /// Reference to the gui camera.
-    /// </summary>
     public Camera guiCamera;
-
-    /// <summary>
-    /// Item name text.
-    /// </summary>
     public TextMeshProUGUI itemNameText;
-
-    /// <summary>
-    /// Item description text.
-    /// </summary>
     public TextMeshProUGUI itemDescriptionText;
-
-    /// <summary>
-    /// Inventory move left text.
-    /// </summary>
     public TextMeshProUGUI leftArrow;
-
-    /// <summary>
-    /// Inventory move right text.
-    /// </summary>
     public TextMeshProUGUI rightArrow;
-
-    /// <summary>
-    /// Item state text.
-    /// </summary>
     public TextMeshProUGUI state;
-
-    /// <summary>
-    /// Item usage button.
-    /// </summary>
     public TextMeshProUGUI usageButton;
 
-    /// <summary>
-    /// Inventory gui enter event.
-    /// </summary>
     public static event Action<bool, bool> InventoryGUIEnterEvent;
-
-    /// <summary>
-    /// Inventory gui leave event.
-    /// </summary>
     public static event Action InventoryGUILeaveEvent;
 
-    /// <summary>
-    /// Flag representing current gui visibility status.
-    /// </summary>
     private bool isVisible = false;
-
-    /// <summary>
-    /// Reference to the unified gui.
-    /// </summary>
     private UnifiedGUI unifiedGUI;
-
-    /// <summary>
-    /// Current item index.
-    /// </summary>
     private int currentItemIndex = 0;
-
-    /// <summary>
-    /// Current item data.
-    /// </summary>
-    private ItemData currentItemData;
-
-    /// <summary>
-    /// Current inspected item rotation speed.
-    /// </summary>
+    private Item currentItem;
     private Vector3 rotationSpeed = Vector3.zero;
-
-    /// <summary>
-    /// Currently inspected item game object.
-    /// </summary>
     private GameObject inspectedItem = null;
+    private PlayerInventory playerInventory = null;
 
     private static InventoryGUI instance;
     public static InventoryGUI Instance { get { return instance; } }
@@ -95,6 +39,7 @@ public class InventoryGUI : MonoBehaviour {
 
     void Start() {
         unifiedGUI = GameObject.FindGameObjectWithTag("UnifiedGUI").GetComponent<UnifiedGUI>();
+        playerInventory = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerInventory>();
         Hide();
     }
 
@@ -126,21 +71,19 @@ public class InventoryGUI : MonoBehaviour {
         }
 
         if (Input.GetKeyDown(KeyCode.E) && isVisible && usageButton.text == "[E]quip") {
-            InventorySlot slot = PlayerInventory.Instance.inventoryData.slots[currentItemIndex];
-            currentItemData = slot.itemData;
+            currentItem = playerInventory.GetInventory().GetItemBySlotIndex(currentItemIndex);
             if (usageButton.color == Color.white) {
-                PlayerInventory.Instance.EquipItem(currentItemData);
+                playerInventory.GetInventory().EquipItem(currentItem.GetName());
             } else if (usageButton.color == Color.green) {
-                PlayerInventory.Instance.UnequipItem();
+                playerInventory.GetInventory().UnequipItem();
             }
             UpdateUI();
 
         } else if (Input.GetKeyDown(KeyCode.U) && isVisible && usageButton.text == "[U]se") {
-            InventorySlot slot = PlayerInventory.Instance.inventoryData.slots[currentItemIndex];
-            currentItemData = slot.itemData;
+            currentItem = playerInventory.GetInventory().GetItemBySlotIndex(currentItemIndex);
             if (usageButton.color == Color.white) {
-                PlayerInventory.Instance.UseItem(currentItemData);
-                if (!PlayerInventory.Instance.CheckItemExists(currentItemData)) {
+                currentItem.Use();
+                if (!playerInventory.GetInventory().ItemExists(currentItem.GetName())) {
                     currentItemIndex = 0;
                 }
                 UpdateUI();
@@ -148,9 +91,6 @@ public class InventoryGUI : MonoBehaviour {
         }
     }
 
-    /// <summary>
-    /// Show inventory gui.
-    /// </summary>
     void Show() {
         itemNameText.enabled = true;
         itemDescriptionText.enabled = true;
@@ -163,9 +103,6 @@ public class InventoryGUI : MonoBehaviour {
         InteractGUI.Instance.Hide();
     }
 
-    /// <summary>
-    /// Hide inventory gui.
-    /// </summary>
     void Hide() {
         itemNameText.enabled = false;
         itemDescriptionText.enabled = false;
@@ -175,11 +112,8 @@ public class InventoryGUI : MonoBehaviour {
         usageButton.enabled = false;
     }
 
-    /// <summary>
-    /// Update inventory gui.
-    /// </summary>
     void UpdateUI() {
-        if (PlayerInventory.Instance.inventoryData.slots.Count == 0) {
+        if (playerInventory.GetInventory().IsEmpty()) {
             itemNameText.text = "No item in inventory.";
             itemDescriptionText.text = "";
             leftArrow.color = Color.grey;
@@ -189,7 +123,7 @@ public class InventoryGUI : MonoBehaviour {
             DestroyInspectedItem();
 
         } else {
-            if (currentItemIndex >= 0 && (currentItemIndex + 1) < PlayerInventory.Instance.inventoryData.slots.Count) {
+            if (currentItemIndex >= 0 && (currentItemIndex + 1) < playerInventory.GetInventory().GetSlotCount()) {
                 rightArrow.color = Color.white;
             } else {
                 rightArrow.color = Color.grey;
@@ -200,10 +134,10 @@ public class InventoryGUI : MonoBehaviour {
                 leftArrow.color = Color.grey;
             }
 
-            InventorySlot slot = PlayerInventory.Instance.inventoryData.slots[currentItemIndex];
-            currentItemData = slot.itemData;
-            ViewCurrentItem(currentItemData, slot.amount);
-            ShowItemUsage(currentItemData);
+            Slot slot = playerInventory.GetInventory().GetSlotByIndex(currentItemIndex);
+            currentItem = slot.GetItem();
+            ViewCurrentItem(currentItem, slot.GetAmount());
+            ShowItemUsage(currentItem);
 
         }
     }
@@ -218,62 +152,51 @@ public class InventoryGUI : MonoBehaviour {
         }
     }
 
-    /// <summary>
-    /// Inventory gui view current item.
-    /// </summary>
-    private void ViewCurrentItem(ItemData currentItemData, uint amount) {
-        itemNameText.text = currentItemData.itemName + "(" + amount + ")";
-        itemDescriptionText.text = currentItemData.interactText;
+    private void ViewCurrentItem(Item currentItem, uint amount) {
+        itemNameText.text = currentItem.GetName() + "(" + amount + ")";
+        itemDescriptionText.text = currentItem.GetInteractText();
 
         DestroyInspectedItem();
 
-        inspectedItem = Instantiate(currentItemData.prefab);
-        MeshRenderer meshRenderer = inspectedItem.GetComponent<MeshRenderer>();
+        inspectedItem = Instantiate(currentItem.GetPrefab());
+        // TODO
+        /*MeshRenderer meshRenderer = inspectedItem.GetComponent<MeshRenderer>();
         meshRenderer.material = currentItemData.inspectMaterial;
         for (int i = 0; i < meshRenderer.materials.Length; i++) {
             meshRenderer.materials[i] = currentItemData.inspectMaterial;
-        }
+        }*/
         inspectedItem.layer = LayerMask.NameToLayer("UI");
         inspectedItem.transform.position = guiCamera.transform.position + guiCamera.transform.forward * 1.0f;
         inspectedItem.transform.rotation = Quaternion.LookRotation(inspectedItem.transform.position - guiCamera.transform.position, Vector3.up) * Quaternion.Euler(90, 0, 0);
     }
 
-    /// <summary>
-    /// Inventory gui display current item usage information.
-    /// </summary>
-    private void ShowItemUsage(ItemData currentItemData) {
-        if (PlayerInventory.Instance.inventoryData.equippedItem == currentItemData) {
+    private void ShowItemUsage(Item currentItem) {
+        Item equippedItem = playerInventory.GetInventory().GetEquippedItem();
+        if (equippedItem != null && equippedItem.GetName() == currentItem.GetName()) {
             state.text = "*equipped";
             usageButton.text = "[E]quip";
             usageButton.color = Color.green;
-        } else if (currentItemData.category == ItemCategory.Weapon) {
+        } else if (currentItem.GetItemCategory() == ItemCategory.FLASHLIGHT) {
             state.text = "";
             usageButton.text = "[E]quip";
             usageButton.color = Color.white;
-        } else if (currentItemData.category == ItemCategory.Resource) {
+        } else if (currentItem.GetItemCategory() == ItemCategory.FOOD || currentItem.GetItemCategory() == ItemCategory.BATTERY) {
             state.text = "";
             usageButton.text = "[U]se";
-            if (currentItemData.itemName == "Battery" && PlayerInventory.Instance.inventoryData.equippedItem == null) {
+            if (currentItem.GetName() == "Battery" && playerInventory.GetInventory().GetEquippedItem() == null) {
                 usageButton.color = Color.grey;
             } else {
                 usageButton.color = Color.white;
             }
 
 
-        } else if (currentItemData.category == ItemCategory.Normal) {
-            state.text = "";
-            usageButton.text = "";
-            usageButton.color = Color.white;
-        } else if (currentItemData.category == ItemCategory.CarPart) {
+        } else {
             state.text = "";
             usageButton.text = "";
             usageButton.color = Color.white;
         }
     }
 
-    /// <summary>
-    /// Destroy currently inspected item object.
-    /// </summary>
     private void DestroyInspectedItem() {
         if (inspectedItem != null) {
             Destroy(inspectedItem.gameObject);
@@ -281,9 +204,6 @@ public class InventoryGUI : MonoBehaviour {
         inspectedItem = null;
     }
 
-    /// <summary>
-    /// Returns true if the inventory gui is visible.
-    /// </summary>
     public bool IsVisible() {
         return false;
     }

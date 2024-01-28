@@ -1,13 +1,11 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.Playables;
 using TMPro;
 using System;
 using System.Collections.Generic;
 
-public class CarInteractable : MonoBehaviour, IInteractable
-{
+public class CarInteractable : MonoBehaviour, IInteractable {
     public string targetSceneName;
     public string targetTransformName;
     public InteractableData data;
@@ -17,17 +15,14 @@ public class CarInteractable : MonoBehaviour, IInteractable
     public TextMeshProUGUI hintText;
     public PlayableDirector playableDirector;
 
-    private void Start()
-    {
+    private void Start() {
         // Subscribe to the played event
         playableDirector.stopped += OnTimelineFinished;
     }
 
     // Event handler for the timeline completion
-    private void OnTimelineFinished(PlayableDirector aDirector)
-    {
-        if (aDirector == playableDirector)
-        {
+    private void OnTimelineFinished(PlayableDirector aDirector) {
+        if (aDirector == playableDirector) {
             // Unsubscribe to prevent multiple calls
             playableDirector.stopped -= OnTimelineFinished;
 
@@ -38,37 +33,25 @@ public class CarInteractable : MonoBehaviour, IInteractable
     }
 
 
-    public void Interact()
-    {
-        if (!PlayerInventory.Instance.CheckItemExists(requiredItems[2]))
-        {
+    public void Interact() {
+        PlayerInventory playerInventory = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerInventory>();
+        if (!playerInventory.GetInventory().ItemExists(requiredItems[2].GetName())) {
             InteractGUI.Instance.Hide();
             DialogueGUI.Instance.Show(new DialogueData("I think my car ran out of gas..."));
-        }
-        else if (!PlayerInventory.Instance.CheckItemExists(requiredItems[0]))
-        {
+        } else if (!playerInventory.GetInventory().ItemExists(requiredItems[0].GetName())) {
             InteractGUI.Instance.Hide();
             DialogueGUI.Instance.Show(new DialogueData("The car wont start but at least it is fueled now. I think my car ran out of SubBlue..."));
-        }
-        else if (!PlayerInventory.Instance.CheckItemExists(requiredItems[4]))
-        {
+        } else if (!playerInventory.GetInventory().ItemExists(requiredItems[4].GetName())) {
             InteractGUI.Instance.Hide();
             DialogueGUI.Instance.Show(new DialogueData("Still not working. I need some tools to repair the car..."));
-        }
-        else if (!PlayerInventory.Instance.CheckItemExists(requiredItems[1]))
-        {
+        } else if (!playerInventory.GetInventory().ItemExists(requiredItems[1].GetName())) {
             InteractGUI.Instance.Hide();
             DialogueGUI.Instance.Show(new DialogueData("Ew, why does my car smell like garbage? I need some air refreshener..."));
-        }
-        else if (!PlayerInventory.Instance.CheckItemExists(requiredItems[3]))
-        {
+        } else if (!playerInventory.GetInventory().ItemExists(requiredItems[3].GetName())) {
             InteractGUI.Instance.Hide();
             DialogueGUI.Instance.Show(new DialogueData("I need some good music to start driving again..."));
-        }
-        else
-        {
-            if (data.interactSound != null)
-            {
+        } else {
+            if (data.interactSound != null) {
                 audioSource.PlayOneShot(data.interactSound);
             }
             Debug.Log("Load EndingScene");
@@ -79,33 +62,27 @@ public class CarInteractable : MonoBehaviour, IInteractable
         }
     }
 
-    public Transform GetTransform()
-    {
+    public Transform GetTransform() {
         return transform;
     }
 
-    public InteractableData GetData()
-    {
+    public InteractableData GetData() {
         return data;
     }
 
-    IEnumerator ClearHint()
-    {
+    IEnumerator ClearHint() {
         yield return new WaitForSeconds(2.0f);
         InteractGUI.Instance.Hide();
     }
 
-    public bool CanInteract()
-    {
+    public bool CanInteract() {
         return true;
     }
 
-    public void UpdateSaveState(InteractableSaveState saveState)
-    {
+    public void UpdateSaveState(InteractableSaveState saveState) {
     }
 
-    public string GetUniqueIdentifier()
-    {
+    public string GetUniqueIdentifier() {
         return String.Empty;
     }
 }

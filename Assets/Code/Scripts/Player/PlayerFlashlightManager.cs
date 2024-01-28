@@ -5,49 +5,21 @@ using System.Collections;
 /// The player flashlight manager manages flashlight battery life and depletion.
 /// </summary>
 public class PlayerFlashlightManager : MonoBehaviour {
-    /// <summary>
-    /// Initial battery life in percent.
-    /// </summary>
     public float batteryLife = 100f;
-
-    /// <summary>
-    /// Rate at which battery depletes per second.
-    /// </summary>
     public float depletionRate = 1f;
-
-    /// <summary>
-    /// Reference to flashlight light.
-    /// </summary>
     public Light flashlight;
-
-    /// <summary>
-    /// Reference to light used by gui.
-    /// </summary>
     public Light uiLight;
 
-    /// <summary>
-    /// Flag specifying, whether the flashlight is currently active.
-    /// </summary>
     private bool flashlightActive = false;
-
-    /// <summary>
-    /// Specifies, whether the flashlight is flickering currently.
-    /// </summary>
     private bool isFlickering = false;
-
-    /// <summary>
-    /// Original intensity of the flashlight light.
-    /// </summary>
     private float flashlightOriginalIntensity = 0.0f;
-
-    /// <summary>
-    /// Original intensity of the gui light.
-    /// </summary>
     private float uiLightoriginalIntensity = 0.0f;
+    private PlayerInventory playerInventory = null;
 
     void Start() {
         flashlightOriginalIntensity = flashlight.intensity;
         uiLightoriginalIntensity = uiLight.intensity;
+        playerInventory = playerInventory = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerInventory>();
 
         if (SavestateManager.Instance.GetCurrentSaveState().playerSaveState.initialized) {
             float loadedBatteryLife = SavestateManager.Instance.GetCurrentSaveState().playerSaveState.flashlightBatteryLife;
@@ -57,26 +29,26 @@ public class PlayerFlashlightManager : MonoBehaviour {
     }
 
     void Update() {
-        if (flashlightActive && PlayerInventory.Instance.IsFlashlightEquipped()) {
+        if (flashlightActive && playerInventory.GetInventory().GetEquippedItem()?.GetItemCategory() == ItemCategory.FLASHLIGHT) {
             batteryLife -= Mathf.Max(depletionRate * Time.deltaTime, 0.0f); // Deplete battery
 
             if (Input.GetButtonDown("Use")) {
                 flashlightActive = false;
             }
-        } else if (!flashlightActive && PlayerInventory.Instance.IsFlashlightEquipped()) {
+        } else if (!flashlightActive && playerInventory.GetInventory().GetEquippedItem()?.GetItemCategory() == ItemCategory.FLASHLIGHT) {
             if (Input.GetButtonDown("Use")) {
                 flashlightActive = true;
             }
         }
 
-        if (flashlightActive && PlayerInventory.Instance.IsFlashlightEquipped() && batteryLife > 20.0f) { // Normal flashlight behaviour
+        if (flashlightActive && playerInventory.GetInventory().GetEquippedItem()?.GetItemCategory() == ItemCategory.FLASHLIGHT && batteryLife > 20.0f) { // Normal flashlight behaviour
             isFlickering = false;
             StopAllCoroutines();
             flashlight.intensity = flashlightOriginalIntensity;
             uiLight.intensity = uiLightoriginalIntensity;
-        } else if (flashlightActive && PlayerInventory.Instance.IsFlashlightEquipped() && batteryLife <= 0.0f) { // Flashlight off behaviour
+        } else if (flashlightActive && playerInventory.GetInventory().GetEquippedItem()?.GetItemCategory() == ItemCategory.FLASHLIGHT && batteryLife <= 0.0f) { // Flashlight off behaviour
             flashlightActive = false;
-        } else if (flashlightActive && PlayerInventory.Instance.IsFlashlightEquipped() && batteryLife <= 20.0f) { // Flashlight flickering behaviour
+        } else if (flashlightActive && playerInventory.GetInventory().GetEquippedItem()?.GetItemCategory() == ItemCategory.FLASHLIGHT && batteryLife <= 20.0f) { // Flashlight flickering behaviour
             if (!isFlickering) {
                 isFlickering = true;
                 StartCoroutine(Flicker());

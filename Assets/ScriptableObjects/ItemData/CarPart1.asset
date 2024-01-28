@@ -14,6 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: SubBlue
   interactText: SubBlue. Some liquid used in diesel engines.
+  category: 4
   prefab: {fileID: 6094386395120628436, guid: 8da3f6170d0999d899ab75f49182ad76, type: 3}
-  category: 2
-  inspectMaterial: {fileID: 2100000, guid: 994c1e8f25ce971e0849f72ff403c5b0, type: 2}

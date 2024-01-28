@@ -59,7 +59,7 @@ public class PlayerMovement : MonoBehaviour {
 
     public void OnGUIEnter(bool enableGUIBlur, bool disableMovement) {
         if (disableMovement) { // Disable player movement if desired
-            characterController.attachedRigidbody.velocity = Vector3.zero;
+            currentTranslationSpeed = 0.0f;
         }
     }
 
