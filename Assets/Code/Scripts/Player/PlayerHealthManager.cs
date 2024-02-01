@@ -6,9 +6,7 @@ using UnityEngine;
 /// This behaviour is usually attached to the player character object.
 /// </summary>
 public class PlayerHealthManager : MonoBehaviour {
-    /// <summary>
-    /// Current player character health.
-    /// </summary>
+    public int maxHealth = 5;
     private int health = 5;
 
     void Awake() {
@@ -23,25 +21,20 @@ public class PlayerHealthManager : MonoBehaviour {
         }
     }
 
-    /// <summary>
-    /// Called when the player was attacked.
-    /// </summary>
     void OnPlayerAttacked(int damage) {
         Debug.Log("Player lost " + damage + " health due to an attack.");
         health -= damage;
 
     }
 
-    /// <summary>
-    /// Adds health to the player character.
-    /// </summary>
     public void AddHealth(int health) {
-        this.health = Math.Clamp(this.health + health, 0, 5);
+        this.health = Math.Clamp(this.health + health, 0, maxHealth);
     }
 
-    /// <summary>
-    /// Returns the player's current health.
-    /// </summary>
+    public bool CanHeal() {
+        return health < maxHealth;
+    }
+
     public int GetPlayerHealth() {
         return health;
     }

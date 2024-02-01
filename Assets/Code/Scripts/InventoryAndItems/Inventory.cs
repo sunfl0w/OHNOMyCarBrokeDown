@@ -105,4 +105,12 @@ public class Inventory {
     public void UnequipItem() {
         equippedItem = null;
     }
+
+    public bool IsFlashlightEquipped() {
+        if (equippedItem == null) {
+            return false;
+        }
+
+        return equippedItem.GetItemCategory() == ItemCategory.FLASHLIGHT;
+    }
 }

@@ -3,31 +3,21 @@ using TMPro;
 using System;
 
 /// <summary>
-/// The item inspect gui displays an interacted item in front of the camera.
-/// The item can be rotated using WASD.
+/// The item inspect gui displays an item in front of the camera.
+/// The player can then rotate this item to inspect it from all sides.
 /// </summary>
 public class ItemInspectGUI : MonoBehaviour {
     public Camera guiCamera;
-    //public GameObject containerGameObject;
+    public float rotationSpeed = 3.5f;
+    public float rotationDampening = 2.0f;
     private TextMeshProUGUI hintTextGUI;
     private bool isVisible = false;
 
     private GameObject inspectedItem = null;
-    private Vector3 rotationSpeed = Vector3.zero;
+    private Vector3 currentRotationSpeed = Vector3.zero;
 
     public static event Action<bool, bool> InspectionGUIEnterEvent;
     public static event Action InspectionGUILeaveEvent;
-
-    private static ItemInspectGUI instance;
-    public static ItemInspectGUI Instance { get { return instance; } }
-
-    private void Awake() {
-        if (instance != null && instance != this) {
-            Destroy(this.gameObject);
-        } else {
-            instance = this;
-        }
-    }
 
     private void Start() {
         hintTextGUI = GetComponent<TextMeshProUGUI>();
@@ -42,16 +32,10 @@ public class ItemInspectGUI : MonoBehaviour {
 
     public void FixedUpdate() {
         if (inspectedItem != null) {
-            rotationSpeed.y += Input.GetAxisRaw("Horizontal") * 3.5f * Time.deltaTime - Mathf.Sign(rotationSpeed.y) * rotationSpeed.magnitude * 2.0f * Time.deltaTime;
-            rotationSpeed.x += Input.GetAxisRaw("Vertical") * 3.5f * Time.deltaTime - Mathf.Sign(rotationSpeed.x) * rotationSpeed.magnitude * 2.0f * Time.deltaTime;
-            inspectedItem.transform.RotateAround(inspectedItem.transform.position, guiCamera.transform.up, rotationSpeed.y);
-            inspectedItem.transform.RotateAround(inspectedItem.transform.position, guiCamera.transform.right, rotationSpeed.x);
+            RotateInspectedItem();
         }
     }
 
-    /// <summary>
-    /// Show item inspect gui
-    /// </summary>
     public void Show(Item item) {
         Debug.Log("Show item inspect GUI");
         InspectionGUIEnterEvent?.Invoke(true, true);
@@ -70,17 +54,14 @@ public class ItemInspectGUI : MonoBehaviour {
         isVisible = true;
 
         // TODO
-        InteractGUI.Instance.Hide();
+        //InteractGUI.Instance.Hide();
     }
 
-    /// <summary>
-    /// Hide item inspect gui
-    /// </summary>
     public void Hide() {
         Debug.Log("Hide item inspect GUI");
         InspectionGUILeaveEvent?.Invoke();
         hintTextGUI.text = String.Empty;
-        rotationSpeed = Vector3.zero;
+        currentRotationSpeed = Vector3.zero;
         if (inspectedItem != null) {
             Destroy(inspectedItem);
         }
@@ -88,10 +69,14 @@ public class ItemInspectGUI : MonoBehaviour {
         isVisible = false;
     }
 
-    /// <summary>
-    /// Returns true if the item inspect gui is visible.
-    /// </summary>
     public bool IsVisible() {
         return isVisible;
+    }
+
+    private void RotateInspectedItem() {
+        currentRotationSpeed.y += Input.GetAxisRaw("Horizontal") * rotationSpeed * Time.deltaTime - Mathf.Sign(currentRotationSpeed.y) * currentRotationSpeed.magnitude * rotationDampening * Time.deltaTime;
+        currentRotationSpeed.x += Input.GetAxisRaw("Vertical") * rotationSpeed * Time.deltaTime - Mathf.Sign(currentRotationSpeed.x) * currentRotationSpeed.magnitude * rotationDampening * Time.deltaTime;
+        inspectedItem.transform.RotateAround(inspectedItem.transform.position, guiCamera.transform.up, currentRotationSpeed.y);
+        inspectedItem.transform.RotateAround(inspectedItem.transform.position, guiCamera.transform.right, currentRotationSpeed.x);
     }
 }

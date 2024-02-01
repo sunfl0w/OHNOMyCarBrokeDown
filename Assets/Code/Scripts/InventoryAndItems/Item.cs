@@ -52,6 +52,29 @@ public class Item {
         return data.GetPrefab();
     }
 
+    public bool Equipable() {
+        ItemData data = ItemDatabase.Instance.GetItemData(itemName);
+        if (data == null) {
+            return false;
+        }
+        
+        return data.GetItemCategory() == ItemCategory.FLASHLIGHT;
+    }
+
+    public bool Usable() {
+        ItemData data = ItemDatabase.Instance.GetItemData(itemName);
+        if (data == null) {
+            return false;
+        }
+
+        if (data.GetItemCategory() == ItemCategory.FOOD) {
+            return GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealthManager>().CanHeal();
+        } else if (data.GetItemCategory() == ItemCategory.BATTERY) {
+            return GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerFlashlightManager>().CanUseBattery();
+        }
+        return false;
+    }
+
     public void Use() {
         ItemData data = ItemDatabase.Instance.GetItemData(itemName);
         if (data == null) {
@@ -61,7 +84,7 @@ public class Item {
         if (data.GetItemCategory() == ItemCategory.FOOD) {
             GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealthManager>().AddHealth(2);
         } else if (data.GetItemCategory() == ItemCategory.BATTERY) {
-            GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerFlashlightManager>().batteryLife = 100.0f;
+            GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerFlashlightManager>().UseBattery();
         }
     }
 }

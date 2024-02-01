@@ -4,7 +4,6 @@ using System;
 
 /// <summary>
 /// The inventory displays the player character's inventory and the equipped item.
-/// The inventory gui is a singleton.
 /// </summary>
 public class InventoryGUI : MonoBehaviour {
     public Camera guiCamera;
@@ -22,20 +21,7 @@ public class InventoryGUI : MonoBehaviour {
     private UnifiedGUI unifiedGUI;
     private int currentItemIndex = 0;
     private Item currentItem;
-    private Vector3 rotationSpeed = Vector3.zero;
-    private GameObject inspectedItem = null;
     private PlayerInventory playerInventory = null;
-
-    private static InventoryGUI instance;
-    public static InventoryGUI Instance { get { return instance; } }
-
-    private void Awake() {
-        if (instance != null && instance != this) {
-            Destroy(this.gameObject);
-        } else {
-            instance = this;
-        }
-    }
 
     void Start() {
         unifiedGUI = GameObject.FindGameObjectWithTag("UnifiedGUI").GetComponent<UnifiedGUI>();
@@ -46,8 +32,6 @@ public class InventoryGUI : MonoBehaviour {
     void Update() {
         if ((Input.GetButtonDown("Inventory") || Input.GetButtonDown("Cancel")) && isVisible) {
             InventoryGUILeaveEvent?.Invoke();
-            DestroyInspectedItem();
-            rotationSpeed = Vector3.zero;
             isVisible = false;
             Hide();
         } else if (Input.GetButtonDown("Inventory") && !isVisible && !unifiedGUI.IsAnyGUIVisible()) {
@@ -59,35 +43,33 @@ public class InventoryGUI : MonoBehaviour {
         }
 
         if ((Input.GetKeyDown(KeyCode.L) || Input.GetKeyDown(KeyCode.LeftArrow)) && isVisible) {
-            if (leftArrow.color == Color.white) {
+            if (currentItemIndex > 0) {
                 currentItemIndex -= 1;
                 UpdateUI();
             }
         } else if ((Input.GetKeyDown(KeyCode.R) || Input.GetKeyDown(KeyCode.RightArrow)) && isVisible) {
-            if (rightArrow.color == Color.white) {
+            if (currentItemIndex < playerInventory.GetInventory().GetSlotCount() - 1) {
                 currentItemIndex += 1;
                 UpdateUI();
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.E) && isVisible && usageButton.text == "[E]quip") {
-            currentItem = playerInventory.GetInventory().GetItemBySlotIndex(currentItemIndex);
-            if (usageButton.color == Color.white) {
-                playerInventory.GetInventory().EquipItem(currentItem.GetName());
-            } else if (usageButton.color == Color.green) {
+        currentItem = playerInventory.GetInventory().GetItemBySlotIndex(currentItemIndex);
+
+        if (Input.GetKeyDown(KeyCode.E) && isVisible && currentItem.Equipable()) {
+            if (playerInventory.GetInventory().GetEquippedItem().GetName() == currentItem.GetName()) { // Unequip if item is already equipped
                 playerInventory.GetInventory().UnequipItem();
+            } else {
+                playerInventory.GetInventory().EquipItem(currentItem.GetName());
             }
             UpdateUI();
 
-        } else if (Input.GetKeyDown(KeyCode.U) && isVisible && usageButton.text == "[U]se") {
-            currentItem = playerInventory.GetInventory().GetItemBySlotIndex(currentItemIndex);
-            if (usageButton.color == Color.white) {
-                currentItem.Use();
-                if (!playerInventory.GetInventory().ItemExists(currentItem.GetName())) {
-                    currentItemIndex = 0;
-                }
-                UpdateUI();
+        } else if (Input.GetKeyDown(KeyCode.U) && isVisible && currentItem.Usable()) {
+            currentItem.Use();
+            if (!playerInventory.GetInventory().ItemExists(currentItem.GetName())) {
+                currentItemIndex = Math.Max(currentItemIndex - 1, 0);
             }
+            UpdateUI();
         }
     }
 
@@ -100,7 +82,7 @@ public class InventoryGUI : MonoBehaviour {
         usageButton.enabled = true;
 
         // TODO
-        InteractGUI.Instance.Hide();
+        //InteractGUI.Instance.Hide();
     }
 
     void Hide() {
@@ -120,7 +102,7 @@ public class InventoryGUI : MonoBehaviour {
             rightArrow.color = Color.grey;
             state.text = "";
             usageButton.text = "";
-            DestroyInspectedItem();
+            //DestroyInspectedItem();
 
         } else {
             if (currentItemIndex >= 0 && (currentItemIndex + 1) < playerInventory.GetInventory().GetSlotCount()) {
@@ -142,66 +124,35 @@ public class InventoryGUI : MonoBehaviour {
         }
     }
 
-    public void FixedUpdate() {
-        if (inspectedItem != null) {
-            rotationSpeed.y += Input.GetAxisRaw("Horizontal") * 3.5f * Time.deltaTime - Mathf.Sign(rotationSpeed.y) * rotationSpeed.magnitude * 2.0f * Time.deltaTime;
-            rotationSpeed.x += Input.GetAxisRaw("Vertical") * 3.5f * Time.deltaTime - Mathf.Sign(rotationSpeed.x) * rotationSpeed.magnitude * 2.0f * Time.deltaTime;
-            inspectedItem.transform.RotateAround(inspectedItem.transform.position, guiCamera.transform.up, rotationSpeed.y);
-            inspectedItem.transform.RotateAround(inspectedItem.transform.position, guiCamera.transform.right, rotationSpeed.x);
-
-        }
-    }
-
     private void ViewCurrentItem(Item currentItem, uint amount) {
         itemNameText.text = currentItem.GetName() + "(" + amount + ")";
         itemDescriptionText.text = currentItem.GetInteractText();
 
-        DestroyInspectedItem();
-
-        inspectedItem = Instantiate(currentItem.GetPrefab());
-        // TODO
-        /*MeshRenderer meshRenderer = inspectedItem.GetComponent<MeshRenderer>();
-        meshRenderer.material = currentItemData.inspectMaterial;
-        for (int i = 0; i < meshRenderer.materials.Length; i++) {
-            meshRenderer.materials[i] = currentItemData.inspectMaterial;
-        }*/
-        inspectedItem.layer = LayerMask.NameToLayer("UI");
-        inspectedItem.transform.position = guiCamera.transform.position + guiCamera.transform.forward * 1.0f;
-        inspectedItem.transform.rotation = Quaternion.LookRotation(inspectedItem.transform.position - guiCamera.transform.position, Vector3.up) * Quaternion.Euler(90, 0, 0);
+        // Show item inspect gui
     }
 
     private void ShowItemUsage(Item currentItem) {
+        state.text = "";
+        usageButton.text = "";
+        usageButton.color = Color.white;
+
         Item equippedItem = playerInventory.GetInventory().GetEquippedItem();
         if (equippedItem != null && equippedItem.GetName() == currentItem.GetName()) {
-            state.text = "*equipped";
-            usageButton.text = "[E]quip";
+            state.text = "Equipped";
+            usageButton.text = "Unequip [E]";
             usageButton.color = Color.green;
-        } else if (currentItem.GetItemCategory() == ItemCategory.FLASHLIGHT) {
+        } else if (currentItem.Equipable()) {
             state.text = "";
-            usageButton.text = "[E]quip";
+            usageButton.text = "Equip [E]";
             usageButton.color = Color.white;
-        } else if (currentItem.GetItemCategory() == ItemCategory.FOOD || currentItem.GetItemCategory() == ItemCategory.BATTERY) {
+        } else if (currentItem.Usable()) {
             state.text = "";
-            usageButton.text = "[U]se";
-            if (currentItem.GetName() == "Battery" && playerInventory.GetInventory().GetEquippedItem() == null) {
+            usageButton.text = "Use [U]";
+            usageButton.color = Color.white;
+            if (currentItem.GetItemCategory() == ItemCategory.BATTERY && !playerInventory.GetInventory().IsFlashlightEquipped()) {
                 usageButton.color = Color.grey;
-            } else {
-                usageButton.color = Color.white;
             }
-
-
-        } else {
-            state.text = "";
-            usageButton.text = "";
-            usageButton.color = Color.white;
         }
-    }
-
-    private void DestroyInspectedItem() {
-        if (inspectedItem != null) {
-            Destroy(inspectedItem.gameObject);
-        }
-        inspectedItem = null;
     }
 
     public bool IsVisible() {

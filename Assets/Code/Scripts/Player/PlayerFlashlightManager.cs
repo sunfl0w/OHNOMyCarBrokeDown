@@ -5,11 +5,12 @@ using System.Collections;
 /// The player flashlight manager manages flashlight battery life and depletion.
 /// </summary>
 public class PlayerFlashlightManager : MonoBehaviour {
-    public float batteryLife = 100f;
+    public float maxBatteryLife = 100.0f;
     public float depletionRate = 1f;
     public Light flashlight;
     public Light uiLight;
 
+    private float batteryLife = 100f;
     private bool flashlightActive = false;
     private bool isFlickering = false;
     private float flashlightOriginalIntensity = 0.0f;
@@ -29,26 +30,26 @@ public class PlayerFlashlightManager : MonoBehaviour {
     }
 
     void Update() {
-        if (flashlightActive && playerInventory.GetInventory().GetEquippedItem()?.GetItemCategory() == ItemCategory.FLASHLIGHT) {
+        if (flashlightActive && playerInventory.GetInventory().IsFlashlightEquipped()) {
             batteryLife -= Mathf.Max(depletionRate * Time.deltaTime, 0.0f); // Deplete battery
 
             if (Input.GetButtonDown("Use")) {
                 flashlightActive = false;
             }
-        } else if (!flashlightActive && playerInventory.GetInventory().GetEquippedItem()?.GetItemCategory() == ItemCategory.FLASHLIGHT) {
+        } else if (!flashlightActive && playerInventory.GetInventory().IsFlashlightEquipped()) {
             if (Input.GetButtonDown("Use")) {
                 flashlightActive = true;
             }
         }
 
-        if (flashlightActive && playerInventory.GetInventory().GetEquippedItem()?.GetItemCategory() == ItemCategory.FLASHLIGHT && batteryLife > 20.0f) { // Normal flashlight behaviour
+        if (flashlightActive && playerInventory.GetInventory().IsFlashlightEquipped() && batteryLife > 20.0f) { // Normal flashlight behaviour
             isFlickering = false;
             StopAllCoroutines();
             flashlight.intensity = flashlightOriginalIntensity;
             uiLight.intensity = uiLightoriginalIntensity;
-        } else if (flashlightActive && playerInventory.GetInventory().GetEquippedItem()?.GetItemCategory() == ItemCategory.FLASHLIGHT && batteryLife <= 0.0f) { // Flashlight off behaviour
+        } else if (flashlightActive && playerInventory.GetInventory().IsFlashlightEquipped() && batteryLife <= 0.0f) { // Flashlight off behaviour
             flashlightActive = false;
-        } else if (flashlightActive && playerInventory.GetInventory().GetEquippedItem()?.GetItemCategory() == ItemCategory.FLASHLIGHT && batteryLife <= 20.0f) { // Flashlight flickering behaviour
+        } else if (flashlightActive && playerInventory.GetInventory().IsFlashlightEquipped() && batteryLife <= 20.0f) { // Flashlight flickering behaviour
             if (!isFlickering) {
                 isFlickering = true;
                 StartCoroutine(Flicker());
@@ -59,9 +60,6 @@ public class PlayerFlashlightManager : MonoBehaviour {
         uiLight.enabled = flashlightActive;
     }
 
-    /// <summary>
-    /// Coroutine used to make the flashlight flicker randomly when it is close to being empty.
-    /// </summary>
     private IEnumerator Flicker() {
         while (true) {
             float rand = Random.Range(0.0f, 0.8f);
@@ -71,16 +69,18 @@ public class PlayerFlashlightManager : MonoBehaviour {
         }
     }
 
-    /// <summary>
-    /// Returns the current battery life percentage.
-    /// </summary>
     public float GetBatteryLife() {
         return batteryLife;
     }
 
-    /// <summary>
-    /// Returns true if the flashlight is currently active.
-    /// </summary>
+    public void UseBattery() {
+        batteryLife = maxBatteryLife;
+    }
+
+    public bool CanUseBattery() {
+        return batteryLife < maxBatteryLife;
+    }
+
     public bool IsFlashlightActive() {
         return flashlightActive;
     }
